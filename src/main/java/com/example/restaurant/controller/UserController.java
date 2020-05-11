@@ -13,18 +13,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "http://localhost:8080/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public void createUser() {
         userService.create("Tom");
     }
-    @RequestMapping(value = "http://localhost:8080/print_all", method = RequestMethod.GET)
+    @RequestMapping(value = "/print_all", method = RequestMethod.GET)
     @ResponseBody
     public void printAll() {
         userService.printUsers();
     }
 
-    @RequestMapping(value = "http://localhost:8080/delete_all", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete_all", method = RequestMethod.GET)
     @ResponseBody
     public void deleteAll() {
         userService.deleteUsers();;
