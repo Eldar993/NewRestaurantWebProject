@@ -14,11 +14,4 @@ public class RestaurantApplication {
         SpringApplication.run(RestaurantApplication.class, args);
     }
 
-
-    public void run(String... args) throws Exception{
-        userService.createRandomUser(10);
-        userService.createRandomUser(5);
-
-        userService.printUsers();
-    }
 }

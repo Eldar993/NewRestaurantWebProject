@@ -36,5 +36,8 @@ public class UserService {
         List<User> users = userRepository.findAll();
         System.out.println("Found users:" + users.toString());
     }
+    public void deleteUsers(){
+        userRepository.deleteAll();
+    }
 
 }
