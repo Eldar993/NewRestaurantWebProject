@@ -3,9 +3,8 @@ package com.example.restaurant.entity;
 import javax.persistence.*;
 import java.util.Objects;
 
-
-@Table(name = "user")
 @Entity
+@Table(name = "users")
 public class User {
 
 
