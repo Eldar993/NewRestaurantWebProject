@@ -1,5 +1,6 @@
 package com.example.restaurant.controller;
 
+import com.example.restaurant.entity.User;
 import com.example.restaurant.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,9 @@ public class UserController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public void createUser() {
+    public void createUser(Model model) {
+        User user = new User();
+        model.addAttribute("user",user);
         userService.create("Tom");
     }
     @RequestMapping(value = "/print_all", method = RequestMethod.GET)
