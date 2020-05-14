@@ -20,6 +20,7 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(name="UserRole")
     private UserRoles role_id;
 
 
