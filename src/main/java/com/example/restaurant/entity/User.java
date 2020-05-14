@@ -1,5 +1,7 @@
 package com.example.restaurant.entity;
 
+import com.example.restaurant.enums.UserRoles;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -12,8 +14,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-
+    @Column(unique = true)
     private String name;
+
+    private String password;
+
+    @Enumerated(EnumType.ORDINAL)
+    private UserRoles role_id;
+
+
+
+
+
+
 
     public Long getId() {
         return id;
@@ -29,6 +42,22 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public UserRoles getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(UserRoles role_id) {
+        this.role_id = role_id;
     }
 
     @Override

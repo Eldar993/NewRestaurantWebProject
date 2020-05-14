@@ -1,5 +1,6 @@
 package com.example.restaurant.entity;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,13 +9,13 @@ import java.util.Objects;
 public class DishType {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+    private Long id;
 
     @Column(unique=true)
     private String title;
 
     @OneToMany(mappedBy = "dishType")
-    List<Menu> menus;
+    private List<Menu> menus = new ArrayList<>();
 
     public long getId() {
         return id;

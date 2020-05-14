@@ -2,10 +2,7 @@ package com.example.restaurant.entity;
 
 import org.hibernate.validator.constraints.UniqueElements;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +10,8 @@ import java.util.Objects;
 public class Ingridients {
 
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @Column(unique=true)
     private String title;

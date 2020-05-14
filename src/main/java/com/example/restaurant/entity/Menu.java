@@ -10,10 +10,11 @@ import java.util.Objects;
 public class Menu {
 
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "dishType")
+    @JoinColumn(name = "dish_type_id")
     private DishType dishType;
 
     private int price;
