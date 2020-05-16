@@ -52,15 +52,24 @@ public class UserController {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
-    public Model login(@ModelAttribute("user") User user,
-                        BindingResult result, Model mav){
-        
-        mav.addAttribute("name",user.getName());
-        mav.addAttribute("password",user.getPassword());
+    public ModelAndView login(@ModelAttribute("user") User user,
+                        BindingResult result, ModelAndView mav){
 
+        System.out.println("login: " + user.getName());
+        System.out.println("password: " + user.getPassword());
 
+        mav.setViewName("/login");
 
         return mav;
+    }
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView loginForm(ModelAndView mav){
+
+        mav.setViewName("/login");
+
+        return mav;
+
     }
 
 }
