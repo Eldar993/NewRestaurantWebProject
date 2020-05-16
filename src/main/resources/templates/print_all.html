@@ -8,6 +8,13 @@
 <body>
    <table>
        <!--/*@thymesVar id="usersList" type="java.util.List<com.example.restaurant.entity.User>"*/-->
+       <nav>
+           <tr>
+               <td><a th:href="@{/create}">Create</a></td>
+               <td><a th:href="@{/print_all}">Print All</a></td>
+               <td><a th:href="@{/delete_all}">Delete All</a></td>
+           </tr>
+       </nav>
        <tr th:each="user: ${usersList}">
            <td th:text="${user.id}" />
            <td th:text="${user.name}" />

@@ -20,7 +20,6 @@ public class UserController {
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public ModelAndView createUser(ModelAndView mav) {
-        //model.addAttribute("user",user);
         User createdUser = userService.create();
         mav.setViewName("create");
         mav.addObject("jamesBond", createdUser);
