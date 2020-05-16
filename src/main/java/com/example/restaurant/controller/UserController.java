@@ -5,6 +5,9 @@ import com.example.restaurant.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,6 +46,19 @@ public class UserController {
         String msg =  "Successfully deleted all users";
         mav.setViewName("delete_all");
         mav.addObject("deletedUsers",msg);
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @ResponseBody
+    public Model login(@ModelAttribute("user") User user,
+                        BindingResult result, Model mav){
+        
+        mav.addAttribute("name",user.getName());
+        mav.addAttribute("password",user.getPassword());
+
+
 
         return mav;
     }
