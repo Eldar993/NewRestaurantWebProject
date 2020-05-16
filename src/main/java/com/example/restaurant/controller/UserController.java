@@ -8,29 +8,44 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class UserController {
+
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    @ResponseBody
-    public void createUser(Model model) {
-        User user = new User();
-        model.addAttribute("user",user);
-        userService.create("Tom");
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public ModelAndView createUser(ModelAndView mav) {
+        //model.addAttribute("user",user);
+        User createdUser = userService.create();
+        mav.setViewName("create");
+        mav.addObject("jamesBond", createdUser);
+
+        return mav;
     }
     @RequestMapping(value = "/print_all", method = RequestMethod.GET)
     @ResponseBody
-    public void printAll() {
-        userService.printUsers();
+    public ModelAndView printAll(ModelAndView mav) {
+        List<User> printUsers = userService.printUsers();
+        mav.setViewName("print_all");
+        mav.addObject("usersList", printUsers);
+
+        return mav;
     }
 
     @RequestMapping(value = "/delete_all", method = RequestMethod.GET)
     @ResponseBody
-    public void deleteAll() {
-        userService.deleteUsers();;
+    public ModelAndView deleteAll(ModelAndView mav) {
+        userService.deleteUsers();
+        String msg =  "Successfully deleted all users";
+        mav.setViewName("delete_all");
+        mav.addObject("deletedUsers",msg);
+
+        return mav;
     }
 
 }

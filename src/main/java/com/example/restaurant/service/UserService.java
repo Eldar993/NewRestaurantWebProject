@@ -10,33 +10,38 @@ import java.util.List;
 @Service
 @Transactional
 public class UserService {
+    public static final int NAME_LENGTH = 5;
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public void create(String name) {
+    public User create() {
         User user = new User();
-        user.setName(name);
+        user.setName(generateRandomString(NAME_LENGTH));
+        user.setPassword(generateRandomString(NAME_LENGTH*3));
 
-        userRepository.saveAndFlush(user);
+        return userRepository.saveAndFlush(user);
     }
+
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    public void  createRandomUser(int count) {
+
+    public String generateRandomString(int count) {
         StringBuilder builder = new StringBuilder();
         while (count-- != 0) {
-            int character = (int)(Math.random()*ALPHA_NUMERIC_STRING.length());
+            int character = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
             builder.append(ALPHA_NUMERIC_STRING.charAt(character));
         }
-        builder.toString();
+        return builder.toString();
     }
 
-    public void printUsers() {
+    public List<User> printUsers() {
         List<User> users = userRepository.findAll();
-        System.out.println("Found users:" + users.toString());
+        return users;
     }
-    public void deleteUsers(){
+
+    public void deleteUsers() {
         userRepository.deleteAll();
     }
 

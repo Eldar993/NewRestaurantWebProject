@@ -6,6 +6,17 @@
     <title>My spring boot application</title>
 </head>
 <body>
-    <h1></h1>
+<h1>Create user</h1>
+<!--<div>-->
+<!--    <h3>user name: </h3> &lt;!&ndash;/*@thymesVar id="jamesBond" type="com.example.restaurant.entity.User"*/&ndash;&gt;-->
+<!--    <span th:text="${jamesBond.name}">Fake agent</span>-->
+<!--    <span>{{ jamesBond.name }}</span>-->
+<!--</div>-->
+
+<!--/*@thymesVar id="usersList" type="java.util.List<com.example.restaurant.entity.User>"*/-->
+<tr th:each="user: ${usersList}">
+    <td th:text="${user.id}" />
+    <td th:text="${user.name}" />
+</tr>
 </body>
 </html>

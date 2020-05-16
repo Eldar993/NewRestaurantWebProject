@@ -3,6 +3,7 @@ package com.example.restaurant.entity;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +18,13 @@ public class Ingridients {
     private String title;
 
     private int calories;
+
+//   @ManyToMany
+//    @JoinTable(
+//            name = "Menu_Ingridients",
+//            JoinColumns = @JoinColumn(name = "ingridients_id"),
+//            inverseJoinColumns = @JoinColumn(name = "menu_id"))
+//    private List<Menu> menuList;
 
     public long getId() {
         return id;

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Print all</title>
+    <link href="print_all.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+   <table>
+       <!--/*@thymesVar id="usersList" type="java.util.List<com.example.restaurant.entity.User>"*/-->
+       <tr th:each="user: ${usersList}">
+           <td th:text="${user.id}" />
+           <td th:text="${user.name}" />
+       </tr>
+   </table>
+</body>
+</html>

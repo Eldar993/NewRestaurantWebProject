@@ -23,7 +23,6 @@ public class Menu {
     private String dish;
 
 
-
     private int weight;
 
     public long getId() {
