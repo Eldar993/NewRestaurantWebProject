@@ -65,18 +65,25 @@ public class UserController {
     public ModelAndView change(@PathVariable("id") Long id,ModelAndView mav) {
         ///// find user by id and return user's data
 
-        mav.setViewName("/users");
+        mav.setViewName("/users/{id}");
         mav.addObject("userInfo",userService.findUser(id));
 
 
         return mav;
     }
 
-    /*@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
-    public ModelAndView change(@PathVariable("id") Long id, @ModelAttribute("user") User user) {
-        ///// id == user.id
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
+    public ModelAndView change(@PathVariable("id") Long id, @ModelAttribute("user") User user,ModelAndView mav) {
+        if(id == user.getId()){
+            userService.findUser(id);
+            userService.update(user);
+        }
+
+        mav.setViewName("/users/{id}");
+
         // change user's data (find by id, if user was found then update information)
-    }*/
+        return mav;
+    }
 
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
