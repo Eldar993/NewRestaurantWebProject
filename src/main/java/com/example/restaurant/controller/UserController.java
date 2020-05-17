@@ -18,14 +18,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-   /* @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public ModelAndView createUser(ModelAndView mav) {
-        User createdUser = userService.create();
-        mav.setViewName("create");
-        mav.addObject("jamesBond", createdUser);
+    /* @RequestMapping(value = "/create", method = RequestMethod.GET)
+     public ModelAndView createUser(ModelAndView mav) {
+         User createdUser = userService.create();
+         mav.setViewName("create");
+         mav.addObject("jamesBond", createdUser);
 
-        return mav;
-    }*/
+         return mav;
+     }*/
     @RequestMapping(value = "/print_all", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView printAll(ModelAndView mav) {
@@ -40,31 +40,47 @@ public class UserController {
     @ResponseBody
     public ModelAndView deleteAll(ModelAndView mav) {
         userService.deleteUsers();
-        String msg =  "Successfully deleted all users";
+        String msg = "Successfully deleted all users";
         mav.setViewName("delete_all");
-        mav.addObject("deletedUsers",msg);
+        mav.addObject("deletedUsers", msg);
 
         return mav;
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView login(@ModelAttribute("user") User user,@RequestParam("name") String name,@RequestParam("password") String password,
-                        BindingResult result, ModelAndView mav){
+    public ModelAndView login(@ModelAttribute("user") User user,
+                              BindingResult result, ModelAndView mav) {
 
-        user.setName(name);
-        user.setPassword(password);
-        mav.addObject("name",name);
-        mav.addObject("password",password);
-        userService.saveNewUser(user);
 
+
+        System.out.println("login =" + user.getName());
+        System.out.println("password =" + user.getPassword());
         mav.setViewName("/login");
+        userService.create(user);
+        return mav;
+    }
+
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    public ModelAndView change(@PathVariable("id") Long id,ModelAndView mav) {
+        ///// find user by id and return user's data
+
+        mav.setViewName("/users");
+        mav.addObject("userInfo",userService.findUser(id));
+
 
         return mav;
     }
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
-    @ResponseBody
-    public ModelAndView loginForm(ModelAndView mav){
+
+    /*@RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
+    public ModelAndView change(@PathVariable("id") Long id, @ModelAttribute("user") User user) {
+        ///// id == user.id
+        // change user's data (find by id, if user was found then update information)
+    }*/
+
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView loginForm(ModelAndView mav) {
 
         mav.setViewName("/login");
 
