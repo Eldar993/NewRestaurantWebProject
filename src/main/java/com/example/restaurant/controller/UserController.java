@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -64,9 +65,9 @@ public class UserController {
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public ModelAndView change(@PathVariable("id") Long id,ModelAndView mav) {
         ///// find user by id and return user's data
-
-        mav.setViewName("/users/{id}");
-        mav.addObject("userInfo",userService.findUser(id));
+        Optional<User> user = userService.findUser(id);
+        mav.setViewName("/users");
+        mav.addObject("userInfo",user);
 
 
         return mav;
@@ -79,7 +80,9 @@ public class UserController {
             userService.update(user);
         }
 
-        mav.setViewName("/users/{id}");
+        mav.setViewName("/users");
+        mav.addObject("newUserName",user.getName());
+        mav.addObject("newUserPassword",user.getPassword());
 
         // change user's data (find by id, if user was found then update information)
         return mav;
