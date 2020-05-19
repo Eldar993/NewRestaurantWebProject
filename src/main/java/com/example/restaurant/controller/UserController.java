@@ -32,6 +32,7 @@ public class UserController {
         mav.setViewName("print_all");
         mav.addObject("usersList", printUsers);
 
+
         return mav;
     }
 
@@ -68,6 +69,7 @@ public class UserController {
         mav.setViewName("/user_profile");
         //Optional<AnyType>: "Optional[" + anyType.toString() + "]"
         mav.addObject("userInfo",user.orElse(null));
+        mav.addObject("isEven",userService.isEven(id));
 
 
         return mav;
