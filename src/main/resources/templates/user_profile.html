@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{static/user_profile.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div th:object="${userInfo}" th:if="${userInfo}">
-    <h1 th:style="${isEven} ? 'color:blue' : 'color:brown' " th:text="'Id: ' + *{id} + ' Name:  ' + *{name} + ' Password: ' + *{password}">User info</h1>
+<div th:object="${userInfo}" th:field="*{id}" th:if="${userInfo}">
+    <h1 th:class="${id % 2 == 0} ? 'even' : 'odd' " th:text="'Id: ' + *{id} + ' Name:  ' + *{name} + ' Password: ' + *{password}">User info</h1>
 </div>
 <div th:unless="${userInfo}">
     <h1>Unknown user</h1>
