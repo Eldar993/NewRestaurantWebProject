@@ -4,8 +4,6 @@ import com.example.restaurant.entity.User;
 import com.example.restaurant.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,9 +63,11 @@ public class UserController {
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public ModelAndView change(@PathVariable("id") Long id,ModelAndView mav) {
         ///// find user by id and return user's data
+        System.out.println("=============================================================");
         Optional<User> user = userService.findUser(id);
-        mav.setViewName("/users");
-        mav.addObject("userInfo",user);
+        mav.setViewName("/user_profile");
+        //Optional<AnyType>: "Optional[" + anyType.toString() + "]"
+        mav.addObject("userInfo",user.orElse(null));
 
 
         return mav;
@@ -75,14 +75,14 @@ public class UserController {
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
     public ModelAndView change(@PathVariable("id") Long id, @ModelAttribute("user") User user,ModelAndView mav) {
-        if(id == user.getId()){
+        if(id.equals(user.getId())){
             userService.findUser(id);
             userService.update(user);
         }
-
-        mav.setViewName("/users");
-        mav.addObject("newUserName",user.getName());
-        mav.addObject("newUserPassword",user.getPassword());
+        mav.setViewName("/user_profile");
+        mav.addObject("userInfo", user);
+        // mav.addObject("newUserName",user.getName());
+        // mav.addObject("newUserPassword",user.getPassword());
 
         // change user's data (find by id, if user was found then update information)
         return mav;

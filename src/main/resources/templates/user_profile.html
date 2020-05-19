@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:object="${userInfo}" th:if="${userInfo}">
+    <h1 th:text="'Id: ' + *{id} + ' Name:  ' + *{name} + ' Password: ' + *{password}">User info</h1>
+</div>
+<div th:unless="${userInfo}">
+    <h1>Unknown user</h1>
+</div>
+<form th:object="${userInfo}" th:action="@{/users/{id}(id = *{id})}" method="POST" modelAtribute="update">
+    <p class="registration">Name<br>
+
+        <input th:field="*{name}" class="InputRegistration" type="text" name="name" size="15" maxlength="20" required>
+    </p>
+
+    <p class="registration">Password<br>
+        <input th:field="*{password}" class="InputRegistration" type="password" name="password" size="15"
+               required="required"></p>
+
+    <br>
+
+    <input type="submit" value="Update">
+</form>
+<!--<p th:text="${newUserName}"></p>
+<p th:text="${newUserPassword}"></p>-->
+</body>
+</html>
