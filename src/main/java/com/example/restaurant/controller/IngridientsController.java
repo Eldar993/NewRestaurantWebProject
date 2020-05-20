@@ -5,10 +5,7 @@ import com.example.restaurant.service.IngridientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -59,11 +56,14 @@ public class IngridientsController {
 
     @RequestMapping(value="/updateIngridient", method = RequestMethod.POST)
     @ResponseBody
-    public RedirectView updateIngridient(@ModelAttribute("ingridient") Ingridients ingridient,ModelAndView mav){
-        mav.setViewName("/updateIngridient");
+    public RedirectView updateIngridient(@ModelAttribute("ingridient") Ingridients ingridient, ModelAndView mav){
 
-        ingridientsService.findIngridientById(ingridient.getId());
-        ingridientsService.update(ingridient);
+        
+            ingridientsService.findIngridientById(ingridient.getId());
+            ingridientsService.update(ingridient);
+
+
+        mav.setViewName("/updateIngridient");
 
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("http://localhost:8080/ingridients");
