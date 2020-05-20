@@ -1,14 +1,17 @@
 package com.example.restaurant.controller;
 
 import com.example.restaurant.entity.Ingridients;
+import com.example.restaurant.repository.IngridientsRepository;
 import com.example.restaurant.service.IngridientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -58,7 +61,7 @@ public class IngridientsController {
     @ResponseBody
     public RedirectView updateIngridient(@ModelAttribute("ingridient") Ingridients ingridient, ModelAndView mav){
 
-        
+
             ingridientsService.findIngridientById(ingridient.getId());
             ingridientsService.update(ingridient);
 
@@ -69,6 +72,14 @@ public class IngridientsController {
         redirectView.setUrl("http://localhost:8080/ingridients");
         return redirectView;
     }
-
-
+   
+    @GetMapping("/delete/{id}")
+    public RedirectView deleteIngridient(@PathVariable("id") Long id, @ModelAttribute("ingridient") Ingridients ingridient,ModelAndView mav) {
+        ingridientsService.deleteIngridient(id);
+        mav.setViewName("/ingridients");
+        //return mav;
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:8080/ingridients");
+        return redirectView;
+    }
 }
