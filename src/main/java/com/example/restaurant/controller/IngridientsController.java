@@ -44,7 +44,7 @@ public class IngridientsController {
 
         ingridientsService.create(ingridient);
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:8080/ingridients");
+        redirectView.setUrl("/ingridients");
         return redirectView;
     }
 
@@ -69,17 +69,17 @@ public class IngridientsController {
         mav.setViewName("/updateIngridient");
 
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:8080/ingridients");
+        redirectView.setUrl("/ingridients");
         return redirectView;
     }
-   
+
     @GetMapping("/delete/{id}")
     public RedirectView deleteIngridient(@PathVariable("id") Long id, @ModelAttribute("ingridient") Ingridients ingridient,ModelAndView mav) {
         ingridientsService.deleteIngridient(id);
         mav.setViewName("/ingridients");
         //return mav;
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:8080/ingridients");
+        redirectView.setUrl("/ingridients");
         return redirectView;
     }
 }
