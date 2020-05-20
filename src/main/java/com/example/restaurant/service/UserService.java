@@ -44,13 +44,13 @@ public class UserService {
         Optional<User> userInfo = userRepository.findUserById(id);
         return userInfo;
     }
-    public boolean isEven(Long id){
+    /*public boolean isEven(Long id){
         if(id % 2 == 0){
             return true;
         }else{
             return false;
         }
-    }
+    }*/
 
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 

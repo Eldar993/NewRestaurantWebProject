@@ -30,6 +30,10 @@ public class IngridientsService {
         return ingridients;
     }
 
+    public Ingridients findIngridientById(Long id){
+       Ingridients ingridientInfo = ingridientsRepository.findIngridientsById(id);
+       return ingridientInfo;
+    }
     public void deleteAll() {
         ingridientsRepository.deleteAll();
     }
@@ -43,7 +47,7 @@ public class IngridientsService {
     }
 
     public boolean update(Ingridients ingridients) {
-        Optional<Ingridients> oldInfo = ingridientsRepository.findById(ingridients.getId());
+        Ingridients oldInfo = ingridientsRepository.findIngridientsById(ingridients.getId());
         ingridientsRepository.saveAndFlush(ingridients);
         return true;
     }

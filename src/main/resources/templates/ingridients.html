@@ -17,7 +17,7 @@
             <td th:text="${ingridient.id}">Id</td>
             <td th:text="${ingridient.title}">Title</td>
             <td th:text="${ingridient.calories}">Calories</td>
-            <td><button value="Update">Update</button> <button value="Delete">Delete</button> </td>
+            <td><button value="Update"><a th:href="@{/updateIngridient}">Update</a></button> <button value="Delete">Delete</button> </td>
         </tr>
     </table>
     <button><a th:href="@{/createIngridient}">Create ingridient</a></button>

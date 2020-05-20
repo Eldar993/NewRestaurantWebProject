@@ -48,5 +48,27 @@ public class IngridientsController {
         return redirectView;
     }
 
+    @RequestMapping(value="/updateIngridient", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView updateIngridientForm(ModelAndView mav) {
+
+        mav.setViewName("/updateIngridient");
+
+        return mav;
+    }
+
+    @RequestMapping(value="/updateIngridient", method = RequestMethod.POST)
+    @ResponseBody
+    public RedirectView updateIngridient(@ModelAttribute("ingridient") Ingridients ingridient,ModelAndView mav){
+        mav.setViewName("/updateIngridient");
+
+        ingridientsService.findIngridientById(ingridient.getId());
+        ingridientsService.update(ingridient);
+
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:8080/ingridients");
+        return redirectView;
+    }
+
 
 }
