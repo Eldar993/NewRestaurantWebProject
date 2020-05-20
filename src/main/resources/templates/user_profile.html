@@ -7,8 +7,10 @@
 </head>
 <body>
 <div th:object="${userInfo}" th:field="*{id}" th:if="${userInfo}">
-    <h1 th:class="${id % 2 == 0} ? 'even' : 'odd' " th:text="'Id: ' + *{id} + ' Name:  ' + *{name} + ' Password: ' + *{password}">User info</h1>
+    <h1 th:class="${id % 2 == 0} ? 'even' : 'odd' ">
+        Id: [[*{id}]] Name: [[*{name}]] Password: [[*{password}]]</h1>
 </div>
+
 <div th:unless="${userInfo}">
     <h1>Unknown user</h1>
 </div>
