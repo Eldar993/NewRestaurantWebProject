@@ -7,7 +7,7 @@
 </head>
 <body>
 <div th:object="${userInfo}" th:field="*{id}" th:if="${userInfo}">
-    <h1 th:class="${id % 2 == 0} ? 'even' : 'odd' ">
+    <h1 class="title"th:classappend="${id % 2 == 0} ? 'even'">
         Id: [[*{id}]] Name: [[*{name}]] Password: [[*{password}]]</h1>
 </div>
 
