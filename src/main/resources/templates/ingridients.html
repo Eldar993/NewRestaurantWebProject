@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingridients</title>
+    <link href="/css/ingridients.css" th:href="@{/css/ingridients.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<table>
+    <tr>
+        <td>Id</td>
+        <td>Title</td>
+        <td>Calories</td>
+    </tr>
+</table>
+    <table>
+        <tr th:each="ingridient: ${IngridientsList}">
+            <td th:text="${ingridient.id}">Id</td>
+            <td th:text="${ingridient.title}">Title</td>
+            <td th:text="${ingridient.calories}">Calories</td>
+            <td><button value="Update">Update</button> <button value="Delete">Delete</button> </td>
+        </tr>
+    </table>
+    <button><a th:href="@{/createIngridient}">Create ingridient</a></button>
+</body>
+</html>
