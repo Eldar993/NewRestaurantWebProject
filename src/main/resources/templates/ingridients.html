@@ -6,14 +6,13 @@
     <link href="/css/ingridients.css" th:href="@{/css/ingridients.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<table>
-    <tr>
-        <td>Id</td>
-        <td>Title</td>
-        <td>Calories</td>
-    </tr>
-</table>
+
     <table>
+        <tr>
+            <td>Id</td>
+            <td>Title</td>
+            <td>Calories</td>
+        </tr>
         <tr th:each="ingridient: ${IngridientsList}">
             <td th:text="${ingridient.id}">Id</td>
             <td th:text="${ingridient.title}">Title</td>
