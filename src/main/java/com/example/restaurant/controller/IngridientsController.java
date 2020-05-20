@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -38,11 +39,13 @@ public class IngridientsController {
     }
     @RequestMapping(value = "/createIngridient", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView createIngridient(@ModelAttribute("ingridient") Ingridients ingridient, BindingResult result,ModelAndView mav){
+    public RedirectView createIngridient(@ModelAttribute("ingridient") Ingridients ingridient, BindingResult result, ModelAndView mav){
         mav.setViewName("/createIngridient");
 
         ingridientsService.create(ingridient);
-        return mav;
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:8080/ingridients");
+        return redirectView;
     }
 
 
