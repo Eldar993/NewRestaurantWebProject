@@ -40,14 +40,17 @@ public class IngredientsService {
 
     public void deleteIngredient(Long id) {
 
-        Ingredients deleted = ingredientsRepository.findIngredientById(id);
-        ingredientsRepository.delete(deleted);
+        ingredientsRepository.deleteById(id);
 
 
     }
 
     public Ingredients update(Ingredients ingredient) {
         Ingredients updatedIngredient = ingredientsRepository.findIngredientById(ingredient.getId());
+        if (updatedIngredient == null) {
+            return null;
+        }
+        updatedIngredient.setTitle(ingredient.getTitle());
         ingredientsRepository.saveAndFlush(updatedIngredient);
         return updatedIngredient;
     }

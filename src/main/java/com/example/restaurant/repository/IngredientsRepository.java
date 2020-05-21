@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IngredientsRepository extends JpaRepository<Ingredients,Long> {
     Ingredients findIngredientById(Long id);
+
+    void deleteById(Long id);
 }

@@ -1,21 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Create Ingredient</title>
 </head>
 <body>
-<form action="/createIngredient" method="POST">
+<form action="/createIngredient"
+      th:object="${myIngredient}"
+      th:action="@{${actionType == 'create' ? '/createIngredient' : ('/updateIngredient/' + myIngredient.id)}}"
+      method="POST"
+      >
     <fieldset>
         <legend>Create new Ingredient</legend>
-        <p>Title<br>
-            <input  type="text" name="title" size="15" maxlength="20" required></p>
+        <div>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" size="15" maxlength="20" required th:field="*{title}">
+        </div>
+        <div>
+            <label for="calories">Calories</label>
+            <input type="text" id="calories" name="calories" size="15" required th:field="*{calories}">
+            <!--/*@thymesVar id="calories_hasError" type="java.lang.Boolean"*/-->
+            <div th:if="${calories_hasError}">This field has error</div>
+        </div>
 
-        <p>Calories<br>
-            <input type="text" name="calories" size="15" required></p>
 
-        <br>
-        <input type="submit" value="Create">
+        <input type="submit" value="Create" th:value="${actionType}">
     </fieldset>
 
 </form>
