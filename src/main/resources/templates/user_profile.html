@@ -6,9 +6,15 @@
     <link href="/css/user_profile.css" th:href="@{/css/user_profile.css}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<div th:object="${userInfo}" th:field="*{id}" th:if="${userInfo}">
-    <h1 class="title"th:classappend="${id % 2 == 0} ? 'even'">
-        Id: [[*{id}]] Name: [[*{name}]] Password: [[*{password}]]</h1>
+<div th:object="${userInfo}" th:if="${userInfo}">
+    <h1 class="title" th:classAppend="${id % 2 == 0} ? 'even'">
+        Id: [[*{id}]] Name: [[*{name}]] Password: [[*{password}]]
+    </h1>
+</div>
+<div th:object="${userInfo}"  th:if="${userInfo}">
+    <h1 class="title" th:classAppend="${id % 2 == 0} ? 'even'">
+        Another way: Id: <span th:text="*{id}"> Some id</span> Name: [[*{name}]] Password: [[*{password}]]
+    </h1>
 </div>
 
 <div th:unless="${userInfo}">
