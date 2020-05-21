@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Update Ingredient</title>
 </head>
 <body>
-<form action="/updateIngredient" method="POST">
+<form  th:object="${ingredient}" th:action="@{/updateIngredient/{id}(id = *{id})}" method="POST">
     <fieldset>
         <legend>Update Ingredient</legend>
         <p>Set new title<br>
-            <input  type="text" name="title" size="15" maxlength="20" required></p>
+            <input  th:field="*{title}" type="text" name="title" size="15" maxlength="20" required></p>
 
         <p>Set new calories<br>
-            <input type="text" name="calories" size="15" required></p>
+            <input th:field="*{calories}" type="text" name="calories" size="15" required></p>
 
         <br>
         <input type="submit" value="Update">

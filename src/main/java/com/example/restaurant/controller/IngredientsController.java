@@ -50,26 +50,27 @@ public class IngredientsController {
         return redirectView;
     }
 
-    @RequestMapping(value="/updateIngredient", method = RequestMethod.GET)
+    @RequestMapping(value="/updateIngredient/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView updateIngredientForm(ModelAndView mav) {
+    public ModelAndView updateIngredientForm(@PathVariable("id") Long id,ModelAndView mav) {
 
         mav.setViewName("/updateIngredient");
+        Ingredients ingredient = ingredientService.findIngredient(id);
+        mav.addObject("ingredient",ingredient);
 
         return mav;
     }
 
-    @RequestMapping(value="/updateIngredient", method = RequestMethod.POST)
+    @RequestMapping(value="/updateIngredient/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public RedirectView updateIngredient(@ModelAttribute("ingredient") Ingredients ingredient, ModelAndView mav){
+    public RedirectView updateIngredient(@PathVariable("id") Long id,@ModelAttribute("ingredient") Ingredients ingredient, ModelAndView mav){
 
 
-            ingredientService.findIngredient(ingredient.getId());
-            ingredientService.update(ingredient);
+            Ingredients updatedIngredient = ingredientService.update(ingredient);
 
 
         mav.setViewName("/updateIngredient");
-
+        
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/ingredients");
         return redirectView;
