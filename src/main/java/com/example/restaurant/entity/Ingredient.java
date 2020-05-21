@@ -1,14 +1,11 @@
 package com.example.restaurant.entity;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "ingredients")
-public class Ingredients {
+public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -54,7 +51,7 @@ public class Ingredients {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Ingredients that = (Ingredients) o;
+        Ingredient that = (Ingredient) o;
         return id == that.id &&
                 calories == that.calories &&
                 title.equals(that.title);

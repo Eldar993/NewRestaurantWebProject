@@ -1,7 +1,7 @@
 package com.example.restaurant.controller;
 
 
-import com.example.restaurant.entity.Ingredients;
+import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.service.IngredientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class IngredientsController {
     @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView printAllIngredient(ModelAndView mav) {
-        List<Ingredients> ingredient = ingredientService.printIngredients();
+        List<Ingredient> ingredient = ingredientService.printIngredients();
         mav.setViewName("ingredients");
         mav.addObject("ingredientList", ingredient);
 
@@ -42,14 +42,14 @@ public class IngredientsController {
         //title == null
         //calories == 0
         mav.setViewName("createIngredient");
-        mav.addObject("myIngredient", new Ingredients());
+        mav.addObject("myIngredient", new Ingredient());
         mav.addObject("actionType", "create");
         return mav;
     }
 
     @RequestMapping(value = "/createIngredient", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView createIngredient(@ModelAttribute("ingredient") Ingredients ingredient, BindingResult result, ModelAndView mav) {
+    public ModelAndView createIngredient(@ModelAttribute("ingredient") Ingredient ingredient, BindingResult result, ModelAndView mav) {
         if (result.hasErrors()) {
             mav.setViewName("/createIngredient");
             for (FieldError fieldError : result.getFieldErrors()) {
@@ -73,7 +73,7 @@ public class IngredientsController {
     public ModelAndView updateIngredientForm(@PathVariable("id") Long id, ModelAndView mav) {
 
         mav.setViewName("/updateIngredient");
-        Ingredients ingredient = ingredientService.findIngredient(id);
+        Ingredient ingredient = ingredientService.findIngredient(id);
         mav.addObject("ingredient", ingredient);
 
         return mav;
@@ -81,10 +81,10 @@ public class IngredientsController {
 
     @RequestMapping(value = "/updateIngredient/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public RedirectView updateIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredients ingredient, ModelAndView mav) {
+    public RedirectView updateIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredient ingredient, ModelAndView mav) {
 
 
-        Ingredients updatedIngredient = ingredientService.update(ingredient);
+        Ingredient updatedIngredient = ingredientService.update(ingredient);
 
 
         mav.setViewName("/updateIngredient");
@@ -95,7 +95,7 @@ public class IngredientsController {
     }
 
     @GetMapping("/delete/{id}")
-    public RedirectView deleteIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredients ingredient, ModelAndView mav) {
+    public RedirectView deleteIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredient ingredient, ModelAndView mav) {
         ingredientService.deleteIngredient(id);
         mav.setViewName("/ingredients");
         //return mav;

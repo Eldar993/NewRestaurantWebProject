@@ -1,57 +1,55 @@
 package com.example.restaurant.service;
 
-import com.example.restaurant.entity.Ingredients;
-import com.example.restaurant.entity.User;
-import com.example.restaurant.repository.IngredientsRepository;
+import com.example.restaurant.entity.Ingredient;
+import com.example.restaurant.repository.IngredientRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
 public class IngredientsService {
 
-    private final IngredientsRepository ingredientsRepository;
+    private final IngredientRepository ingredientRepository;
 
 
-    public IngredientsService(IngredientsRepository ingredientsRepository) {
-        this.ingredientsRepository = ingredientsRepository;
+    public IngredientsService(IngredientRepository ingredientRepository) {
+        this.ingredientRepository = ingredientRepository;
     }
 
-    public boolean create(Ingredients ingredient) {
-        ingredientsRepository.saveAndFlush(ingredient);
+    public boolean create(Ingredient ingredient) {
+        ingredientRepository.saveAndFlush(ingredient);
         return true;
     }
 
-    public List<Ingredients> printIngredients() {
-        List<Ingredients> Ingredients = ingredientsRepository.findAll();
+    public List<Ingredient> printIngredients() {
+        List<Ingredient> Ingredients = ingredientRepository.findAll();
         return Ingredients;
     }
 
-    public Ingredients findIngredient(Long id){
-       Ingredients ingredientInfo = ingredientsRepository.findIngredientById(id);
+    public Ingredient findIngredient(Long id){
+       Ingredient ingredientInfo = ingredientRepository.findIngredientById(id);
        return ingredientInfo;
     }
     public void deleteAll() {
-        ingredientsRepository.deleteAll();
+        ingredientRepository.deleteAll();
     }
 
     public void deleteIngredient(Long id) {
 
-        ingredientsRepository.deleteById(id);
+        ingredientRepository.deleteById(id);
 
 
     }
 
-    public Ingredients update(Ingredients ingredient) {
-        Ingredients updatedIngredient = ingredientsRepository.findIngredientById(ingredient.getId());
+    public Ingredient update(Ingredient ingredient) {
+        Ingredient updatedIngredient = ingredientRepository.findIngredientById(ingredient.getId());
         if (updatedIngredient == null) {
             return null;
         }
         updatedIngredient.setTitle(ingredient.getTitle());
-        ingredientsRepository.saveAndFlush(updatedIngredient);
+        ingredientRepository.saveAndFlush(updatedIngredient);
         return updatedIngredient;
     }
 }
