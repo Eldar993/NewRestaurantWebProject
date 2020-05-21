@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ingridients")
-public class Ingridients {
+@Table(name = "ingredients")
+public class Ingredients {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -21,8 +21,8 @@ public class Ingridients {
 
 //   @ManyToMany
 //    @JoinTable(
-//            name = "Menu_Ingridients",
-//            JoinColumns = @JoinColumn(name = "ingridients_id"),
+//            name = "Menu_Ingredient",
+//            JoinColumns = @JoinColumn(name = "ingredient_id"),
 //            inverseJoinColumns = @JoinColumn(name = "menu_id"))
 //    private List<Menu> menuList;
 
@@ -54,7 +54,7 @@ public class Ingridients {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Ingridients that = (Ingridients) o;
+        Ingredients that = (Ingredients) o;
         return id == that.id &&
                 calories == that.calories &&
                 title.equals(that.title);
@@ -67,7 +67,7 @@ public class Ingridients {
 
     @Override
     public String toString() {
-        return "Ingridients{" +
+        return "Ingredient{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", calories=" + calories +

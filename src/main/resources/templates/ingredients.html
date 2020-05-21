@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Ingredient</title>
+    <link href="/css/ingredients.css" th:href="@{/css/ingredients.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+    <table id="Ingredient">
+        <tr>
+            <td>Id</td>
+            <td>Title</td>
+            <td>Calories</td>
+        </tr>
+        <tr th:each="ingredient: ${ingredientList}">
+            <td th:text="${ingredient.id}">Id</td>
+            <td th:text="${ingredient.title}">Title</td>
+            <td th:text="${ingredient.calories}">Calories</td>
+            <td><button value="Update"><a th:href="@{/updateIngredient/{id}(id=${ingredient.id})}">Update</a></button>
+                <button value="delete" name="removeRow"><a th:href="@{/delete/{id}(id=${ingredient.id})}">Delete</a></button></td>
+        </tr>
+    </table>
+    <button><a th:href="@{/createIngredient}">Create Ingredient</a></button>
+
+</body>
+</html>
