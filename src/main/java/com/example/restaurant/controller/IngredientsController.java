@@ -23,7 +23,7 @@ public class IngredientsController {
     @Autowired
     private IngredientsService ingredientService;
 
-    @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
+    @RequestMapping(value = "/ingredient", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView printAllIngredient(ModelAndView mav) {
         List<Ingredient> ingredient = ingredientService.printIngredients();
@@ -33,7 +33,7 @@ public class IngredientsController {
         return mav;
     }
 
-    @RequestMapping(value = "/createIngredient", method = RequestMethod.GET)
+    @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView createIngredientForm(@ModelAttribute ModelAndView mav) {
 
@@ -47,7 +47,7 @@ public class IngredientsController {
         return mav;
     }
 
-    @RequestMapping(value = "/createIngredient", method = RequestMethod.POST)
+    @RequestMapping(value = "/ingredients", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView createIngredient(@ModelAttribute("ingredient") Ingredient ingredient, BindingResult result, ModelAndView mav) {
         if (result.hasErrors()) {
@@ -63,12 +63,12 @@ public class IngredientsController {
 
         ingredientService.create(ingredient);
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/ingredients");
+        redirectView.setUrl("/ingredient");
         mav.setView(redirectView);
         return mav;
     }
 
-    @RequestMapping(value = "/updateIngredient/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/ingredients/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView updateIngredientForm(@PathVariable("id") Long id, ModelAndView mav) {
 
@@ -79,7 +79,7 @@ public class IngredientsController {
         return mav;
     }
 
-    @RequestMapping(value = "/updateIngredient/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/ingredients/{id}", method = RequestMethod.POST)
     @ResponseBody
     public RedirectView updateIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredient ingredient, ModelAndView mav) {
 
@@ -90,17 +90,17 @@ public class IngredientsController {
         //mav.setViewName("/updateIngredient");
         mav.setViewName("/Ingredients/createIngredient");
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/ingredients");
+        redirectView.setUrl("/ingredient");
         return redirectView;
     }
 
-    @GetMapping("/delete/{id}")
+    @RequestMapping(value="/ingredients/{id}",method = RequestMethod.DELETE)
     public RedirectView deleteIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredient ingredient, ModelAndView mav) {
         ingredientService.deleteIngredient(id);
-        mav.setViewName("/ingredients");
+        mav.setViewName("/Ingredients/ingredients");
         //return mav;
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/ingredients");
+        redirectView.setUrl("/ingredient");
         return redirectView;
     }
 }
