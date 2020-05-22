@@ -23,7 +23,6 @@
         <td th:text="${ingredient.calories}">Calories</td>
         <td>
             <form th:action="@{/ingredients/{id}(id=${ingredient.id})}" th:method="GET">
-                <input type="hidden" name="_method" value="PUT"/>
                 <button value="Update">Update</button>
             </form>
             <form th:action="@{/ingredients/{id}(id=${ingredient.id})}" th:method="DELETE">
