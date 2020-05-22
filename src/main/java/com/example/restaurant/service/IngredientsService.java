@@ -49,6 +49,7 @@ public class IngredientsService {
             return null;
         }
         updatedIngredient.setTitle(ingredient.getTitle());
+        updatedIngredient.setCalories(ingredient.getCalories());
         ingredientRepository.saveAndFlush(updatedIngredient);
         return updatedIngredient;
     }

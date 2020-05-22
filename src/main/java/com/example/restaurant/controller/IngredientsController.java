@@ -27,7 +27,7 @@ public class IngredientsController {
     @ResponseBody
     public ModelAndView printAllIngredient(ModelAndView mav) {
         List<Ingredient> ingredient = ingredientService.printIngredients();
-        mav.setViewName("ingredients");
+        mav.setViewName("/Ingredients/ingredients");
         mav.addObject("ingredientList", ingredient);
 
         return mav;
@@ -41,7 +41,7 @@ public class IngredientsController {
         //id == null
         //title == null
         //calories == 0
-        mav.setViewName("createIngredient");
+        mav.setViewName("/Ingredients/createIngredient");
         mav.addObject("myIngredient", new Ingredient());
         mav.addObject("actionType", "create");
         return mav;
@@ -51,7 +51,7 @@ public class IngredientsController {
     @ResponseBody
     public ModelAndView createIngredient(@ModelAttribute("ingredient") Ingredient ingredient, BindingResult result, ModelAndView mav) {
         if (result.hasErrors()) {
-            mav.setViewName("/createIngredient");
+            mav.setViewName("/Ingredients/createIngredient");
             for (FieldError fieldError : result.getFieldErrors()) {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }
@@ -72,7 +72,7 @@ public class IngredientsController {
     @ResponseBody
     public ModelAndView updateIngredientForm(@PathVariable("id") Long id, ModelAndView mav) {
 
-        mav.setViewName("/updateIngredient");
+        mav.setViewName("/Ingredients/createIngredient");
         Ingredient ingredient = ingredientService.findIngredient(id);
         mav.addObject("ingredient", ingredient);
 
@@ -87,8 +87,8 @@ public class IngredientsController {
         Ingredient updatedIngredient = ingredientService.update(ingredient);
 
 
-        mav.setViewName("/updateIngredient");
-
+        //mav.setViewName("/updateIngredient");
+        mav.setViewName("/Ingredients/createIngredient");
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/ingredients");
         return redirectView;
