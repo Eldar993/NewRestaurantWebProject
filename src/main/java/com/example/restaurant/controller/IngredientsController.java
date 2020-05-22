@@ -42,7 +42,7 @@ public class IngredientsController {
         //title == null
         //calories == 0
         mav.setViewName("/Ingredients/createIngredient");
-        mav.addObject("myIngredient", new Ingredient());
+        mav.addObject("ingredient", new Ingredient());
         mav.addObject("actionType", "create");
         return mav;
     }
