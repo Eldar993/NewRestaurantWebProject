@@ -1,5 +1,6 @@
 package com.example.restaurant.service;
 
+import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.repository.IngredientRepository;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,11 @@ public class IngredientsService {
         this.ingredientRepository = ingredientRepository;
     }
 
-    public boolean create(Ingredient ingredient) {
-        ingredientRepository.saveAndFlush(ingredient);
+    public boolean create(IngredientDto ingredient) {
+        if (ingredient.getId() != null) {
+            return false;
+        }
+//        ingredientRepository.saveAndFlush();
         return true;
     }
 
@@ -28,10 +32,11 @@ public class IngredientsService {
         return Ingredients;
     }
 
-    public Ingredient findIngredient(Long id){
-       Ingredient ingredientInfo = ingredientRepository.findIngredientById(id);
-       return ingredientInfo;
+    public Ingredient findIngredient(Long id) {
+        Ingredient ingredientInfo = ingredientRepository.findIngredientById(id);
+        return ingredientInfo;
     }
+
     public void deleteAll() {
         ingredientRepository.deleteAll();
     }

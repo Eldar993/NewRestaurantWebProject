@@ -1,6 +1,7 @@
 package com.example.restaurant.controller;
 
 
+import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.service.IngredientsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,9 @@ public class IngredientsController {
         return mav;
     }
 
-    @RequestMapping(value = "/ingredients", method = RequestMethod.PUT)
+    @RequestMapping(value = "/ingredients", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView createIngredient(@ModelAttribute("ingredient") Ingredient ingredient, BindingResult result, ModelAndView mav) {
+    public ModelAndView createIngredient(@ModelAttribute("ingredient") IngredientDto ingredient, BindingResult result, ModelAndView mav) {
         if (result.hasErrors()) {
             mav.setViewName("/Ingredients/createIngredient");
             for (FieldError fieldError : result.getFieldErrors()) {
@@ -61,7 +62,8 @@ public class IngredientsController {
         }
 
 
-        ingredientService.create(ingredient);
+        boolean savedResult = ingredientService.create(ingredient);
+
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/ingredient");
         mav.setView(redirectView);
