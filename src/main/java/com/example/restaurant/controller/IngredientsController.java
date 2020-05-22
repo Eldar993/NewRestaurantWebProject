@@ -47,7 +47,7 @@ public class IngredientsController {
         return mav;
     }
 
-    @RequestMapping(value = "/ingredients", method = RequestMethod.POST)
+    @RequestMapping(value = "/ingredients", method = RequestMethod.PUT)
     @ResponseBody
     public ModelAndView createIngredient(@ModelAttribute("ingredient") Ingredient ingredient, BindingResult result, ModelAndView mav) {
         if (result.hasErrors()) {
@@ -79,7 +79,7 @@ public class IngredientsController {
         return mav;
     }
 
-    @RequestMapping(value = "/ingredients/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/ingredients/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public RedirectView updateIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredient ingredient, ModelAndView mav) {
 
@@ -94,7 +94,8 @@ public class IngredientsController {
         return redirectView;
     }
 
-    @RequestMapping(value="/ingredients/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value="/ingredients/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
     public RedirectView deleteIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredient ingredient, ModelAndView mav) {
         ingredientService.deleteIngredient(id);
         mav.setViewName("/Ingredients/ingredients");

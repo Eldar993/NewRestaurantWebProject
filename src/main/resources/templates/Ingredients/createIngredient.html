@@ -12,8 +12,9 @@
 <form action="/ingredients"
       th:object="${ingredient}"
       th:action="@{${actionType == 'create' ? '/ingredients' : ('/ingredients/' + ingredient.id)}}"
-      method="POST"
+      th:method="PUT"
       >
+    <input type="hidden" name="_method" value="put" />
     <fieldset>
         <legend>Create new Ingredient</legend>
         <div>

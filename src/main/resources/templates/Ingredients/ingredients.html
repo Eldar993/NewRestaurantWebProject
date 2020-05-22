@@ -5,26 +5,35 @@
     <title>Ingredient</title>
     <link href="/static/css/ingredients.css" th:href="@{/css/ingredients.css}" rel="stylesheet" type="text/css"/>
 
-    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css}" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css}"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 </head>
 <body>
 <div th:insert="/header :: header"></div>
-    <table id="Ingredient">
-        <tr>
-            <td>Id</td>
-            <td>Title</td>
-            <td>Calories</td>
-        </tr>
-        <tr th:each="ingredient: ${ingredientList}">
-            <td th:text="${ingredient.id}">Id</td>
-            <td th:text="${ingredient.title}">Title</td>
-            <td th:text="${ingredient.calories}">Calories</td>
-            <td><button value="Update"><a th:href="@{/ingredients/{id}(id=${ingredient.id})}">Update</a></button>
-                <button value="delete" name="removeRow"><a th:href="@{/ingredients/{id}(id=${ingredient.id})}">Delete</a></button></td>
-        </tr>
-    </table>
-    <button><a th:href="@{/ingredients}">Create Ingredient</a></button>
+<table id="Ingredient">
+    <tr>
+        <td>Id</td>
+        <td>Title</td>
+        <td>Calories</td>
+    </tr>
+    <tr th:each="ingredient: ${ingredientList}">
+        <td th:text="${ingredient.id}">Id</td>
+        <td th:text="${ingredient.title}">Title</td>
+        <td th:text="${ingredient.calories}">Calories</td>
+        <td>
+            <form th:action="@{/ingredients/{id}(id=${ingredient.id})}" th:method="GET">
+                <input type="hidden" name="_method" value="PUT"/>
+                <button value="Update">Update</button>
+            </form>
+            <form th:action="@{/ingredients/{id}(id=${ingredient.id})}" th:method="DELETE">
+                <input type="hidden" name="_method" value="DELETE"/>
+                <button value="delete" name="removeRow">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<button><a th:href="@{/ingredients}">Create Ingredient</a></button>
 
 </body>
 </html>
