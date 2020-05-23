@@ -31,7 +31,7 @@ public class IngredientDto {
         this.calories = calories;
     }
 
-    
+
     public Ingredient _toDto(){
         Ingredient ingredient = new Ingredient();
         //set entity values here from StudentDTO
