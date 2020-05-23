@@ -3,36 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Ingredient</title>
-    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css}" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css}"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 </head>
 <body>
 <div th:if="${ingredient == null}">UNKNOWN ID IN PATH</div>
 <div th:if="${ingredient != null}">
-<form action="/ingredients"
-      th:object="${ingredient}"
-      th:action="@{${actionType == 'create' ? '/ingredients' : ('/ingredients/' + ingredient.id)}}"
-      th:method="PUT"
-      >
-    <input type="hidden" name="_method" value="put" />
-    <fieldset>
-        <legend>Create new Ingredient</legend>
-        <div>
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title" size="15" maxlength="20" required th:field="*{title}">
-        </div>
-        <div>
-            <label for="calories">Calories</label>
-            <input type="text" id="calories" name="calories" size="15" required th:field="*{calories}">
-            <!--/*@thymesVar id="calories_hasError" type="java.lang.Boolean"*/-->
-            <div th:if="${calories_hasError}">This field has error</div>
-        </div>
+    <form action="/ingredients"
+          th:object="${ingredient}"
+          th:action="@{${actionType == 'create' ? '/ingredient' : ('/ingredient/' + ingredient.id)}}"
+          th:method="${actionType == 'create' ?  'POST' : 'PUT'}"
+    >
+        <!--<input type="hidden" name="_method" value="put"/>-->
+        <fieldset>
+            <legend th:text="${actionType == 'create'} ? 'Create new Ingredient' : 'Update ingredient'"></legend>
+            <div>
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" size="15" maxlength="20" required th:field="*{title}">
+                <!--/*@thymesVar id="title_hasError" type="java.lang.Boolean"*/-->
+            </div>
+            <div>
+                <label for="calories">Calories</label>
+                <input type="text" id="calories" name="calories" size="15" required th:field="*{calories}">
+                <!--/*@thymesVar id="calories_hasError" type="java.lang.Boolean"*/-->
+                <div th:if="${calories_hasError}">This field has error</div>
+            </div>
 
 
-        <input type="submit" value="Create" th:value="${actionType} == 'create' ? 'Create' : 'Update'">
-    </fieldset>
+            <input type="submit" value="Create" th:value="${actionType} == 'create' ? 'Create' : 'Update'">
+        </fieldset>
 
-</form>
+    </form>
 </div>
 </body>
 </html>

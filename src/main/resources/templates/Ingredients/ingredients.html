@@ -22,17 +22,16 @@
         <td th:text="${ingredient.title}">Title</td>
         <td th:text="${ingredient.calories}">Calories</td>
         <td>
-            <form th:action="@{/ingredients/{id}(id=${ingredient.id})}" th:method="GET">
+            <form th:action="@{/ingredient/{id}(id=${ingredient.id})}" th:method="GET">
                 <button value="Update">Update</button>
             </form>
-            <form th:action="@{/ingredients/{id}(id=${ingredient.id})}" th:method="DELETE">
-                <input type="hidden" name="_method" value="DELETE"/>
+            <form th:action="@{/ingredient/{id}(id=${ingredient.id})}" th:method="DELETE">
                 <button value="delete" name="removeRow">Delete</button>
             </form>
         </td>
     </tr>
 </table>
-<button><a th:href="@{/ingredients}">Create Ingredient</a></button>
+<button><a th:href="@{/ingredient}">Create Ingredient</a></button>
 
 </body>
 </html>

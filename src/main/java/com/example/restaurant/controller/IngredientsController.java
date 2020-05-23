@@ -23,9 +23,9 @@ public class IngredientsController {
     @Autowired
     private IngredientsService ingredientService;
 
-    @RequestMapping(value = "/ingredient", method = RequestMethod.GET)
+    @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView printAllIngredient(ModelAndView mav) {
+    public ModelAndView printAll(ModelAndView mav) {
         List<Ingredient> ingredient = ingredientService.printIngredients();
         mav.setViewName("/Ingredients/ingredients");
         mav.addObject("ingredientList", ingredient);
@@ -33,9 +33,9 @@ public class IngredientsController {
         return mav;
     }
 
-    @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
+    @RequestMapping(value = "/ingredient", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView createIngredientForm(@ModelAttribute ModelAndView mav) {
+    public ModelAndView createForm(@ModelAttribute ModelAndView mav) {
 
         //new Ingredients()
         //id == null
@@ -47,9 +47,9 @@ public class IngredientsController {
         return mav;
     }
 
-    @RequestMapping(value = "/ingredients", method = RequestMethod.PUT)
+    @RequestMapping(value = "/ingredient", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView createIngredient(@ModelAttribute("ingredient") Ingredient ingredient, BindingResult result, ModelAndView mav) {
+    public ModelAndView create(@ModelAttribute("ingredient") Ingredient ingredient, BindingResult result, ModelAndView mav) {
         if (result.hasErrors()) {
             mav.setViewName("/Ingredients/createIngredient");
             for (FieldError fieldError : result.getFieldErrors()) {
@@ -63,14 +63,14 @@ public class IngredientsController {
 
         ingredientService.create(ingredient);
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/ingredient");
+        redirectView.setUrl("/ingredients");
         mav.setView(redirectView);
         return mav;
     }
 
-    @RequestMapping(value = "/ingredients/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/ingredient/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView updateIngredientForm(@PathVariable("id") Long id, ModelAndView mav) {
+    public ModelAndView updateForm(@PathVariable("id") Long id, ModelAndView mav) {
 
         mav.setViewName("/Ingredients/createIngredient");
         Ingredient ingredient = ingredientService.findIngredient(id);
@@ -79,29 +79,29 @@ public class IngredientsController {
         return mav;
     }
 
-    @RequestMapping(value = "/ingredients/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/ingredient/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public RedirectView updateIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredient ingredient, ModelAndView mav) {
+    public RedirectView update(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredient ingredient, ModelAndView mav) {
 
 
         Ingredient updatedIngredient = ingredientService.update(ingredient);
 
 
         //mav.setViewName("/updateIngredient");
-        mav.setViewName("/Ingredients/createIngredient");
+        //mav.setViewName("/Ingredients/createIngredient");
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/ingredient");
+        redirectView.setUrl("/ingredients");
         return redirectView;
     }
 
-    @RequestMapping(value="/ingredients/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/ingredient/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public RedirectView deleteIngredient(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredient ingredient, ModelAndView mav) {
+    public RedirectView delete(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredient ingredient, ModelAndView mav) {
         ingredientService.deleteIngredient(id);
         mav.setViewName("/Ingredients/ingredients");
         //return mav;
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/ingredient");
+        redirectView.setUrl("/ingredients");
         return redirectView;
     }
 }
