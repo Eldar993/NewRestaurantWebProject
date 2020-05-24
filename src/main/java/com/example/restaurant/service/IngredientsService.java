@@ -22,15 +22,15 @@ public class IngredientsService {
         this.ingredientRepository = ingredientRepository;
     }
 
-    public boolean create(IngredientDto ingredient) {
+    public boolean create(Ingredient ingredient) {
         if (ingredient.getId() != null) {
             return false;
         }
-        ingredientRepository.saveAndFlush(toEntity(ingredient));
+        ingredientRepository.saveAndFlush(ingredient);
         return true;
     }
 
-    public List<IngredientDto> findAll() {
+    public List<Ingredient> findAll() {
 //        List<Ingredient> ingredients = ingredientRepository.findAll();
 //        List<IngredientDto> result = new LinkedList<>();
 //        for (Ingredient ingredient : ingredients) {
@@ -38,7 +38,7 @@ public class IngredientsService {
 //        }
 //        return result;
 
-        return toDto(ingredientRepository.findAll());
+        return ingredientRepository.findAll();
     }
 
     public Ingredient findById(Long id) {
@@ -50,16 +50,16 @@ public class IngredientsService {
         ingredientRepository.deleteById(id);
     }
 
-    public IngredientDto update(IngredientDto ingredientDto) {
-        Ingredient updatedIngredient = ingredientRepository.findIngredientById(ingredientDto.getId());
+    public Ingredient update(Ingredient ingredient) {
+        Ingredient updatedIngredient = ingredientRepository.findIngredientById(ingredient.getId());
         if (updatedIngredient == null) {
             return null;
         }
-        updatedIngredient.setTitle(ingredientDto.getTitle());
-        updatedIngredient.setCalories(ingredientDto.getCalories());
+        updatedIngredient.setTitle(ingredient.getTitle());
+        updatedIngredient.setCalories(ingredient.getCalories());
 
         final Ingredient result = ingredientRepository.saveAndFlush(updatedIngredient);
-        return toDto(result);
+        return result;
     }
 
     //TODO: make converter's methods static
