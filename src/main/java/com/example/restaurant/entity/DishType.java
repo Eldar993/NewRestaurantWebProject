@@ -1,11 +1,15 @@
 package com.example.restaurant.entity;
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "dishTypes")
+@Table(name = "dish_types")
 public class DishType {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -13,9 +17,6 @@ public class DishType {
 
     @Column(unique=true)
     private String title;
-
-    @OneToMany(mappedBy = "dishType")
-    private List<Menu> menus = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -38,8 +39,8 @@ public class DishType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DishType dishType = (DishType) o;
-        return id == dishType.id &&
-                title.equals(dishType.title);
+        return Objects.equals(id, dishType.id) &&
+                Objects.equals(title, dishType.title);
     }
 
     @Override
