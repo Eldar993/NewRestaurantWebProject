@@ -17,15 +17,15 @@
         <td>Title</td>
         <td>Calories</td>
     </tr>
-    <tr th:each="ingredient: ${ingredientList}">
-        <td th:text="${ingredient.id}">Id</td>
-        <td th:text="${ingredient.title}">Title</td>
-        <td th:text="${ingredient.calories}">Calories</td>
+    <tr th:each="ingredient: ${allIngredients}" th:object="${ingredient}">
+        <td th:text="*{id}">Id</td>
+        <td th:text="*{title}">Title</td>
+        <td th:text="*{calories}">Calories</td>
         <td>
-            <form th:action="@{/ingredient/{id}(id=${ingredient.id})}" th:method="GET">
+            <form th:action="@{/ingredient/{id}(id=*{id})}" th:method="GET">
                 <button value="Update">Update</button>
             </form>
-            <form th:action="@{/ingredient/{id}(id=${ingredient.id})}" th:method="DELETE">
+            <form th:action="@{/ingredient/{id}(id=*{id})}" th:method="DELETE">
                 <button value="delete" name="removeRow">Delete</button>
             </form>
         </td>
