@@ -60,7 +60,7 @@ public class IngredientsController {
             mav.addObject("actionType", "create");
             mav.addObject("ingredient", ingredient);
             return mav;
-        }else{
+        } else {
             ingredientService.create(ingredient);
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl("/ingredients");
@@ -68,9 +68,6 @@ public class IngredientsController {
             return mav;
 
         }
-
-
-
 
 
     }
@@ -97,7 +94,7 @@ public class IngredientsController {
             }
             mav.addObject("ingredient", ingredient);
             return mav;
-        }else{
+        } else {
             Ingredient updatedIngredient = ingredientService.update(ingredient);
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl("/ingredients");

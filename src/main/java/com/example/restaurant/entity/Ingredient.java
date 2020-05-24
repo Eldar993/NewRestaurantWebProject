@@ -13,7 +13,7 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(unique=true)
+    @Column(unique = true)
     @Size(min = 3, max = 50)
     private String title;
 

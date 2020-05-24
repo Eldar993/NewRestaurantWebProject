@@ -32,10 +32,11 @@ public class IngredientsService {
         return Ingredients;
     }
 
-    public Ingredient findIngredient(Long id){
-       Ingredient ingredientInfo = ingredientRepository.findIngredientById(id);
-       return ingredientInfo;
+    public Ingredient findIngredient(Long id) {
+        Ingredient ingredientInfo = ingredientRepository.findIngredientById(id);
+        return ingredientInfo;
     }
+
     public void deleteAll() {
         ingredientRepository.deleteAll();
     }
