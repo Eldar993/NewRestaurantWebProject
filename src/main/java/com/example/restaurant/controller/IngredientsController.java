@@ -80,7 +80,8 @@ public class IngredientsController {
     public ModelAndView updateForm(@PathVariable("id") Long id, ModelAndView mav) {
 
         mav.setViewName("/ingredients/ingredientForm");
-        IngredientDto ingredient = ingredientService.findById(id);
+        //TODO: replace ingredientService.toDto() to static method calling
+        IngredientDto ingredient = ingredientService.toDto(ingredientService.findById(id));
         mav.addObject("ingredient", ingredient);
 
         return mav;

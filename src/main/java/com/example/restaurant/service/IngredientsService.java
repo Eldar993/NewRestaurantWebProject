@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+//TODO: Change returned types and input methods arguments from Dto to Entity
+//      convert entity to dto in Controller layer
 public class IngredientsService {
 
     private final IngredientRepository ingredientRepository;
@@ -36,15 +38,12 @@ public class IngredientsService {
 //        }
 //        return result;
 
-        return ingredientRepository.findAll()
-                .stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
+        return toDto(ingredientRepository.findAll());
     }
 
-    public IngredientDto findById(Long id) {
+    public Ingredient findById(Long id) {
         Ingredient ingredient = ingredientRepository.findIngredientById(id);
-        return toDto(ingredient);
+        return ingredient;
     }
 
     public void deleteById(Long id) {
@@ -63,6 +62,7 @@ public class IngredientsService {
         return toDto(result);
     }
 
+    //TODO: make converter's methods static
     public Ingredient toEntity(IngredientDto dto) {
         if (dto == null) {
             return null;
@@ -73,6 +73,13 @@ public class IngredientsService {
         result.setCalories(dto.getCalories());
 
         return result;
+    }
+
+    public List<IngredientDto> toDto(List<Ingredient> ingredients) {
+        return ingredients
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 
     public IngredientDto toDto(Ingredient entity) {

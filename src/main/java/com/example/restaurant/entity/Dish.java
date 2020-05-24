@@ -11,11 +11,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name="dishes")
+@Table(name = "dishes")
 public class Dish {
 
     @Id
@@ -34,10 +35,9 @@ public class Dish {
 
     @ManyToMany
     @JoinTable(
-            name ="dishes_ingredients",
+            name = "dishes_ingredients",
             joinColumns = @JoinColumn(name = "dish_id"),
             inverseJoinColumns = @JoinColumn(name = "ingredient_id")
-
     )
     private Set<Ingredient> ingredients;
 
@@ -81,6 +81,17 @@ public class Dish {
         this.weight = weight;
     }
 
+    public void addIngredient(Ingredient ingredient) {
+        if (ingredients == null) {
+            ingredients = new HashSet<>();
+        }
+        ingredients.add(ingredient);
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,5 +118,9 @@ public class Dish {
                 ", dish='" + name + '\'' +
                 ", weight=" + weight +
                 '}';
+    }
+
+    public boolean removeIngredient(Ingredient ingredient) {
+        return ingredients.remove(ingredient);
     }
 }
