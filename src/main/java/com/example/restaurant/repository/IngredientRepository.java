@@ -1,6 +1,5 @@
 package com.example.restaurant.repository;
 
-import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.Ingredient;
 import org.springframework.data.jpa.repository.JpaRepository;
 

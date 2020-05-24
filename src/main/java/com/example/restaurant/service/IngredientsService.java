@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
+//TODO: Change returned types and input methods arguments from Dto to Entity
+//      convert entity to dto in Controller layer
 public class IngredientsService {
 
     private final IngredientRepository ingredientRepository;
@@ -19,43 +22,75 @@ public class IngredientsService {
         this.ingredientRepository = ingredientRepository;
     }
 
-    public boolean create(Ingredient ingredient) {
+    public boolean create(IngredientDto ingredient) {
         if (ingredient.getId() != null) {
             return false;
         }
-        ingredientRepository.saveAndFlush(ingredient);
+        ingredientRepository.saveAndFlush(toEntity(ingredient));
         return true;
     }
 
-    public List<Ingredient> printIngredients() {
-        List<Ingredient> Ingredients = ingredientRepository.findAll();
-        return Ingredients;
+    public List<IngredientDto> findAll() {
+//        List<Ingredient> ingredients = ingredientRepository.findAll();
+//        List<IngredientDto> result = new LinkedList<>();
+//        for (Ingredient ingredient : ingredients) {
+//            result.add(toDto(ingredient));
+//        }
+//        return result;
+
+        return toDto(ingredientRepository.findAll());
     }
 
-    public Ingredient findIngredient(Long id) {
-        Ingredient ingredientInfo = ingredientRepository.findIngredientById(id);
-        return ingredientInfo;
+    public Ingredient findById(Long id) {
+        Ingredient ingredient = ingredientRepository.findIngredientById(id);
+        return ingredient;
     }
 
-    public void deleteAll() {
-        ingredientRepository.deleteAll();
-    }
-
-    public void deleteIngredient(Long id) {
-
+    public void deleteById(Long id) {
         ingredientRepository.deleteById(id);
-
-
     }
 
-    public Ingredient update(Ingredient ingredient) {
-        Ingredient updatedIngredient = ingredientRepository.findIngredientById(ingredient.getId());
+    public IngredientDto update(IngredientDto ingredientDto) {
+        Ingredient updatedIngredient = ingredientRepository.findIngredientById(ingredientDto.getId());
         if (updatedIngredient == null) {
             return null;
         }
-        updatedIngredient.setTitle(ingredient.getTitle());
-        updatedIngredient.setCalories(ingredient.getCalories());
-        ingredientRepository.saveAndFlush(updatedIngredient);
-        return updatedIngredient;
+        updatedIngredient.setTitle(ingredientDto.getTitle());
+        updatedIngredient.setCalories(ingredientDto.getCalories());
+
+        final Ingredient result = ingredientRepository.saveAndFlush(updatedIngredient);
+        return toDto(result);
+    }
+
+    //TODO: make converter's methods static
+    public Ingredient toEntity(IngredientDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        Ingredient result = new Ingredient();
+        result.setId(dto.getId());
+        result.setTitle(dto.getTitle());
+        result.setCalories(dto.getCalories());
+
+        return result;
+    }
+
+    public List<IngredientDto> toDto(List<Ingredient> ingredients) {
+        return ingredients
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public IngredientDto toDto(Ingredient entity) {
+        if (entity == null) {
+            return null;
+        }
+        IngredientDto result = new IngredientDto();
+        result.setId(entity.getId());
+        result.setTitle(entity.getTitle());
+        result.setCalories(entity.getCalories());
+
+        return result;
     }
 }

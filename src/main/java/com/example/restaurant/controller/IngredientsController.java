@@ -106,7 +106,7 @@ public class IngredientsController {
 
     @RequestMapping(value = "/ingredient/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public RedirectView delete(@PathVariable("id") Long id, ModelAndView mav) {
+    public RedirectView delete(@PathVariable("id") Long id, @ModelAttribute("ingredient") Ingredient ingredient, ModelAndView mav) {
         ingredientService.deleteIngredient(id);
         mav.setViewName("/Ingredients/ingredients");
         //return mav;
