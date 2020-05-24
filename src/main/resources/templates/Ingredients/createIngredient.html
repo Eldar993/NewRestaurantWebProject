@@ -15,9 +15,9 @@
           th:action="@{${actionType == 'create' ? '/ingredient' : ('/ingredient/' + ingredient.id)}}"
           th:method="${actionType == 'create' ?  'POST' : 'PUT'}"
     >
-        <!--<input type="hidden" name="_method" value="put"/>-->
         <fieldset>
             <legend th:text="${actionType == 'create'} ? 'Create new Ingredient' : 'Update ingredient'"></legend>
+            <div th:if="${errorMessage}" th:text="${errorMessage}">General error</div>
             <p th:if="${actionType != 'create'}">Id: [[*{id}]]</p>
             <div>
                 <label for="title">Title</label>

@@ -1,6 +1,7 @@
 package com.example.restaurant.controller;
 
 
+import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.service.IngredientsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class IngredientsController {
 
     @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
     public ModelAndView printAll(ModelAndView mav) {
-        List<Ingredient> ingredient = ingredientService.findAll();
+        List<IngredientDto> ingredient = ingredientService.findAll();
         mav.setViewName("/Ingredients/ingredients");
         mav.addObject("ingredientList", ingredient);
 
@@ -41,23 +42,32 @@ public class IngredientsController {
     }
 
     @RequestMapping(value = "/ingredient", method = RequestMethod.POST)
-    public ModelAndView create(@ModelAttribute("ingredient") @Valid Ingredient ingredient, BindingResult result, ModelAndView mav) {
+    public ModelAndView create(@ModelAttribute("ingredient") @Valid IngredientDto ingredientDto,
+                               BindingResult bindingResult,
+                               ModelAndView mav) {
 
-        if (result.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             mav.setViewName("/Ingredients/createIngredient");
-            for (FieldError fieldError : result.getFieldErrors()) {
+            for (FieldError fieldError : bindingResult.getFieldErrors()) {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }
             mav.addObject("actionType", "create");
-            mav.addObject("ingredient", ingredient);
-        } else {
-            ingredientService.create(ingredient);
+            mav.addObject("ingredient", ingredientDto);
+            return mav;
+        }
+
+        final boolean result = ingredientService.create(ingredientDto);
+        if (result) {
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl("/ingredients");
             mav.setView(redirectView);
 
+            return mav;
         }
 
+        mav.addObject("errorMessage", "Object not created");
+        mav.addObject("actionType", "create");
+        mav.addObject("ingredient", ingredientDto);
         return mav;
     }
 
@@ -65,7 +75,7 @@ public class IngredientsController {
     public ModelAndView updateForm(@PathVariable("id") Long id, ModelAndView mav) {
 
         mav.setViewName("/Ingredients/createIngredient");
-        Ingredient ingredient = ingredientService.findById(id);
+        IngredientDto ingredient = ingredientService.findById(id);
         mav.addObject("ingredient", ingredient);
 
         return mav;
@@ -73,20 +83,20 @@ public class IngredientsController {
 
     @RequestMapping(value = "/ingredient/{id}", method = RequestMethod.PUT)
     public ModelAndView update(@PathVariable("id") Long id,
-                               @ModelAttribute("ingredient") @Valid Ingredient ingredient,
+                               @ModelAttribute("ingredient") @Valid IngredientDto ingredientDto,
                                BindingResult result,
                                ModelAndView mav) {
-
+        ingredientDto.setId(id);
         if (result.hasErrors()) {
             mav.setViewName("/Ingredients/createIngredient");
             for (FieldError fieldError : result.getFieldErrors()) {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }
-            mav.addObject("ingredient", ingredient);
+            mav.addObject("ingredient", ingredientDto);
             return mav;
         }
 
-        Ingredient updatedIngredient = ingredientService.update(ingredient);
+        IngredientDto updatedIngredient = ingredientService.update(ingredientDto);
         if (updatedIngredient == null) {
             mav.setViewName("/Ingredients/createIngredient");
             mav.addObject("generalError", "Some error occurred");
@@ -102,7 +112,7 @@ public class IngredientsController {
 
     @RequestMapping(value = "/ingredient/{id}", method = RequestMethod.DELETE)
     public RedirectView delete(@PathVariable("id") Long id) {
-        ingredientService.deleteIngredient(id);
+        ingredientService.deleteById(id);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/ingredients");
         return redirectView;

@@ -1,7 +1,5 @@
 package com.example.restaurant.dto;
 
-import com.example.restaurant.entity.Ingredient;
-
 public class IngredientDto {
     private Long id;
     private String title;
@@ -31,10 +29,4 @@ public class IngredientDto {
         this.calories = calories;
     }
 
-
-    public Ingredient _toDto(){
-        Ingredient ingredient = new Ingredient();
-        //set entity values here from StudentDTO
-        return ingredient ;
-    }
 }
