@@ -1,6 +1,5 @@
 package com.example.restaurant.service;
 
-import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.repository.IngredientRepository;
 import org.springframework.stereotype.Service;
@@ -27,12 +26,12 @@ public class IngredientsService {
         return true;
     }
 
-    public List<Ingredient> printIngredients() {
+    public List<Ingredient> findAll() {
         List<Ingredient> Ingredients = ingredientRepository.findAll();
         return Ingredients;
     }
 
-    public Ingredient findIngredient(Long id) {
+    public Ingredient findById(Long id) {
         Ingredient ingredientInfo = ingredientRepository.findIngredientById(id);
         return ingredientInfo;
     }
