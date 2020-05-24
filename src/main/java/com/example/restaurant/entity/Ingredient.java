@@ -14,6 +14,7 @@ public class Ingredient {
     private Long id;
 
     @Column(unique=true)
+    @Size(min = 3, max = 50)
     private String title;
 
     private int calories;

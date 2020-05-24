@@ -19,11 +19,11 @@ public class IngredientsService {
         this.ingredientRepository = ingredientRepository;
     }
 
-    public boolean create(IngredientDto ingredient) {
+    public boolean create(Ingredient ingredient) {
         if (ingredient.getId() != null) {
             return false;
         }
-        //ingredientRepository.saveAndFlush(ingredient);
+        ingredientRepository.saveAndFlush(ingredient);
         return true;
     }
 
@@ -47,7 +47,7 @@ public class IngredientsService {
 
     }
 
-    public Ingredient update(IngredientDto ingredient) {
+    public Ingredient update(Ingredient ingredient) {
         Ingredient updatedIngredient = ingredientRepository.findIngredientById(ingredient.getId());
         if (updatedIngredient == null) {
             return null;
