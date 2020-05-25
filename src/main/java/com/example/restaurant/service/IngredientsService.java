@@ -63,7 +63,7 @@ public class IngredientsService {
     }
 
     //TODO: make converter's methods static
-    public Ingredient toEntity(IngredientDto dto) {
+    public static Ingredient toEntity(IngredientDto dto) {
         if (dto == null) {
             return null;
         }
@@ -75,14 +75,14 @@ public class IngredientsService {
         return result;
     }
 
-    public List<IngredientDto> toDto(List<Ingredient> ingredients) {
+    public static List<IngredientDto> toDto(List<Ingredient> ingredients) {
         return ingredients
                 .stream()
-                .map(this::toDto)
+                .map(entity -> toDto(entity))
                 .collect(Collectors.toList());
     }
 
-    public IngredientDto toDto(Ingredient entity) {
+    public static IngredientDto toDto(Ingredient entity) {
         if (entity == null) {
             return null;
         }

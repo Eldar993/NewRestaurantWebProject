@@ -4,6 +4,7 @@ import com.example.restaurant.dto.DishDetailDto;
 import com.example.restaurant.dto.DishDto;
 import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.Dish;
+import com.example.restaurant.entity.DishType;
 import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.repository.DishRepository;
 import com.example.restaurant.repository.DishTypeRepository;
@@ -60,10 +61,10 @@ public class DishService {
         DishDto result = new DishDto();
         result.setId(dish.getId());
         result.setName(dish.getName());
-        //result.setDishTypeId(dish.getDishType());
+        result.setDishTypeId(dish.getDishType().getId());
         result.setPrice(dish.getPrice());
         result.setWeight(dish.getWeight());
-        //result.setIngredientIds(dish.);
+        result.setIngredientIds(dish.getIngredients().);
 
 
         return result;
@@ -76,7 +77,7 @@ public class DishService {
         }
         DishDetailDto result = new DishDetailDto();
         result.setDish(toDto(dish));
-        //result.setDishType(dish.getDishType());
+        result.setDishType(dish.getDishType());
         //result.setIngredient(dish.getIngredients());
         return result;
     }
