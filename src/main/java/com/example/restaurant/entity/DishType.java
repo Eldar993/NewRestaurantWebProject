@@ -23,8 +23,8 @@ public class DishType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DishType dishType = (DishType) o;
-        return Objects.equals(id, dishType.id) &&
-                Objects.equals(title, dishType.title);
+        return id.equals(dishType.id) &&
+                title.equals(dishType.title);
     }
 
     @Override

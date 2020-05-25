@@ -32,9 +32,4 @@ public class IngredientDto {
     }
 
 
-    public Ingredient _toDto(){
-        Ingredient ingredient = new Ingredient();
-        //set entity values here from StudentDTO
-        return ingredient ;
-    }
 }

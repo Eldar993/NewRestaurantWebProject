@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create Ingredient</title>
-    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css}"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title th:text="${actionType} == 'create' ? 'Create Ingredient' : 'Update Ingredient'">Create Ingredient</title>
+    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
 
 </head>
 <body>
+<div th:insert="/header :: header"></div>
 <div th:if="${ingredient == null}">UNKNOWN ID IN PATH</div>
 <div th:if="${ingredient != null}">
     <form action="/ingredients"
@@ -17,7 +17,9 @@
     >
         <fieldset>
             <legend th:text="${actionType == 'create'} ? 'Create new Ingredient' : 'Update ingredient'"></legend>
+<!--
             <div th:if="${errorMessage}" th:text="${errorMessage}">General error</div>
+-->
             <p th:if="${actionType != 'create'}">Id: [[*{id}]]</p>
             <div>
                 <label for="title">Title</label>

@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>My spring boot application</title>
-    <link href="../static/print_all.css" rel="stylesheet" type="text/css">
+    <!--<link href="../static/css/main.css" th:href="@{../static/css/main.css}" rel="stylesheet" type="text/css">-->
+    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
+<div th:insert="/header :: header"></div>
 <h1>Create user</h1>
 <!--div-->
 <!--    <h3>user name: </h3> &lt;!&ndash;/*@thymesVar id="jamesBond" type="com.example.restaurant.entity.User"*/&ndash;&gt;-->

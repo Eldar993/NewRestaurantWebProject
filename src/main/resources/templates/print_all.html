@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Print all</title>
-    <link href="../static/print_all.css" rel="stylesheet" type="text/css">
+    <!--<link href="../static/css/main.css" th:href="@{../static/css/main.css}" rel="stylesheet" type="text/css">-->
+    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
+<div th:insert="/header :: header"></div>
    <table>
        <!--/*@thymesVar id="usersList" type="java.util.List<com.example.restaurant.entity.User>"*/-->
        <nav>
