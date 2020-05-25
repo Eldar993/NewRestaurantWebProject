@@ -1,6 +1,7 @@
 package com.example.restaurant.service;
 
 import com.example.restaurant.dto.DishTypeDto;
+import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.DishType;
 import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.repository.DishTypeRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -63,7 +65,12 @@ public class DishTypeService {
 
         return result;
     }
-
+    public  static List<DishTypeDto> toDto(List<DishType> dishTypes) {
+        return dishTypes
+                .stream()
+                .map(entity -> toDto(entity))
+                .collect(Collectors.toList());
+    }
     public static DishType toEntity(DishTypeDto dto){
         if (dto == null) {
             return null;

@@ -56,7 +56,7 @@ public class UserController {
 
         System.out.println("login =" + user.getName());
         System.out.println("password =" + user.getPassword());
-        mav.setViewName("/login");
+        mav.setViewName("/main");
         userService.create(user);
         return mav;
     }

@@ -4,16 +4,11 @@
     <meta charset="UTF-8">
     <title>Delete all</title>
     <link href="../static/css/print_all.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
+
 </head>
 <body>
-   <!--/*@thymesVar id="userService" type="com.example.restaurant.controller.UserController"*/-->
-   <nav>
-       <tr>
-           <td><a th:href="@{/create}">Create</a></td>
-           <td><a th:href="@{/print_all}">Print All</a></td>
-           <td><a th:href="@{/delete_all}">Delete All</a></td>
-       </tr>
-   </nav>
+<div th:insert="/header :: header"></div>
    <h1 th:text="${deletedUsers}"></h1>
 </body>
 </html>
