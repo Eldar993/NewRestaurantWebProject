@@ -75,7 +75,7 @@ public class IngredientsService {
         return result;
     }
 
-    public static List<IngredientDto> toDto(List<Ingredient> ingredients) {
+    public  static List<IngredientDto> toDto(List<Ingredient> ingredients) {
         return ingredients
                 .stream()
                 .map(entity -> toDto(entity))

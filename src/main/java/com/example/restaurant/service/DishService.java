@@ -11,7 +11,9 @@ import com.example.restaurant.repository.DishTypeRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -64,8 +66,12 @@ public class DishService {
         result.setDishTypeId(dish.getDishType().getId());
         result.setPrice(dish.getPrice());
         result.setWeight(dish.getWeight());
-        result.setIngredientIds(dish.getIngredients().);
 
+        Set<Long> ingredientIds = new HashSet<>();
+        for(Ingredient ingredient : dish.getIngredients()){
+            ingredientIds.add(ingredient.getId());
+        }
+        result.setIngredientIds(ingredientIds);
 
         return result;
     }
@@ -77,8 +83,8 @@ public class DishService {
         }
         DishDetailDto result = new DishDetailDto();
         result.setDish(toDto(dish));
-        result.setDishType(dish.getDishType());
-        //result.setIngredient(dish.getIngredients());
+       // result.setDishType(toDto(dish.getDishType()));
+      //  result.setIngredient();
         return result;
     }
 }
