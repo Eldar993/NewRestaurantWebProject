@@ -1,13 +1,17 @@
 package com.example.restaurant.controller;
 
+import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.entity.User;
 import com.example.restaurant.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,14 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /* @RequestMapping(value = "/create", method = RequestMethod.GET)
-     public ModelAndView createUser(ModelAndView mav) {
-         User createdUser = userService.create();
-         mav.setViewName("create");
-         mav.addObject("jamesBond", createdUser);
 
-         return mav;
-     }*/
     @RequestMapping(value = "/print_all", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView printAll(ModelAndView mav, @ModelAttribute("user") User user) {
@@ -48,27 +45,48 @@ public class UserController {
         return mav;
     }
 
+    @RequestMapping(value = "/signIn", method = RequestMethod.GET)
+    public ModelAndView loginForm(ModelAndView mav) {
+
+        mav.setViewName("/signIn");
+        mav.addObject("userInfo", new User());
+        return mav;
+
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView login(@ModelAttribute("user") User user,
+    public ModelAndView login(@ModelAttribute("user") @Valid User user,
                               BindingResult result, ModelAndView mav) {
 
 
+        if (result.hasErrors()) {
+            mav.setViewName("/signIn");
+            for (FieldError fieldError : result.getFieldErrors()) {
+                mav.addObject(fieldError.getField() + "_hasError", true);
+            }
+            mav.addObject("userInfo", user);
+        } else {
+            userService.toDto(user);
+            userService.create(user);
 
-        mav.setViewName("/main");
-        userService.toDto(user);
-        userService.create(user);
+            RedirectView redirectView = new RedirectView();
+            redirectView.setUrl("/main");
+            mav.setView(redirectView);
+        }
+
+
         return mav;
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public ModelAndView change(@PathVariable("id") Long id,ModelAndView mav) {
+    public ModelAndView change(@PathVariable("id") Long id, ModelAndView mav) {
         ///// find user by id and return user's data
         Optional<User> user = userService.findUser(id);
 
         mav.setViewName("/user_profile");
         //Optional<AnyType>: "Optional[" + anyType.toString() + "]"
-        mav.addObject("userInfo",user.orElse(null));
+        mav.addObject("userInfo", user.orElse(null));
         //mav.addObject("isEven",userService.isEven(id));
 
 
@@ -76,8 +94,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
-    public ModelAndView change(@PathVariable("id") Long id, @ModelAttribute("user") User user,ModelAndView mav) {
-        if(id.equals(user.getId())){
+    public ModelAndView change(@PathVariable("id") Long id, @ModelAttribute("user") User user, ModelAndView mav) {
+        if (id.equals(user.getId())) {
             userService.findUser(id);
             userService.update(user);
         }
@@ -91,14 +109,13 @@ public class UserController {
         return mav;
     }
 
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView loginForm(ModelAndView mav) {
-
-        mav.setViewName("/login");
-
-        return mav;
-
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public RedirectView delete(@PathVariable("id") Long id){
+        userService.delete(id);
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/print_all");
+        return redirectView;
     }
 
 }

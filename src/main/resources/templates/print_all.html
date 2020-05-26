@@ -25,6 +25,10 @@
             <form th:object="${userInfo}" th:action="@{/users/{id}(id = ${user.id})}" th:method="GET">
                 <input type="submit" value="Update">
             </form>
+            <!--/*@thymesVar id="userInfo" type="com.example.restaurant.entity.User"*/-->
+            <form th:object="${userInfo}" th:action="@{/users/{id}(id=${user.id})}" th:method="DELETE">
+                <input type="submit" value="Delete">
+            </form>
         </td>
 
     </tr>

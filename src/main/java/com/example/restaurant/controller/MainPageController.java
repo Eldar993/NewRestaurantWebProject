@@ -14,12 +14,6 @@ public class MainPageController {
             mav.setViewName("/main");
             return mav;
         }
-    @RequestMapping(value = "/signIn", method =  RequestMethod.GET)
-    @ResponseBody
-    public ModelAndView signIn(ModelAndView mav){
-        mav.setViewName("/signIn");
-        return mav;
-    }
 
 
 }

@@ -1,12 +1,16 @@
 package com.example.restaurant.entity;
 
 import com.example.restaurant.enums.UserRoles;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 @Entity
 @Table(name = "users")
+
 public class User {
 
 
@@ -15,6 +19,7 @@ public class User {
     private Long id;
 
     @Column(unique = true)
+    @Pattern(regexp = "^[A-Za-z]+$",message = "User name can't contain numbers")
     private String name;
 
     private String password;

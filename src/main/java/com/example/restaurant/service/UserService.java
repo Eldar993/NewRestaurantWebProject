@@ -30,13 +30,6 @@ public class UserService {
         if (oldUser.isPresent()) {
             return false;
         }
-//        user.setPassword(generateRandomString(NAME_LENGTH*3));
-
-       /* jdbcTemplate.update("insert into users(id, name. password) values (:id, :name, :password)",
-                123,
-                user.getName(),
-                user.getPassword()
-        );*/
         userRepository.saveAndFlush(user);
         return true;
     }
@@ -78,6 +71,8 @@ public class UserService {
     public void deleteUsers() {
         userRepository.deleteAll();
     }
+
+    public void  delete(Long id){ userRepository.deleteById(id); }
 
     public static UserDto toDto(User user){
         if (user == null) {
