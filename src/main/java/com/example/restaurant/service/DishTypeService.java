@@ -33,8 +33,8 @@ public class DishTypeService {
         return dishTypeRepository.findAll();
     }
 
-    public Optional<DishType> findById(Long id) {
-        Optional<DishType> dishtype = dishTypeRepository.findById(id);
+    public DishType findById(Long id) {
+        DishType dishtype = dishTypeRepository.findDishTypeById(id);
         return dishtype;
     }
 
@@ -82,4 +82,7 @@ public class DishTypeService {
         return result;
     }
 
+    public void deleteAll() {
+        dishTypeRepository.deleteAll();
+    }
 }

@@ -31,12 +31,7 @@ public class IngredientsService {
     }
 
     public List<Ingredient> findAll() {
-//        List<Ingredient> ingredients = ingredientRepository.findAll();
-//        List<IngredientDto> result = new LinkedList<>();
-//        for (Ingredient ingredient : ingredients) {
-//            result.add(toDto(ingredient));
-//        }
-//        return result;
+
 
         return ingredientRepository.findAll();
     }

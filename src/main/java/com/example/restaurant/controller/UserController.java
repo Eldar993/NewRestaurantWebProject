@@ -43,7 +43,7 @@ public class UserController {
         userService.deleteUsers();
         String msg = "Successfully deleted all users";
         mav.setViewName("delete_all");
-        mav.addObject("deletedUsers", msg);
+        mav.addObject("deleted", msg);
 
         return mav;
     }
