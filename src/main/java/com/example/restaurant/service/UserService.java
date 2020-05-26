@@ -1,5 +1,6 @@
 package com.example.restaurant.service;
 
+import com.example.restaurant.dto.UserDto;
 import com.example.restaurant.entity.User;
 import com.example.restaurant.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,33 @@ public class UserService {
 
     public void deleteUsers() {
         userRepository.deleteAll();
+    }
+
+    public static UserDto toDto(User user){
+        if (user == null) {
+            return null;
+        }
+        UserDto result = new UserDto();
+        result.setId(user.getId());
+        result.setName(user.getName());
+        result.setPassword(user.getPassword());
+        result.setRole_id(user.getRole_id());
+
+        return result;
+    }
+
+    public static User toEntity(UserDto dto){
+        if (dto == null) {
+            return null;
+        }
+
+        User result = new User();
+        result.setId(dto.getId());
+        result.setName(dto.getName());
+        result.setPassword(dto.getPassword());
+        result.setRole_id(dto.getRole_id());
+
+        return result;
     }
 
 }

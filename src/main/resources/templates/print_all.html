@@ -8,19 +8,25 @@
 </head>
 <body>
 <div th:insert="/header :: header"></div>
-   <table>
-       <!--/*@thymesVar id="usersList" type="java.util.List<com.example.restaurant.entity.User>"*/-->
-       <nav>
-           <tr>
-               <td>ID</td>
-               <td>Name</td>
-               <td><a th:href="@{/delete_all}">Delete All</a></td>
-           </tr>
-       </nav>
-       <tr th:each="user: ${usersList}">
-           <td th:text="${user.id}" />
-           <td th:text="${user.name}" />
-       </tr>
-   </table>
+<table>
+    <!--/*@thymesVar id="usersList" type="java.util.List<com.example.restaurant.entity.User>"*/-->
+    <nav>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td><a th:href="@{/delete_all}">Delete All</a></td>
+        </tr>
+    </nav>
+    <tr th:each="user: ${usersList}" th:object="${userInfo}">
+        <td th:text="${user.id}"/>
+        <td th:text="${user.name}"/>
+        <td><!--/*@thymesVar id="userInfo" type="com.example.restaurant.entity.User"*/-->
+            <form th:object="${userInfo}" th:action="@{/users/{id}(id = ${user.id})}" th:method="GET">
+                <input type="submit" value="Update">
+            </form>
+        </td>
+
+    </tr>
+</table>
 </body>
 </html>

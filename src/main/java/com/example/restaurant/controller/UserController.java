@@ -27,12 +27,13 @@ public class UserController {
      }*/
     @RequestMapping(value = "/print_all", method = RequestMethod.GET)
     @ResponseBody
-    public ModelAndView printAll(ModelAndView mav) {
+    public ModelAndView printAll(ModelAndView mav, @ModelAttribute("user") User user) {
         List<User> printUsers = userService.printUsers();
+
         mav.setViewName("print_all");
         mav.addObject("usersList", printUsers);
 
-
+        mav.addObject("userInfo", user);
         return mav;
     }
 
@@ -54,9 +55,8 @@ public class UserController {
 
 
 
-        System.out.println("login =" + user.getName());
-        System.out.println("password =" + user.getPassword());
         mav.setViewName("/main");
+        userService.toDto(user);
         userService.create(user);
         return mav;
     }
@@ -64,8 +64,8 @@ public class UserController {
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public ModelAndView change(@PathVariable("id") Long id,ModelAndView mav) {
         ///// find user by id and return user's data
-        System.out.println("=============================================================");
         Optional<User> user = userService.findUser(id);
+
         mav.setViewName("/user_profile");
         //Optional<AnyType>: "Optional[" + anyType.toString() + "]"
         mav.addObject("userInfo",user.orElse(null));
@@ -82,6 +82,7 @@ public class UserController {
             userService.update(user);
         }
         mav.setViewName("/user_profile");
+        userService.toDto(user);
         mav.addObject("userInfo", user);
         // mav.addObject("newUserName",user.getName());
         // mav.addObject("newUserPassword",user.getPassword());
