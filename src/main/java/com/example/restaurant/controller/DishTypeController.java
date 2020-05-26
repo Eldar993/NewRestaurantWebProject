@@ -1,5 +1,6 @@
 package com.example.restaurant.controller;
 
+import com.example.restaurant.dto.DishTypeDto;
 import com.example.restaurant.entity.Dish;
 import com.example.restaurant.entity.DishType;
 import com.example.restaurant.entity.Ingredient;
@@ -27,13 +28,13 @@ public class DishTypeController {
     @RequestMapping(value = "/dishTypes", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView printAll(ModelAndView mav) {
-        List<DishType> dishTypeList = dishTypeService.findAll();
-        dishTypeService.toDto(dishTypeList);
+        List<DishTypeDto> dishTypeList = DishTypeService.toDto(dishTypeService.findAll());
         mav.setViewName("/DishTypes/dishTypes");
         mav.addObject("dishTypeList",dishTypeList);
 
         return mav;
     }
+
 
     @RequestMapping(value = "/dishType", method = RequestMethod.GET)
     @ResponseBody

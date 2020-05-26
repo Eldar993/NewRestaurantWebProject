@@ -65,13 +65,15 @@ public class DishTypeService {
 
         return result;
     }
-    public  static List<DishTypeDto> toDto(List<DishType> dishTypes) {
+
+    public static List<DishTypeDto> toDto(List<DishType> dishTypes) {
         return dishTypes
                 .stream()
                 .map(entity -> toDto(entity))
                 .collect(Collectors.toList());
     }
-    public static DishType toEntity(DishTypeDto dto){
+
+    public static DishType toEntity(DishTypeDto dto) {
         if (dto == null) {
             return null;
         }

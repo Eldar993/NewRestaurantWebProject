@@ -7,18 +7,19 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 //TODO: Change returned types and input methods arguments from Dto to Entity
 //      convert entity to dto in Controller layer
-public class IngredientsService {
+public class IngredientService {
 
     private final IngredientRepository ingredientRepository;
 
 
-    public IngredientsService(IngredientRepository ingredientRepository) {
+    public IngredientService(IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
     }
 
@@ -70,10 +71,17 @@ public class IngredientsService {
         return result;
     }
 
-    public  static List<IngredientDto> toDto(List<Ingredient> ingredients) {
+    public static Set<IngredientDto> toDto(Set<Ingredient> ingredients) {
         return ingredients
                 .stream()
-                .map(entity -> toDto(entity))
+                .map(IngredientService::toDto)
+                .collect(Collectors.toSet());
+    }
+
+    public static List<IngredientDto> toDto(List<Ingredient> ingredients) {
+        return ingredients
+                .stream()
+                .map(IngredientService::toDto)
                 .collect(Collectors.toList());
     }
 

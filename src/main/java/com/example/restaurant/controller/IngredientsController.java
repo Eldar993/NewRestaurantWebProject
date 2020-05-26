@@ -1,7 +1,8 @@
 package com.example.restaurant.controller;
 
+import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.Ingredient;
-import com.example.restaurant.service.IngredientsService;
+import com.example.restaurant.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,13 +21,12 @@ import java.util.List;
 @Controller
 public class IngredientsController {
     @Autowired
-    private IngredientsService ingredientService;
+    private IngredientService ingredientService;
 
     @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
     @ResponseBody
     public ModelAndView printAll(ModelAndView mav) {
-        List<Ingredient> ingredient = ingredientService.findAll();
-        ingredientService.toDto(ingredient);
+        List<IngredientDto> ingredient = IngredientService.toDto(ingredientService.findAll());
         mav.setViewName("/Ingredients/ingredients");
         mav.addObject("allIngredients", ingredient);
 
@@ -45,17 +45,17 @@ public class IngredientsController {
 
     @RequestMapping(value = "/ingredient", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView create(@ModelAttribute("ingredient") @Valid Ingredient ingredient, BindingResult result, ModelAndView mav) {
-        ingredientService.toDto(ingredient);
+    public ModelAndView create(@ModelAttribute("ingredient") @Valid IngredientDto ingredientDto, BindingResult result, ModelAndView mav) {
         if (result.hasErrors()) {
             mav.setViewName("/Ingredients/ingredientForm");
             for (FieldError fieldError : result.getFieldErrors()) {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }
             mav.addObject("actionType", "create");
-            mav.addObject("ingredient", ingredient);
+            mav.addObject("ingredient", ingredientDto);
         } else {
-            ingredientService.create(ingredient);
+            Ingredient entity = IngredientService.toEntity(ingredientDto);
+            ingredientService.create(entity);
 
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl("/ingredients");
