@@ -8,6 +8,32 @@
 </head>
 <body>
 <div th:insert="/header :: header"></div>
-
+<table id="Ingredient" class="table">
+    <tr>
+        <td scope="col">Id</td>
+        <td scope="col">Dish Type</td>
+        <td scope="col">Price</td>
+        <td scope="col">Name</td>
+        <td scope="col">Weight</td>
+        <td scope="col">Ingredients</td>
+    </tr>
+    <!--<tr th:each="ingredient: ${allIngredients}" th:object="${ingredient}">
+        <td th:text="*{id}">Id</td>
+        <td th:text="*{dishType}">Dish Type</td>
+        <td th:text="*{price}">Price</td>
+        <td th:text="*{name}">Name</td>
+        <td th:text="*{weight}">Weight</td>
+        <td th:text="*{ingredients}">Ingredients</td>
+        <td>
+            <form th:action="@{/ingredient/{id}(id=*{id})}" th:method="GET">
+                <button value="Update">Update</button>
+            </form>
+            <form th:action="@{/ingredient/{id}(id=*{id})}" th:method="DELETE">
+                <button value="delete" name="removeRow">Delete</button>
+            </form>
+        </td>
+    </tr>-->
+</table>
+<button><a th:href="@{/dishes}">Create dish</a></button>
 </body>
 </html>
