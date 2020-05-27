@@ -27,10 +27,12 @@
 
     <a class="cta" th:href="@{/signIn}">Sign In</a>
 
-    <button type="button" class="btn btn-default btn-lg">
-        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Shopping cart
-    </button>
 
+    <form th:action="@{/basket}" th:method="GET">
+        <button type="button" class="btn btn-default btn-lg" value="Basket">
+            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span><a th:href="@{/basket}"> Basket</a>
+        </button>
+    </form>
     <p class="menu cta">Menu</p>
 </header>
 <div class="overlay">

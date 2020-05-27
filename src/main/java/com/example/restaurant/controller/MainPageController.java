@@ -9,11 +9,18 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainPageController {
     @RequestMapping(value = "/main", method =  RequestMethod.GET)
-    @ResponseBody
         public ModelAndView mainPage(ModelAndView mav){
             mav.setViewName("/main");
             return mav;
         }
+
+    @RequestMapping(value = "/basket", method =  RequestMethod.GET)
+    public ModelAndView basketPage(ModelAndView mav){
+        mav.setViewName("/basket");
+        return mav;
+    }
+
+
 
 
 }
