@@ -22,8 +22,8 @@
 
             <p th:if="${actionType != 'create'}">Id: [[*{id}]]</p>
             <div>
-                <label for="dishTypeId">DishType</label>
-                <input type="text" id="dishTypeId" size="15" maxlength="20" required th:field="*{dishType}">
+                <label for="dishTypeId">Dish Type id</label>
+                <input type="text" id="dishTypeId" size="15" maxlength="20" required th:field="*{dishTypeId}">
             </div>
             <div>
                 <label for="name">Name</label>
@@ -37,10 +37,10 @@
                 <label for="weight">Weight</label>
                 <input type="text" id="weight" size="15" required th:field="*{weight}">
             </div>
-            <!--<div>
+            <div>
                 <label for="ingredientIds">Ingredient id</label>
-                <input type="text" id="ingredientIds" size="15" required th:field="*{igredients}">
-            </div>-->
+                <input type="text" id="ingredientIds" size="15" required th:field="*{ingredientIds}">
+            </div>
 
 
             <input type="submit" value="Create" th:value="${actionType} == 'create' ? 'Create' : 'Update'">

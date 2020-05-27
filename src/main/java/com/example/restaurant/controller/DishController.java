@@ -41,7 +41,7 @@ public class DishController {
     public ModelAndView createForm(@ModelAttribute ModelAndView mav) {
 
         mav.setViewName("/Dishes/dishForm");
-        mav.addObject("dish", new Dish());
+        mav.addObject("dish", new DishDto());
         mav.addObject("actionType", "create");
         return mav;
     }
