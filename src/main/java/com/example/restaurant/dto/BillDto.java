@@ -1,21 +1,11 @@
-package com.example.restaurant.entity;
+package com.example.restaurant.dto;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-@Entity
-@Table(name = "bills")
-public class Bills {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+public class BillDto {
     private Long id;
-
     private Long order_id;
-
     private Float paid_sum;
-
-    @Column
     private LocalDateTime complete_time;
 
     public Long getId() {
