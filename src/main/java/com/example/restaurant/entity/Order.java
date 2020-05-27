@@ -13,14 +13,15 @@ public class Order {
     @Id
     private Long id;
 
-  /*  @Basic
-    @Temporal(TemporalType.DATE)
-    private java.util.Date order_time;*/
-
     @Column
-    private LocalDateTime order_time;
+    private LocalDateTime createdAt;
+
 
     private Long user_id;
+
+    @Enumerated(EnumType.ORDINAL)
+    private OrderStatus orderStatus;
+
 
     public Long getId() {
         return id;
@@ -30,12 +31,12 @@ public class Order {
         this.id = id;
     }
 
-    public LocalDateTime getOrder_time() {
-        return order_time;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setOrder_time(LocalDateTime order_time) {
-        this.order_time = order_time;
+    public void setCreatedAt(LocalDateTime order_time) {
+        this.createdAt = order_time;
     }
 
     public Long getUser_id() {
@@ -54,7 +55,6 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    private OrderStatus orderStatus;
 
     @Override
     public boolean equals(Object o) {
@@ -62,21 +62,21 @@ public class Order {
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
         return id.equals(order.id) &&
-                order_time.equals(order.order_time) &&
+                createdAt.equals(order.createdAt) &&
                 user_id.equals(order.user_id) &&
                 orderStatus == order.orderStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, order_time, user_id, orderStatus);
+        return Objects.hash(id, createdAt, user_id, orderStatus);
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", order_time=" + order_time +
+                ", order_time=" + createdAt +
                 ", user_id=" + user_id +
                 ", orderStatus=" + orderStatus +
                 '}';

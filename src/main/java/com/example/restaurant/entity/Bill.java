@@ -2,21 +2,20 @@ package com.example.restaurant.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "bills")
-public class Bills {
+public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private Long order_id;
+    private Order order;
 
     private Float paid_sum;
 
     @Column
-    private LocalDateTime complete_time;
+    private LocalDateTime completedAt;
 
     public Long getId() {
         return id;
@@ -26,12 +25,13 @@ public class Bills {
         this.id = id;
     }
 
-    public Long getOrder_id() {
-        return order_id;
+
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrder_id(Long order_id) {
-        this.order_id = order_id;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Float getPaid_sum() {
@@ -42,11 +42,11 @@ public class Bills {
         this.paid_sum = paid_sum;
     }
 
-    public LocalDateTime getComplete_time() {
-        return complete_time;
+    public LocalDateTime getCompletedAt() {
+        return completedAt;
     }
 
-    public void setComplete_time(LocalDateTime complete_time) {
-        this.complete_time = complete_time;
+    public void setCompletedAt(LocalDateTime complete_time) {
+        this.completedAt = complete_time;
     }
 }

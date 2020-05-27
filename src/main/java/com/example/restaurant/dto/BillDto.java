@@ -1,12 +1,14 @@
 package com.example.restaurant.dto;
 
+import com.example.restaurant.entity.Order;
+
 import java.time.LocalDateTime;
 
 public class BillDto {
     private Long id;
-    private Long order_id;
+    private Order order;
     private Float paid_sum;
-    private LocalDateTime complete_time;
+    private LocalDateTime completedAt;
 
     public Long getId() {
         return id;
@@ -16,12 +18,12 @@ public class BillDto {
         this.id = id;
     }
 
-    public Long getOrder_id() {
-        return order_id;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrder_id(Long order_id) {
-        this.order_id = order_id;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Float getPaid_sum() {
@@ -32,11 +34,11 @@ public class BillDto {
         this.paid_sum = paid_sum;
     }
 
-    public LocalDateTime getComplete_time() {
-        return complete_time;
+    public LocalDateTime getCompletedAt() {
+        return completedAt;
     }
 
-    public void setComplete_time(LocalDateTime complete_time) {
-        this.complete_time = complete_time;
+    public void setCompletedAt(LocalDateTime completedAt) {
+        this.completedAt = completedAt;
     }
 }
