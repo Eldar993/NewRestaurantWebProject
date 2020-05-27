@@ -1,6 +1,8 @@
 package com.example.restaurant.service;
 
+import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.dto.UserDto;
+import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.entity.User;
 import com.example.restaurant.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -86,7 +89,12 @@ public class UserService {
 
         return result;
     }
-
+    public static List<UserDto> toDto(List<User> users) {
+        return users
+                .stream()
+                .map(UserService::toDto)
+                .collect(Collectors.toList());
+    }
     public static User toEntity(UserDto dto){
         if (dto == null) {
             return null;

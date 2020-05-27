@@ -1,6 +1,7 @@
 package com.example.restaurant.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -14,9 +15,8 @@ public class Bills {
 
     private Float paid_sum;
 
-    @Basic
-    @Temporal(TemporalType.DATE)
-    private java.util.Date complete_time;
+    @Column
+    private LocalDateTime complete_time;
 
     public Long getId() {
         return id;
@@ -42,11 +42,11 @@ public class Bills {
         this.paid_sum = paid_sum;
     }
 
-    public Date getComplete_time() {
+    public LocalDateTime getComplete_time() {
         return complete_time;
     }
 
-    public void setComplete_time(Date complete_time) {
+    public void setComplete_time(LocalDateTime complete_time) {
         this.complete_time = complete_time;
     }
 }

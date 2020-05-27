@@ -134,3 +134,11 @@ td{
 a{
     text-decoration: none;
 }
+.card{
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+#dishes{
+    text-align: center;
+}

@@ -19,16 +19,14 @@ public class User {
     private Long id;
 
     @Column(unique = true)
-    @Pattern(regexp = "^[A-Za-z]+$",message = "User name can't contain numbers")
+    @Pattern(regexp = "^[A-Za-z]+$", message = "User name can't contain numbers")
     private String name;
 
     private String password;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name="UserRole")
+    @Column(name = "UserRole")
     private UserRoles role_id;
-
-
 
 
     public Long getId() {

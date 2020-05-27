@@ -24,7 +24,6 @@ public class IngredientsController {
     private IngredientService ingredientService;
 
     @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
-    @ResponseBody
     public ModelAndView printAll(ModelAndView mav) {
         List<IngredientDto> ingredient = IngredientService.toDto(ingredientService.findAll());
         mav.setViewName("/Ingredients/ingredients");
@@ -34,7 +33,6 @@ public class IngredientsController {
     }
 
     @RequestMapping(value = "/ingredient", method = RequestMethod.GET)
-    @ResponseBody
     public ModelAndView createForm(@ModelAttribute ModelAndView mav) {
 
         mav.setViewName("/Ingredients/ingredientForm");
@@ -44,7 +42,6 @@ public class IngredientsController {
     }
 
     @RequestMapping(value = "/ingredient", method = RequestMethod.POST)
-    @ResponseBody
     public ModelAndView create(@ModelAttribute("ingredient") @Valid IngredientDto ingredientDto, BindingResult result, ModelAndView mav) {
         if (result.hasErrors()) {
             mav.setViewName("/Ingredients/ingredientForm");
@@ -68,29 +65,28 @@ public class IngredientsController {
     }
 
     @RequestMapping(value = "/ingredient/{id}", method = RequestMethod.GET)
-    @ResponseBody
     public ModelAndView updateForm(@PathVariable("id") Long id, ModelAndView mav) {
 
         mav.setViewName("/Ingredients/ingredientForm");
         Ingredient ingredient = ingredientService.findById(id);
-        ingredientService.toDto(ingredient);
+        IngredientService.toDto(ingredient);
         mav.addObject("ingredient", ingredient);
 
         return mav;
     }
 
     @RequestMapping(value = "/ingredient/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public ModelAndView update(@PathVariable("id") Long id, @ModelAttribute("ingredient") @Valid Ingredient ingredient, BindingResult result, ModelAndView mav) {
+    public ModelAndView update(@PathVariable("id") Long id, @ModelAttribute("ingredient") @Valid IngredientDto ingredientDto, BindingResult result, ModelAndView mav) {
 
         if (result.hasErrors()) {
             mav.setViewName("/Ingredients/ingredientForm");
             for (FieldError fieldError : result.getFieldErrors()) {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }
-            mav.addObject("ingredient", ingredient);
+            mav.addObject("ingredient", ingredientDto);
         } else {
-            Ingredient updatedIngredient = ingredientService.update(ingredient);
+            Ingredient entity = IngredientService.toEntity(ingredientDto);
+            Ingredient updatedIngredient = ingredientService.update(entity);
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl("/ingredients");
             mav.setView(redirectView);
@@ -100,7 +96,6 @@ public class IngredientsController {
     }
 
     @RequestMapping(value = "/ingredient/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
     public RedirectView delete(@PathVariable("id") Long id) {
         ingredientService.deleteById(id);
         RedirectView redirectView = new RedirectView();

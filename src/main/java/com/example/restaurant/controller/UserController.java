@@ -1,7 +1,9 @@
 package com.example.restaurant.controller;
 
+import com.example.restaurant.dto.UserDto;
 import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.entity.User;
+import com.example.restaurant.service.IngredientService;
 import com.example.restaurant.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,19 +25,17 @@ public class UserController {
 
 
     @RequestMapping(value = "/print_all", method = RequestMethod.GET)
-    @ResponseBody
-    public ModelAndView printAll(ModelAndView mav, @ModelAttribute("user") User user) {
-        List<User> printUsers = userService.printUsers();
+    public ModelAndView printAll(ModelAndView mav, @ModelAttribute("user") UserDto userDto) {
+        List<UserDto> printUsers = UserService.toDto(userService.printUsers());
 
         mav.setViewName("print_all");
         mav.addObject("usersList", printUsers);
 
-        mav.addObject("userInfo", user);
+        mav.addObject("userInfo", userDto);
         return mav;
     }
 
     @RequestMapping(value = "/delete_all", method = RequestMethod.GET)
-    @ResponseBody
     public ModelAndView deleteAll(ModelAndView mav) {
         userService.deleteUsers();
         String msg = "Successfully deleted all users";
@@ -49,14 +49,13 @@ public class UserController {
     public ModelAndView loginForm(ModelAndView mav) {
 
         mav.setViewName("/signIn");
-        mav.addObject("userInfo", new User());
+        mav.addObject("userInfo", new UserDto());
         return mav;
 
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
-    public ModelAndView login(@ModelAttribute("user") @Valid User user,
+    public ModelAndView login(@ModelAttribute("userInfo") @Valid UserDto userDto,
                               BindingResult result, ModelAndView mav) {
 
 
@@ -65,10 +64,10 @@ public class UserController {
             for (FieldError fieldError : result.getFieldErrors()) {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }
-            mav.addObject("userInfo", user);
+            mav.addObject("userInfo", userDto);
         } else {
-            userService.toDto(user);
-            userService.create(user);
+            User entity = UserService.toEntity(userDto);
+            userService.create(entity);
 
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl("/main");
@@ -94,24 +93,20 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
-    public ModelAndView change(@PathVariable("id") Long id, @ModelAttribute("user") User user, ModelAndView mav) {
-        if (id.equals(user.getId())) {
+    public ModelAndView change(@PathVariable("id") Long id, @ModelAttribute("user") UserDto userDto, ModelAndView mav) {
+        User entity = UserService.toEntity(userDto);
+        if (id.equals(userDto.getId())) {
             userService.findUser(id);
-            userService.update(user);
+            userService.update(entity);
         }
         mav.setViewName("/user_profile");
-        userService.toDto(user);
-        mav.addObject("userInfo", user);
-        // mav.addObject("newUserName",user.getName());
-        // mav.addObject("newUserPassword",user.getPassword());
 
-        // change user's data (find by id, if user was found then update information)
+        mav.addObject("userInfo", userDto);
         return mav;
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public RedirectView delete(@PathVariable("id") Long id){
+    public RedirectView delete(@PathVariable("id") Long id) {
         userService.delete(id);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/print_all");

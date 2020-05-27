@@ -3,12 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Dishes</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
+
 </head>
 <body>
+
 <div th:insert="/header :: header"></div>
+<div id="dishes">
+<div class="card" style="width: 18rem;">
+    <img th:src="@{/images/pizza.jpg}" src="/images/pizza.jpg" class="card-img-top" alt="pizza">
+    <div class="card-body">
+        <h5 class="card-title">Pizza</h5>
+        <p class="card-text">Pizza with cheese and ham.</p>
+        <a href="#" class="btn btn-primary">Add to cart</a>
+    </div>
+</div>
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Burger</h5>
+        <p class="card-text">Burger with meat and ketchup.</p>
+        <a href="#" class="btn btn-primary">Add to cart</a>
+    </div>
+</div>
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Napoleon</h5>
+        <p class="card-text">Big nice cake.</p>
+        <a href="#" class="btn btn-primary">Add to cart</a>
+    </div>
+</div>
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Cesar salad</h5>
+        <p class="card-text">Salad with chicken and vegetables.</p>
+        <a href="#" class="btn btn-primary">Add to cart</a>
+    </div>
+</div>
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Hot dog</h5>
+        <p class="card-text">Hot dog with sausage and bread.</p>
+        <a href="#" class="btn btn-primary">Add to cart</a>
+    </div>
+</div>
+</div>
 <table id="Ingredient" class="table">
+
     <tr>
         <td scope="col">Id</td>
         <td scope="col">Dish Type</td>
