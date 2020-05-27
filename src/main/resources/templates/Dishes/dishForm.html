@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Dish form</title>
+    <title th:text="${actionType} == 'create' ? 'Create dish' : 'Update dish'">Dish</title>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
+<div th:insert="/header :: header"></div>
+<div th:if="${dish == null}">UNKNOWN ID IN PATH</div>
+<div th:if="${dish != null}">
+    <form action="/dishes"
+          th:object="${dish}"
+          th:action="@{${actionType == 'create' ? '/dish' : ('/dish/' + dish.id)}}"
+          th:method="${actionType == 'create' ?  'POST' : 'PUT'}"
+    >
+        <fieldset>
+            <legend th:text="${actionType == 'create'} ? 'Create new dish' : 'Update dish'"></legend>
 
+            <p th:if="${actionType != 'create'}">Id: [[*{id}]]</p>
+            <div>
+                <label for="dishTypeId">DishType</label>
+                <input type="text" id="dishTypeId" size="15" maxlength="20" required th:field="*{dishType}">
+            </div>
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" size="15" required th:field="*{name}">
+            </div>
+            <div>
+                <label for="price">Price</label>
+                <input type="text" id="price" size="15" required th:field="*{price}">
+            </div>
+            <div>
+                <label for="weight">Weight</label>
+                <input type="text" id="weight" size="15" required th:field="*{weight}">
+            </div>
+            <!--<div>
+                <label for="ingredientIds">Ingredient id</label>
+                <input type="text" id="ingredientIds" size="15" required th:field="*{igredients}">
+            </div>-->
+
+
+            <input type="submit" value="Create" th:value="${actionType} == 'create' ? 'Create' : 'Update'">
+        </fieldset>
+
+    </form>
+</div>
 </body>
 </html>

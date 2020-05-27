@@ -98,7 +98,7 @@ public class DishService {
         return result;
     }
 
-    public Dish toEntity(DishDto dto) {
+    public  Dish toEntity(DishDto dto) {
         if (dto == null) {
             return null;
         }
@@ -116,13 +116,14 @@ public class DishService {
     public List<Dish> findAll() {
         return dishRepository.findAll();
     }
-  /*  public boolean create(Dish dish) {
+
+    public boolean create(Dish dish) {
         if (dish.getId() != null) {
             return false;
         }
         dishRepository.saveAndFlush(dish);
         return true;
     }
-*/
+
 
 }

@@ -10,6 +10,7 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @ManyToOne
     private Order order;
 
     private Float paid_sum;
