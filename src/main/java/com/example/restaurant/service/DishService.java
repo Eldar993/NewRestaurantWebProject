@@ -124,6 +124,30 @@ public class DishService {
         dishRepository.saveAndFlush(dish);
         return true;
     }
+    public Dish findById(Long id) {
+        Dish dish = dishRepository.findDishById(id);
+        return dish;
+    }
+
+    public void deleteById(Long id) {
+        dishRepository.deleteById(id);
+    }
+
+    public Dish update(Dish dish) {
+        Dish updatedDish = dishRepository.findDishById(dish.getId());
+        if (updatedDish == null) {
+            return null;
+        }
+        updatedDish.setDishType(dish.getDishType());
+        updatedDish.setName(dish.getName());
+        updatedDish.setWeight(dish.getWeight());
+        updatedDish.setPrice(dish.getPrice());
+
+
+
+        final Dish result = dishRepository.saveAndFlush(updatedDish);
+        return result;
+    }
 
 
 }
