@@ -10,11 +10,9 @@
 </head>
 <body>
 <div th:insert="/header :: header"></div>
-<div th:if="${dish != null}">
     <form action="/dishes"
           th:object="${dish}"
-          th:action="@{${actionType == 'create' ? '/dish' : ('/dish/' + dish.id)}}"
-          th:method="${actionType == 'add' ?  'POST' : 'DELETE'}"
+          th:method="${actionType == 'add' ?  'PUT' : 'DELETE'}"
     >
         <fieldset>
             <legend th:text="${actionType == 'create'} ? 'Create new dish' : 'Update dish'"></legend>
@@ -31,7 +29,6 @@
         </fieldset>
 
     </form>
-</div>
 
 </body>
 </html>
