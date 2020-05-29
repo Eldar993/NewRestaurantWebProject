@@ -26,6 +26,8 @@ public class DishController {
     private DishService dishService;
     @Autowired
     private DishTypeService dishTypeService;
+    @Autowired
+    private IngredientService ingredientService;
 
     @RequestMapping(value = "/dishes", method = RequestMethod.GET)
     public ModelAndView printAll(ModelAndView mav) {
@@ -43,11 +45,12 @@ public class DishController {
     @RequestMapping(value = "/dish", method = RequestMethod.GET)
     public ModelAndView createForm(ModelAndView mav) {
         List<DishTypeDto> dishTypeList = DishTypeService.toDto(dishTypeService.findAll());
+        List<IngredientDto> ingredientList = IngredientService.toDto(ingredientService.findAll());
 
         mav.setViewName("/Dishes/dishForm");
         mav.addObject("dish", new DishDto());
         mav.addObject("dishTypeList",dishTypeList);
-
+        mav.addObject("ingredientList",ingredientList);
         mav.addObject("actionType", "create");
         return mav;
     }

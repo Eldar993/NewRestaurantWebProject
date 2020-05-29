@@ -98,7 +98,7 @@ public class DishService {
         return result;
     }
 
-    public Dish toEntity(DishDto dto) {
+    public  Dish toEntity(DishDto dto) {
         if (dto == null) {
             return null;
         }
