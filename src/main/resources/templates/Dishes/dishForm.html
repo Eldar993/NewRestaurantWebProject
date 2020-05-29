@@ -40,13 +40,13 @@
                 <label for="weight">Weight</label>
                 <input type="text" id="weight" size="15" required th:field="*{weight}">
             </div>
-            <ul>
-                <li th:each="ingredient : ${ingredientList}">
-                    <input type="checkbox" th:field="*{ingredient.title}" th:value="${ingredient.title}" />
-                    <!--<label th:for="${#ids.prev('features')}"
-                           th:text="#{${'seedstarter.feature.' + feat}}">Heating</label>-->
-                </li>
-            </ul>
+            <div>
+                <label for="Ingredients">DishType:</label>
+                <th:block  th:each="ingredient : ${ingredientList}">
+                    <input id ="Ingredients" type="checkbox" name="ingredient" th:value="${ingredient.title}"/>
+                    <label th:text="${ingredient.title}"></label>
+                </th:block>
+            </div>
 
 
             <input type="submit" value="Create" th:value="${actionType} == 'create' ? 'Create' : 'Update'">
