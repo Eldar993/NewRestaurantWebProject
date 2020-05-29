@@ -24,6 +24,8 @@ import java.util.List;
 public class DishController {
     @Autowired
     private DishService dishService;
+    @Autowired
+    private DishTypeService dishTypeService;
 
     @RequestMapping(value = "/dishes", method = RequestMethod.GET)
     public ModelAndView printAll(ModelAndView mav) {
@@ -39,16 +41,19 @@ public class DishController {
     }
 
     @RequestMapping(value = "/dish", method = RequestMethod.GET)
-    public ModelAndView createForm(@ModelAttribute ModelAndView mav) {
+    public ModelAndView createForm(ModelAndView mav) {
+        List<DishTypeDto> dishTypeList = DishTypeService.toDto(dishTypeService.findAll());
 
         mav.setViewName("/Dishes/dishForm");
         mav.addObject("dish", new DishDto());
+        mav.addObject("dishTypeList",dishTypeList);
+
         mav.addObject("actionType", "create");
         return mav;
     }
 
     @RequestMapping(value = "/dish", method = RequestMethod.POST)
-    public ModelAndView create(@ModelAttribute("dish") @Valid DishDto dishDto, BindingResult result, ModelAndView mav) {
+    public ModelAndView create(@ModelAttribute("dish") @Valid DishDto dishDto,DishType dishType, BindingResult result, ModelAndView mav) {
 
         if (result.hasErrors()) {
             mav.setViewName("/Dishes/dishForm");
@@ -57,7 +62,9 @@ public class DishController {
             }
             mav.addObject("actionType", "create");
             mav.addObject("dish", dishDto);
+
         } else {
+            mav.addObject("dishType", dishType);
             Dish entity = dishService.toEntity(dishDto);
             dishService.create(entity);
 

@@ -22,8 +22,10 @@
 
             <p th:if="${actionType != 'create'}">Id: [[*{id}]]</p>
             <div>
-                <label for="dishTypeId">Dish Type id</label>
-                <input type="text" id="dishTypeId" size="15" maxlength="20" required th:field="*{dishTypeId}">
+                <label for="dishTypes">DishType:</label>
+                <select class="form-control" id="dishTypes"  th:field="*{title}">
+                    <option th:each="dishType: ${dishTypeList}" th:value="${title}" th:text="${title}"></option>
+                </select>
             </div>
             <div>
                 <label for="name">Name</label>

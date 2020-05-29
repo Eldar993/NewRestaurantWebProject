@@ -79,7 +79,9 @@
             <form th:action="@{/dish/{id}(id=*{id})}" th:method="DELETE">
                 <button value="delete" name="removeRow">Delete</button>
             </form>
-            <form th:action="@{/dish/{id}/ingredient(id=*{id})}" th:method="PUT">
+        </td>
+        <td>
+            <form th:action="@{/dish/{id}/ingredient(id=*{id})}" th:method="GET">
                 <button value="add ingredient">Add ingredient</button>
             </form>
             <form th:action="@{/dish/{id}/ingredient(id=*{id})}" th:method="DELETE">
