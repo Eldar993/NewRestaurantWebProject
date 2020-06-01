@@ -36,10 +36,15 @@ public class OrderController {
 
     @RequestMapping(value = "/order", method = RequestMethod.GET)
     public ModelAndView create(ModelAndView mav, DishDto dishDto, OrderDto orderDto){
-        //Order order = orderService.
+
+
+        Order order = orderService.toEntity(orderDto);
         Dish entity = dishService.toEntity(dishDto);
 
         orderService.create(order);
+
+        mav.addObject("order",order);
+        return mav;
     }
 
 
