@@ -84,12 +84,7 @@ public class DishService {
                 .map(entity -> toDto(entity))
                 .collect(Collectors.toList());
     }
-    public static List<DishDetailDto> toDetailDto(List<Dish> dishes) {
-        return dishes
-                .stream()
-                .map(entity -> toDetailDto(entity))
-                .collect(Collectors.toList());
-    }
+
 
 
     //TODO: add implementation
@@ -105,6 +100,12 @@ public class DishService {
         result.setDishType(DishTypeService.toDto(dish.getDishType()));
         result.setIngredient(IngredientService.toDto(dish.getIngredients()));
         return result;
+    }
+    public static List<DishDetailDto> toDetailDto(List<Dish> dishes) {
+        return dishes
+                .stream()
+                .map(entity -> toDetailDto(entity))
+                .collect(Collectors.toList());
     }
 
     public  Dish toEntity(DishDto dto) {

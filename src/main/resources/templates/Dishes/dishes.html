@@ -55,7 +55,7 @@
     </div>
 </div>
 </div>
-<table id="Ingredient" class="table">
+<table id="Dishes" class="table">
 
     <tr>
         <td scope="col">Id</td>
@@ -65,13 +65,13 @@
         <td scope="col">Weight</td>
         <td scope="col">Ingredients</td>
     </tr>
-    <tr th:each="dish: ${dishList}">
-        <td th:text="*{dish.id}">Id</td>
-        <td th:text="*{dish.dishType}">Dish Type</td>
-        <td th:text="*{dish.price}">Price</td>
-        <td th:text="*{dish.name}">Name</td>
-        <td th:text="*{dish.weight}">Weight</td>
-        <td th:text="*{dish.ingredient}">Ingredients</td>
+    <tr th:each="dish: ${dishList}" th:object="${dish}">
+        <td th:text="*{id}">Id</td>
+        <td th:text="*{dish.dishType.title}">Dish Type</td>
+        <td th:text="*{price}">Price</td>
+        <td th:text="*{name}">Name</td>
+        <td th:text="*{weight}">Weight</td>
+        <td th:text="*{ingredient}">Ingredients</td>
         <td>
             <form th:action="@{/dish/{id}(id=*{id})}" th:method="GET">
                 <button value="Update">Update</button>
