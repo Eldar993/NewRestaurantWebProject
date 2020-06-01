@@ -36,7 +36,6 @@ public class DishController {
         mav.setViewName("/Dishes/dishes");
         List<DishDetailDto> dishList = DishService.toDetailDto(dishService.findAll());
 
-        mav.setViewName("/Dishes/dishes");
         mav.addObject("dishList", dishList);
 
         return mav;

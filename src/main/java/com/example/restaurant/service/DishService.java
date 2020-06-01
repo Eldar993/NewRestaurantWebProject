@@ -98,7 +98,10 @@ public class DishService {
             return null;
         }
         DishDetailDto result = new DishDetailDto();
-        result.setDish(toDto(dish));
+        result.setId(dish.getId());
+        result.setName(dish.getName());
+        result.setPrice(dish.getPrice());
+        result.setWeight(dish.getWeight());
         result.setDishType(DishTypeService.toDto(dish.getDishType()));
         result.setIngredient(IngredientService.toDto(dish.getIngredients()));
         return result;
