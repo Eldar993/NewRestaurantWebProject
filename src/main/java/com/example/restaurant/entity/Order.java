@@ -4,6 +4,7 @@ import com.example.restaurant.enums.OrderStatus;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,11 +18,14 @@ public class Order {
     private LocalDateTime createdAt;
 
 
-    private Long user_id;
+    @ManyToOne
+    private User user;
 
     @Enumerated(EnumType.ORDINAL)
     private OrderStatus orderStatus;
 
+    @ManyToMany
+    List<Dish> dishes;
 
     public Long getId() {
         return id;
@@ -39,12 +43,12 @@ public class Order {
         this.createdAt = order_time;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public OrderStatus getOrderStatus() {
@@ -63,13 +67,13 @@ public class Order {
         Order order = (Order) o;
         return id.equals(order.id) &&
                 createdAt.equals(order.createdAt) &&
-                user_id.equals(order.user_id) &&
+                Objects.equals(user, order.user) &&
                 orderStatus == order.orderStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, createdAt, user_id, orderStatus);
+        return Objects.hash(id, createdAt, user, orderStatus);
     }
 
     @Override
@@ -77,7 +81,7 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", order_time=" + createdAt +
-                ", user_id=" + user_id +
+                ", user=" + user +
                 ", orderStatus=" + orderStatus +
                 '}';
     }

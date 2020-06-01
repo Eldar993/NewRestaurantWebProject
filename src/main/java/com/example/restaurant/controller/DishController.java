@@ -1,5 +1,6 @@
 package com.example.restaurant.controller;
 
+import com.example.restaurant.dto.DishDetailDto;
 import com.example.restaurant.dto.DishDto;
 import com.example.restaurant.dto.DishTypeDto;
 import com.example.restaurant.dto.IngredientDto;

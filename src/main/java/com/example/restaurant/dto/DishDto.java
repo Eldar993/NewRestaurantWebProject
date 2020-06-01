@@ -1,5 +1,7 @@
 package com.example.restaurant.dto;
 
+import com.example.restaurant.entity.DishType;
+
 import java.util.Set;
 
 public class DishDto {

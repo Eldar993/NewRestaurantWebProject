@@ -1,9 +1,8 @@
 package com.example.restaurant.service;
 
+import com.example.restaurant.dto.DishDto;
 import com.example.restaurant.dto.DishTypeDto;
-import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.DishType;
-import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.repository.DishTypeRepository;
 import org.springframework.stereotype.Service;
 

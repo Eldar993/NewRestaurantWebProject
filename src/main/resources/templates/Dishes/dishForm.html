@@ -23,8 +23,9 @@
             <p th:if="${actionType != 'create'}">Id: [[*{id}]]</p>
             <div>
                 <label for="dishTypes">DishType:</label>
-                <select id="dishTypes">
-                    <option th:each="dishType: ${dishTypeList}" th:value="${dishType.title}" th:text="${dishType.title}"></option>
+                <select id="dishTypes" name="dishTypeId">
+                    <option th:each="dishType: ${dishTypeList}" th:value="${dishType.id}"
+                            th:text="${dishType.title}"></option>
                 </select>
             </div>
 
@@ -41,7 +42,7 @@
                 <input type="text" id="weight" size="15" required th:field="*{weight}">
             </div>
             <div>
-                <label for="Ingredients">DishType:</label>
+                <label for="Ingredients">Ingredients:</label>
                 <th:block  th:each="ingredient : ${ingredientList}">
                     <input id ="Ingredients" type="checkbox" name="ingredient" th:value="${ingredient.title}"/>
                     <label th:text="${ingredient.title}"></label>
