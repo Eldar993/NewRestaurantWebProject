@@ -58,7 +58,7 @@ public class OrderService {
         OrderDto result = new OrderDto();
         result.setId(entity.getId());
         result.setCreatedAt(entity.getCreatedAt());
-        result.setUser_id(entity.getUser().getId());
+        result.setUser(entity.getUser());
 
         return result;
     }
