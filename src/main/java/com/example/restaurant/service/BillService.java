@@ -2,9 +2,7 @@ package com.example.restaurant.service;
 
 
 import com.example.restaurant.dto.BillDto;
-import com.example.restaurant.dto.OrderDto;
 import com.example.restaurant.entity.Bill;
-import com.example.restaurant.entity.Order;
 import com.example.restaurant.repository.BillRepository;
 import org.springframework.stereotype.Service;
 

@@ -26,7 +26,7 @@ public class User {
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "UserRole")
-    private UserRoles role_id;
+    private UserRoles userRole;
 
 
     public Long getId() {
@@ -54,11 +54,11 @@ public class User {
     }
 
     public UserRoles getRole_id() {
-        return role_id;
+        return userRole;
     }
 
-    public void setRole_id(UserRoles role_id) {
-        this.role_id = role_id;
+    public void setRole_id(UserRoles userRole) {
+        this.userRole = userRole;
     }
 
     @Override

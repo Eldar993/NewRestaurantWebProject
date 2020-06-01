@@ -19,12 +19,6 @@ public class Ingredient {
 
     private int calories;
 
-//   @ManyToMany
-//    @JoinTable(
-//            name = "Menu_Ingredient",
-//            JoinColumns = @JoinColumn(name = "ingredient_id"),
-//            inverseJoinColumns = @JoinColumn(name = "menu_id"))
-//    private List<Menu> menuList;
 
     public Long getId() {
         return id;
