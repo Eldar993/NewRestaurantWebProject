@@ -2,14 +2,12 @@ package com.example.restaurant.service;
 
 import com.example.restaurant.dto.DishDetailDto;
 import com.example.restaurant.dto.DishDto;
-import com.example.restaurant.dto.DishTypeDto;
 import com.example.restaurant.entity.Dish;
 import com.example.restaurant.entity.DishType;
 import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.repository.DishRepository;
 import com.example.restaurant.repository.DishTypeRepository;
 import org.springframework.stereotype.Service;
-
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
@@ -87,7 +85,6 @@ public class DishService {
     }
 
 
-
     //TODO: add implementation
     public static DishDetailDto toDetailDto(Dish dish) {
         if (dish == null) {
@@ -102,6 +99,7 @@ public class DishService {
         result.setIngredient(IngredientService.toDto(dish.getIngredients()));
         return result;
     }
+
     public static List<DishDetailDto> toDetailDto(List<Dish> dishes) {
         return dishes
                 .stream()
@@ -109,7 +107,7 @@ public class DishService {
                 .collect(Collectors.toList());
     }
 
-    public  Dish toEntity(DishDto dto) {
+    public Dish toEntity(DishDto dto) {
         if (dto == null) {
             return null;
         }
@@ -121,23 +119,13 @@ public class DishService {
         result.setName(dto.getName());
         result.setPrice(dto.getPrice());
         result.setWeight(dto.getWeight());
-        return result;
-    }
-
-    public Dish toDetailEntity(DishDetailDto detailDto){
-        if (detailDto == null) {
-            return null;
+        final Set<Long> ingredientIds = dto.getIngredientIds();
+        if (ingredientIds != null) {
+            result.setIngredients(ingredientService.findById(dto.getIngredientIds()));
         }
-        Dish result = new Dish();
-        result.setId(detailDto.getId());
-       // result.setDishType(detailDto.getDishType());
-        result.setName(detailDto.getName());
-        result.setPrice(detailDto.getPrice());
-        result.setWeight(detailDto.getWeight());
-        //result.setIngredients(detailDto.getIngredient());
+
         return result;
     }
-
 
     public List<Dish> findAll() {
         return dishRepository.findAll();
@@ -147,9 +135,14 @@ public class DishService {
         if (dish.getId() != null) {
             return false;
         }
+        final Set<Ingredient> ingredients = dish.getIngredients();
+        dish.setIngredients(null);
+        final Dish createdDish = dishRepository.saveAndFlush(dish);
+        createdDish.setIngredients(ingredients);
         dishRepository.saveAndFlush(dish);
         return true;
     }
+
     public Dish findById(Long id) {
         Dish dish = dishRepository.findDishById(id);
         return dish;
@@ -168,7 +161,6 @@ public class DishService {
         updatedDish.setName(dish.getName());
         updatedDish.setWeight(dish.getWeight());
         updatedDish.setPrice(dish.getPrice());
-
 
 
         final Dish result = dishRepository.saveAndFlush(updatedDish);

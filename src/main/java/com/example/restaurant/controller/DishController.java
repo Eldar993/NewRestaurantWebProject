@@ -5,7 +5,6 @@ import com.example.restaurant.dto.DishDto;
 import com.example.restaurant.dto.DishTypeDto;
 import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.Dish;
-import com.example.restaurant.entity.DishType;
 import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.service.DishService;
 import com.example.restaurant.service.DishTypeService;
@@ -14,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -35,11 +37,8 @@ public class DishController {
 
         mav.setViewName("/Dishes/dishes");
         List<DishDetailDto> dishList = DishService.toDetailDto(dishService.findAll());
-        List<IngredientDto> ingredientList = IngredientService.toDto(ingredientService.findAll());
-
 
         mav.addObject("dishList", dishList);
-        mav.addObject("ingredientList", ingredientList);
 
         return mav;
 
@@ -59,7 +58,7 @@ public class DishController {
     }
 
     @RequestMapping(value = "/dish", method = RequestMethod.POST)
-    public ModelAndView create(@ModelAttribute("dish") @Valid DishDetailDto dishDetailDto,DishType dishType, BindingResult result, ModelAndView mav) {
+    public ModelAndView create(@ModelAttribute("dish") @Valid DishDto dishDto, BindingResult result, ModelAndView mav) {
 
         if (result.hasErrors()) {
             mav.setViewName("/Dishes/dishForm");
@@ -67,20 +66,18 @@ public class DishController {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }
             mav.addObject("actionType", "create");
-            mav.addObject("dish", dishDetailDto);
+            mav.addObject("dish", dishDto);
 
         } else {
-            mav.addObject("dishType", dishType);
-            Dish entity = dishService.toDetailEntity(dishDetailDto);
+            Dish entity = dishService.toEntity(dishDto);
             dishService.create(entity);
 
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl("/dishes");
             mav.setView(redirectView);
-
         }
-        return mav;
 
+        return mav;
     }
 
     @RequestMapping(value = "/dish/{id}", method = RequestMethod.GET)

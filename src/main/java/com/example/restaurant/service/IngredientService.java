@@ -6,6 +6,7 @@ import com.example.restaurant.repository.IngredientRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,6 +43,17 @@ public class IngredientService {
         return ingredient;
     }
 
+    public Set<Ingredient> findById(Set<Long> ids) {
+        return ids.stream()
+                .map(this::findById)
+                .peek(i -> {
+                    if (i == null) {
+                        throw new IllegalArgumentException("Found unknown ingredient id");
+                    }
+                })
+                .collect(Collectors.toSet());
+    }
+
     public void deleteById(Long id) {
         ingredientRepository.deleteById(id);
     }
@@ -69,6 +81,16 @@ public class IngredientService {
         result.setCalories(dto.getCalories());
 
         return result;
+    }
+
+    public static Set<Ingredient> toEntity(Set<IngredientDto> dto) {
+        if (dto == null || dto.isEmpty()) {
+            return Collections.emptySet();
+        }
+
+        return dto.stream()
+                .map(IngredientService::toEntity)
+                .collect(Collectors.toSet());
     }
 
     public static Set<IngredientDto> toDto(Set<Ingredient> ingredients) {
