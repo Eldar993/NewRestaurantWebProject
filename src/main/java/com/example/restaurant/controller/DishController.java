@@ -35,8 +35,11 @@ public class DishController {
 
         mav.setViewName("/Dishes/dishes");
         List<DishDetailDto> dishList = DishService.toDetailDto(dishService.findAll());
+        List<IngredientDto> ingredientList = IngredientService.toDto(ingredientService.findAll());
+
 
         mav.addObject("dishList", dishList);
+        mav.addObject("ingredientList", ingredientList);
 
         return mav;
 
@@ -48,7 +51,7 @@ public class DishController {
         List<IngredientDto> ingredientList = IngredientService.toDto(ingredientService.findAll());
 
         mav.setViewName("/Dishes/dishForm");
-        mav.addObject("dish", new DishDto());
+        mav.addObject("dish", new DishDetailDto());
         mav.addObject("dishTypeList",dishTypeList);
         mav.addObject("ingredientList",ingredientList);
         mav.addObject("actionType", "create");
@@ -56,7 +59,7 @@ public class DishController {
     }
 
     @RequestMapping(value = "/dish", method = RequestMethod.POST)
-    public ModelAndView create(@ModelAttribute("dish") @Valid DishDto dishDto,DishType dishType, BindingResult result, ModelAndView mav) {
+    public ModelAndView create(@ModelAttribute("dish") @Valid DishDetailDto dishDetailDto,DishType dishType, BindingResult result, ModelAndView mav) {
 
         if (result.hasErrors()) {
             mav.setViewName("/Dishes/dishForm");
@@ -64,11 +67,11 @@ public class DishController {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }
             mav.addObject("actionType", "create");
-            mav.addObject("dish", dishDto);
+            mav.addObject("dish", dishDetailDto);
 
         } else {
             mav.addObject("dishType", dishType);
-            Dish entity = dishService.toEntity(dishDto);
+            Dish entity = dishService.toDetailEntity(dishDetailDto);
             dishService.create(entity);
 
             RedirectView redirectView = new RedirectView();

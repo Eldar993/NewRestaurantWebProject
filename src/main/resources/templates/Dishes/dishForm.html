@@ -44,7 +44,7 @@
             <div>
                 <label for="Ingredients">Ingredients:</label>
                 <th:block  th:each="ingredient : ${ingredientList}">
-                    <input id ="Ingredients" type="checkbox" name="ingredient" th:value="${ingredient.title}"/>
+                    <input id ="Ingredients" type="checkbox" name="ingredient" th:value="${ingredient.title}"  th:field="*{ingredient}"/>
                     <label th:text="${ingredient.title}"></label>
                 </th:block>
             </div>

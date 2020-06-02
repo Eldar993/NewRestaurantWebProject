@@ -2,6 +2,7 @@ package com.example.restaurant.service;
 
 import com.example.restaurant.dto.DishDetailDto;
 import com.example.restaurant.dto.DishDto;
+import com.example.restaurant.dto.DishTypeDto;
 import com.example.restaurant.entity.Dish;
 import com.example.restaurant.entity.DishType;
 import com.example.restaurant.entity.Ingredient;
@@ -122,6 +123,21 @@ public class DishService {
         result.setWeight(dto.getWeight());
         return result;
     }
+
+    public Dish toDetailEntity(DishDetailDto detailDto){
+        if (detailDto == null) {
+            return null;
+        }
+        Dish result = new Dish();
+        result.setId(detailDto.getId());
+       // result.setDishType(detailDto.getDishType());
+        result.setName(detailDto.getName());
+        result.setPrice(detailDto.getPrice());
+        result.setWeight(detailDto.getWeight());
+        //result.setIngredients(detailDto.getIngredient());
+        return result;
+    }
+
 
     public List<Dish> findAll() {
         return dishRepository.findAll();

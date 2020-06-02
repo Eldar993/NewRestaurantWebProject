@@ -45,6 +45,7 @@ public class DishDetailDto {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
     public Set<IngredientDto> getIngredient() {
         return ingredient;
     }

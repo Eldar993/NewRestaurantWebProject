@@ -71,7 +71,11 @@
         <td th:text="*{price}">Price</td>
         <td th:text="*{name}">Name</td>
         <td th:text="*{weight}">Weight</td>
-<!--        <td th:text="*{ingredient}">Ingredients</td>-->
+
+
+        <td><span th:each="ing : *{ingridients}"></span>></td>
+
+
         <td>
             <form th:action="@{/dish/{id}(id=*{id})}" th:method="GET">
                 <button value="Update">Update</button>

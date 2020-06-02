@@ -45,6 +45,10 @@ public class Dish {
         return id;
     }
 
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
