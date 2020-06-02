@@ -135,10 +135,6 @@ public class DishService {
         if (dish.getId() != null) {
             return false;
         }
-        final Set<Ingredient> ingredients = dish.getIngredients();
-        dish.setIngredients(null);
-        final Dish createdDish = dishRepository.saveAndFlush(dish);
-        createdDish.setIngredients(ingredients);
         dishRepository.saveAndFlush(dish);
         return true;
     }

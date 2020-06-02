@@ -36,8 +36,8 @@ public class Dish {
     @ManyToMany
     @JoinTable(
             name = "dishes_ingredients",
-            joinColumns = @JoinColumn(name = "dish_id")/*,
-            inverseJoinColumns = @JoinColumn(name = "ingredient_id")*/
+            joinColumns = @JoinColumn(name = "dish_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
     private Set<Ingredient> ingredients;
 
