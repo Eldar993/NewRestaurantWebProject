@@ -1,10 +1,15 @@
 package com.example.restaurant.entity;
 
 import com.example.restaurant.enums.UserRoles;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
@@ -53,11 +58,11 @@ public class User {
         this.password = password;
     }
 
-    public UserRoles getRole_id() {
+    public UserRoles getUserRole() {
         return userRole;
     }
 
-    public void setRole_id(UserRoles userRole) {
+    public void setUserRole(UserRoles userRole) {
         this.userRole = userRole;
     }
 

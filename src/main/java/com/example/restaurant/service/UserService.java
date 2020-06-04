@@ -1,12 +1,8 @@
 package com.example.restaurant.service;
 
-import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.dto.UserDto;
-import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.entity.User;
 import com.example.restaurant.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -85,7 +81,7 @@ public class UserService {
         result.setId(user.getId());
         result.setName(user.getName());
         result.setPassword(user.getPassword());
-        result.setRole_id(user.getRole_id());
+        result.setRole_id(user.getUserRole());
 
         return result;
     }
@@ -104,7 +100,7 @@ public class UserService {
         result.setId(dto.getId());
         result.setName(dto.getName());
         result.setPassword(dto.getPassword());
-        result.setRole_id(dto.getRole_id());
+        result.setUserRole(dto.getRole_id());
 
         return result;
     }
