@@ -1,15 +1,16 @@
 package com.example.restaurant.controller;
 
 import com.example.restaurant.dto.UserDto;
-import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.entity.User;
-import com.example.restaurant.service.IngredientService;
 import com.example.restaurant.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
