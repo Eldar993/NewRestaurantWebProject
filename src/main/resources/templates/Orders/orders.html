@@ -22,6 +22,17 @@
         <td scope="col">Order Status</td>
         <td scope="col">Dishes</td>
 
+    <tr th:each="order: ${orderList}" th:object="${order}">
+        <td th:text="*{id}">Id</td>
+        <td th:text="*{createdAt}">Dish Type</td>
+        <td th:text="*{user}">Price</td>
+        <td th:text="*{orderStatus}">Name</td>
+
+        <td>
+            <span th:each="dish : *{dishList}">
+                <span th:text="${dish.name}"></span><span> </span>
+            </span>
+        </td>
 
 
     </tr>

@@ -1,6 +1,7 @@
 package com.example.restaurant.dto;
 
 import com.example.restaurant.entity.User;
+import com.example.restaurant.enums.OrderStatus;
 
 import java.time.LocalDateTime;
 
@@ -8,6 +9,9 @@ public class OrderDto {
     private Long id;
     private LocalDateTime createdAt;
     private User user;
+    private OrderStatus orderStatus;
+
+
 
     public Long getId() {
         return id;
@@ -31,5 +35,12 @@ public class OrderDto {
 
     public void setUser(User user) {
         this.user = user;
+    }
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }

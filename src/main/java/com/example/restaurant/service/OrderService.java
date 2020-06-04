@@ -1,8 +1,6 @@
 package com.example.restaurant.service;
 
-import com.example.restaurant.dto.DishTypeDto;
 import com.example.restaurant.dto.OrderDto;
-import com.example.restaurant.entity.DishType;
 import com.example.restaurant.entity.Order;
 import com.example.restaurant.repository.OrderRepository;
 import org.springframework.stereotype.Service;
@@ -59,6 +57,7 @@ public class OrderService {
         result.setId(entity.getId());
         result.setCreatedAt(entity.getCreatedAt());
         result.setUser(entity.getUser());
+        result.setOrderStatus(entity.getOrderStatus());
 
         return result;
     }
@@ -77,8 +76,8 @@ public class OrderService {
         Order result = new Order();
         result.setId(dto.getId());
         result.setCreatedAt(dto.getCreatedAt());
-        //result.setOrderStatus(dto.get);
-        //result.setUser(dto.getUser_id());
+        result.setOrderStatus(dto.getOrderStatus());
+        result.setUser(dto.getUser());
         return result;
     }
 }

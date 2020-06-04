@@ -2,8 +2,6 @@ package com.example.restaurant.controller;
 
 import com.example.restaurant.dto.DishDto;
 import com.example.restaurant.dto.OrderDto;
-import com.example.restaurant.entity.Dish;
-import com.example.restaurant.entity.Order;
 import com.example.restaurant.service.DishService;
 import com.example.restaurant.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +25,10 @@ public class OrderController {
     public ModelAndView printAll(ModelAndView mav) {
         mav.setViewName("/Orders/orders");
         List<DishDto> dishList = DishService.toDto(dishService.findAll());
+        List<OrderDto> orderList = OrderService.toDto(orderService.findAll());
 
-        mav.addObject("dishList", dishList);
+        mav.addObject("orderList", orderList);
+        mav.addObject("dishList",dishList);
 
         return mav;
     }
@@ -36,13 +36,14 @@ public class OrderController {
     @RequestMapping(value = "/order", method = RequestMethod.GET)
     public ModelAndView create(ModelAndView mav, DishDto dishDto, OrderDto orderDto) {
 
-
-        Order order = orderService.toEntity(orderDto);
+        mav.setViewName("/Orders/orders");
+        /*Order order = orderService.toEntity(orderDto);
         Dish entity = dishService.toEntity(dishDto);
+
 
         orderService.create(order);
 
-        mav.addObject("order", order);
+        mav.addObject("order", order);*/
         return mav;
     }
 
