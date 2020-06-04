@@ -157,7 +157,7 @@ public class DishService {
         updatedDish.setName(dish.getName());
         updatedDish.setWeight(dish.getWeight());
         updatedDish.setPrice(dish.getPrice());
-
+        updatedDish.setIngredients(dish.getIngredients());
 
         final Dish result = dishRepository.saveAndFlush(updatedDish);
         return result;
