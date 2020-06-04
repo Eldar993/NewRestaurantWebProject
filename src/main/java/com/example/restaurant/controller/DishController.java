@@ -51,8 +51,8 @@ public class DishController {
 
         mav.setViewName("/Dishes/dishForm");
         mav.addObject("dish", new DishDetailDto());
-        mav.addObject("dishTypeList",dishTypeList);
-        mav.addObject("ingredientList",ingredientList);
+        mav.addObject("dishTypeList", dishTypeList);
+        mav.addObject("ingredientList", ingredientList);
         mav.addObject("actionType", "create");
         return mav;
     }
@@ -84,6 +84,10 @@ public class DishController {
     public ModelAndView updateForm(@PathVariable("id") Long id, ModelAndView mav) {
 
         mav.setViewName("/Dishes/dishForm");
+        List<DishTypeDto> dishTypeList = DishTypeService.toDto(dishTypeService.findAll());
+        List<IngredientDto> ingredientList = IngredientService.toDto(ingredientService.findAll());
+        mav.addObject("dishTypeList", dishTypeList);
+        mav.addObject("ingredientList", ingredientList);
         DishDto dish = DishService.toDto(dishService.findById(id));
         mav.addObject("dish", dish);
 
@@ -102,6 +106,7 @@ public class DishController {
         } else {
             Dish entity = dishService.toEntity(dishDto);
             dishService.update(entity);
+
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl("/dishes");
             mav.setView(redirectView);
@@ -117,45 +122,5 @@ public class DishController {
         redirectView.setUrl("/dishes");
         return redirectView;
     }
-
-    @RequestMapping(value = "/dish/{id}/ingredient",method = RequestMethod.GET)
-    public ModelAndView dishIngredientForm(@PathVariable("id") Long id,ModelAndView mav){
-        mav.setViewName("/Dishes/dishIngredient");
-
-
-        return mav;
-    }
-    @RequestMapping(value = "/dish/{id}/ingredient",method = RequestMethod.PUT)
-    public ModelAndView addIngredient(@PathVariable("id") Long id, ModelAndView mav,DishDto dishDto, IngredientDto ingredientDto) {
-        mav.addObject("actionType", "add");
-        mav.addObject("ingredient", ingredientDto);
-        mav.addObject("dish", dishDto);
-
-        Dish entity = dishService.toEntity(dishDto);
-        Ingredient ingredient = IngredientService.toEntity(ingredientDto);
-        entity.addIngredient(ingredient);
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/dishes");
-        mav.setView(redirectView);
-
-        return mav;
-    }
-
-    @RequestMapping(value = "/dish/{id}/ingredient",method = RequestMethod.DELETE)
-    public ModelAndView removeIngredient(@PathVariable("id") Long id, ModelAndView mav,DishDto dishDto, IngredientDto ingredientDto) {
-        mav.addObject("actionType", "delete");
-        mav.addObject("ingredient", ingredientDto);
-        mav.addObject("dish", dishDto);
-
-        Dish entity = dishService.toEntity(dishDto);
-        Ingredient ingredient = IngredientService.toEntity(ingredientDto);
-        entity.removeIngredient(ingredient);
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/dishes");
-        mav.setView(redirectView);
-
-        return mav;
-    }
-
 
 }

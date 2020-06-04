@@ -44,8 +44,6 @@
             <div>
                 <label for="Ingredients">Ingredients:</label>
                 <th:block  th:each="ingredient : ${ingredientList}">
-                    <!--dishDto.getIngredient().contains(ingredient)-->
-                    <!--th:checked="${#lists.contains(dish.getIngredientIds(), ingredient)}}"-->
                     <input id ="Ingredients" type="checkbox" name="ingredientIds" th:value="${ingredient.id}" th:checked="${false}" />
                     <label th:text="${ingredient.title}"></label>
                 </th:block>

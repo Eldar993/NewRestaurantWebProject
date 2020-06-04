@@ -24,18 +24,17 @@ public class OrderController {
     private DishService dishService;
 
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
-    public ModelAndView printAll(ModelAndView mav){
+    public ModelAndView printAll(ModelAndView mav) {
         mav.setViewName("/Orders/orders");
         List<DishDto> dishList = DishService.toDto(dishService.findAll());
 
-        mav.setViewName("/Dishes/dishes");
         mav.addObject("dishList", dishList);
 
         return mav;
     }
 
     @RequestMapping(value = "/order", method = RequestMethod.GET)
-    public ModelAndView create(ModelAndView mav, DishDto dishDto, OrderDto orderDto){
+    public ModelAndView create(ModelAndView mav, DishDto dishDto, OrderDto orderDto) {
 
 
         Order order = orderService.toEntity(orderDto);
@@ -43,10 +42,9 @@ public class OrderController {
 
         orderService.create(order);
 
-        mav.addObject("order",order);
+        mav.addObject("order", order);
         return mav;
     }
-
 
 
 }

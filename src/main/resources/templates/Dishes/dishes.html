@@ -91,11 +91,8 @@
             </form>
         </td>
         <td>
-            <form th:action="@{/dish/{id}/ingredient(id=*{id})}" th:method="GET">
-                <button value="add ingredient">Add ingredient</button>
-            </form>
-            <form th:action="@{/dish/{id}/ingredient(id=*{id})}" th:method="DELETE">
-                <button value="add ingredient">Remove ingredient</button>
+            <form th:action="@{/orders}" th:method="GET">
+                <button value="add to cart">Add to cart</button>
             </form>
         </td>
     </tr>
