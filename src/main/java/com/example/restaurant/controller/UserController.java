@@ -46,7 +46,7 @@ public class UserController {
         return mav;
     }
 
-    @RequestMapping(value = "/signIn", method = RequestMethod.GET)
+    @RequestMapping(value = "/sing-up", method = RequestMethod.GET)
     public ModelAndView loginForm(ModelAndView mav) {
 
         mav.setViewName("/signIn");

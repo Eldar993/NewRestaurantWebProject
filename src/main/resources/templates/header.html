@@ -1,4 +1,5 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,16 +17,22 @@
     <nav>
         <ul class="nav__links">
             <li><a th:href="@{/print_all}">Users</a></li>
-            <li><a th:href="@{/dishes}">Dishes</a></li>
-            <li><a th:href="@{/dishTypes}">Dish Types</a></li>
-            <li><a th:href="@{/ingredients}">Ingredients</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/dishes}">Dishes</a></li>
+            <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/dishTypes}">Dish Types</a></li>
+            <li sec:authorize="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"><a th:href="@{/ingredients}">Ingredients</a></li>
             <li><a th:href="@{/orders}">Orders</a></li>
             <li><a th:href="@{/bills}">Bills</a></li>
 
         </ul>
     </nav>
 
-    <a class="cta" th:href="@{/signIn}">Sign In</a>
+    <h4 sec:authorize="isAuthenticated()">
+        <span class="text-info">Signed in as</span>
+        <span class="login text-light" sec:authentication="name" id="login">SomeLogin</span>
+    </h4>
+
+    <a class="cta" sec:authorize="isAnonymous()" th:href="@{/signIn}">Sign In</a>
+    <a class="cta" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
 
 
     <form th:action="@{/basket}" th:method="GET">

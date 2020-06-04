@@ -1,0 +1,82 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+
+    <title>Login</title>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+<div th:insert="/header :: header"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-10 offset-1 col-md-8 offset-md-2">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-center">
+                    <h2 class="card-title font-weight-bold">
+                        Authorization
+                    </h2>
+                </div>
+                <div class="card-body bg-dark">
+                    <form th:action="@{/j_spring_security_check}" method="POST">
+                        <!--/*@thymesVar id="securityLastExceptionMessage" type="java.lang.String"*/-->
+                        <div class="form-group mb-0" th:if="${securityLastExceptionMessage}">
+                            <div th:text="${securityLastExceptionMessage}"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="j_login" class="control-label">
+                                Login
+                            </label>
+                            <input class="form-control bg-light" type="text"
+                                   placeholder="Login"
+                                   id="j_login" name="j_login">
+                        </div>
+                        <div class="form-group">
+                            <label for="j_password" class="control-label">
+                                Password
+                            </label>
+                            <input class="form-control bg-light" type="Password"
+                                   placeholder="Password"
+                                   id="j_password" name="j_password">
+                        </div>
+                        <div class="form-group row">
+                            <button type="submit" class="btn btn-success form-control col-8 offset-2">
+                                Log In
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="form-group row justify-content-center">
+                        <div class="col-6 border-top border-primary"></div>
+                    </div>
+                    <div class="form-group text-center">
+                        <span>Don’t have an account?</span>
+                        <a class="text-info"
+                           th:href="@{/sing-up}">
+                            Sing up
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>
