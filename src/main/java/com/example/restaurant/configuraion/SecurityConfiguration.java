@@ -18,17 +18,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/", "/index",
+                .antMatchers("/", "/main", "/index",
                         "/registration", "/login", "/sing-up",
                         "/webjars/**", "/css/**", "/pic/**",
                         "/static/favicon.ico")
                 .permitAll()
                 .antMatchers("/users")
                 .hasRole(UserRoles.ADMIN.name())
-                .antMatchers("/dishes","/dishTypes")
-                .hasAnyRole(UserRoles.ADMIN.name(),UserRoles.USER.name(),UserRoles.COOK.name())
-                .antMatchers("/orders","/bills","/ingredients")
-                .hasAnyRole(UserRoles.ADMIN.name(),UserRoles.COOK.name())
+                .antMatchers("/dishes", "/dishTypes")
+                .hasAnyRole(UserRoles.ADMIN.name(), UserRoles.USER.name(), UserRoles.COOK.name())
+                .antMatchers("/orders", "/bills", "/ingredients")
+                .hasAnyRole(UserRoles.ADMIN.name(), UserRoles.COOK.name())
                 .anyRequest().authenticated()
                 .and();
 
