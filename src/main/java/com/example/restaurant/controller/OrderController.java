@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class OrderController {
@@ -42,9 +44,16 @@ public class OrderController {
                                              Authentication authentication,
                                              @ModelAttribute("dish-id") Long dishId,
                                              @ModelAttribute("count") Long count) {
-        //TODO: create new order or add dish to opened order
+        //create new order or add dish to opened order
         final String username = authentication.getName();
-        orderService.addDish(username, dishId, count);
+        try {
+            orderService.addDish(username, dishId, count);
+        } catch (Exception e) {
+            RedirectView redirectView = new RedirectView();
+            redirectView.setUrl("/error"); //todo: should be redirected to error page
+            mav.setView(redirectView);
+        }
+        //TODO: add redirect to page with all available dishes
         return mav;
     }
 
@@ -52,23 +61,36 @@ public class OrderController {
     @Secured(value = {"ROLE_ADMIN"})
     public ModelAndView delete(ModelAndView mav,
                                              @PathVariable("id") Long orderId) {
-        //TODO: Delete order
+        // Delete order
+        orderService.remove(orderId);
+        //TODO: add redirect(?)
         return mav;
     }
 
 
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     @Secured(value = {"ROLE_USER"})
-    public ModelAndView orders(ModelAndView mav) {
-        //TODO: Show order statistics for current user
+    public ModelAndView userOrdersHistory(Authentication authentication,
+                               ModelAndView mav) {
+        //Show order statistics for current user
+        //      orders history
+        final String username = authentication.getName();
+        final List<OrderDto> orders = orderService.findAllByUser(username)
+                .stream()
+                .map(OrderService::toDto)
+                .collect(Collectors.toList());
+        //TODO: pass orders to view
         return mav;
     }
 
     @RequestMapping(value = "/orders/{id}", method = RequestMethod.POST)
     @Secured(value = {"ROLE_USER"})
     public ModelAndView confirmOrder(@PathVariable("id") Long orderId,
+                                     Authentication authentication,
                                       ModelAndView mav) {
         //TODO: Change order status to IN_PROGRESS
+        final String username = authentication.getName();
+        orderService.confirm(username, orderId);
         return mav;
     }
 

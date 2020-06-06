@@ -86,11 +86,12 @@ public class OrderService {
         return result;
     }
 
+    //to increase and decrease dish count in order
     public void addDish(String username, Long dishId, Long count) {
         final User user = userService.findByName(username)
-                .orElseThrow(() -> new IllegalArgumentException("User with [name='" + username + "' not found"));
+                .orElseThrow(() -> new IllegalArgumentException("User with [name='" + username + "'] not found"));
         final Dish dish = dishService.findById(dishId)
-                .orElseThrow(() -> new IllegalArgumentException("Dish with [id='" + dishId + "' not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Dish with [id='" + dishId + "'] not found"));
 
         final Order order = orderRepository.findFirstByUserAndStatus(user, OrderStatus.NEW)
                 .orElseGet(() -> create(user));
@@ -109,5 +110,36 @@ public class OrderService {
         order.setStatus(OrderStatus.NEW);
 
         return orderRepository.saveAndFlush(order);
+    }
+
+    //to increase and decrease dish count in order
+    public void remove(Long orderId) {
+        final Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Dish not found"));
+    }
+
+    public List<Order> findAllByUser(String username) {
+        final User user = userService.findByName(username)
+                .orElseThrow(() -> new IllegalArgumentException("User with [name='" + username + "'] not found"));
+        final List<Order> orders = orderRepository.findAllByUser(user);
+
+        return orders;
+    }
+
+    public void confirm(String username, Long orderId) {
+        final User user = userService.findByName(username)
+                .orElseThrow(() -> new IllegalArgumentException("User with [name='" + username + "'] not found"));
+        final Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("No order"));
+
+        if (!OrderStatus.NEW.equals(order.getStatus())) {
+            throw new IllegalStateException("Wrong status");
+        }
+        if (!user.equals(order.getUser())) {
+            throw new IllegalStateException("Order belong to some one else");
+        }
+
+        order.setStatus(OrderStatus.IN_PROGRESS);
+        orderRepository.saveAndFlush(order);
     }
 }

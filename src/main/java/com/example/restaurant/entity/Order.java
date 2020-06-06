@@ -88,6 +88,10 @@ public class Order {
         }
 
         orderDish.addCount(count);
+
+        if (orderDish.getCount() == 0) {
+            removeDish(dish);
+        }
     }
 
     public void removeDish(Dish dish) {

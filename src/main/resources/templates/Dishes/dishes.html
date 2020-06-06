@@ -35,9 +35,13 @@
     <div class="card" style="width: 18rem;">
         <img src="..." class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">Napoleon</h5>
-            <p class="card-text">Big nice cake.</p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
+            <form th:action="@{/order}" method="post">
+                <h5 class="card-title">Napoleon</h5>
+                <p class="card-text">Big nice cake.</p>
+                <input type="text" name="count" value="45" />
+                <input class="btn btn-primary" type="text" name="dish-id" hidden="hidden" value="777" />
+                <input class="btn btn-primary" type="submit" value="Add to cart">
+            </form>
         </div>
     </div>
     <div class="card" style="width: 18rem;">

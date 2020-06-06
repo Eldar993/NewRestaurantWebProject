@@ -36,7 +36,6 @@ public class CommonErrorController implements ErrorController {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ModelAndView error(WebRequest request,
                               ModelAndView modelAndView) {
-
         Map<String, Object> errorAttributes = getErrorAttributes(request, includeStackTrace);
 
         modelAndView.addObject("errorAttributes", errorAttributes);
