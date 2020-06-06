@@ -76,8 +76,8 @@
 
 
         <td>
-            <span th:each="ing : *{ingredient}">
-                <span th:text="${ing.title}"></span><span> </span>
+            <span th:each="entry : *{ingredients}">
+                <span th:text="${entry.key.title}" th:if="${entry.value}"></span><span> </span>
             </span>
         </td>
 

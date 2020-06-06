@@ -2,6 +2,7 @@ package com.example.restaurant.service;
 
 import com.example.restaurant.dto.DishDetailDto;
 import com.example.restaurant.dto.DishDto;
+import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.Dish;
 import com.example.restaurant.entity.DishType;
 import com.example.restaurant.entity.Ingredient;
@@ -10,8 +11,10 @@ import com.example.restaurant.repository.DishTypeRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.AbstractMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -86,7 +89,7 @@ public class DishService {
 
 
     //TODO: add implementation
-    public static DishDetailDto toDetailDto(Dish dish) {
+    public DishDetailDto toDetailDto(Dish dish) {
         if (dish == null) {
             return null;
         }
@@ -96,11 +99,20 @@ public class DishService {
         result.setPrice(dish.getPrice());
         result.setWeight(dish.getWeight());
         result.setDishType(DishTypeService.toDto(dish.getDishType()));
-        result.setIngredient(IngredientService.toDto(dish.getIngredients()));
+        final Map<IngredientDto, Boolean> ingredients = ingredientService.findAll()
+                .stream()
+                .map(i -> convertToDto(dish, i))
+                .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey, AbstractMap.SimpleEntry::getValue));
+
+        result.setIngredients(ingredients);
         return result;
     }
 
-    public static List<DishDetailDto> toDetailDto(List<Dish> dishes) {
+    private AbstractMap.SimpleEntry<IngredientDto, Boolean> convertToDto(Dish dish, Ingredient ingredient) {
+        return new AbstractMap.SimpleEntry<>(IngredientService.toDto(ingredient), dish.getIngredients().contains(ingredient));
+    }
+
+    public List<DishDetailDto> toDetailDto(List<Dish> dishes) {
         return dishes
                 .stream()
                 .map(entity -> toDetailDto(entity))

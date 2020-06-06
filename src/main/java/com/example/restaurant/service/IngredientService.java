@@ -33,8 +33,6 @@ public class IngredientService {
     }
 
     public List<Ingredient> findAll() {
-
-
         return ingredientRepository.findAll();
     }
 

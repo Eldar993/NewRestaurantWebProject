@@ -5,7 +5,6 @@ import com.example.restaurant.dto.DishDto;
 import com.example.restaurant.dto.DishTypeDto;
 import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.Dish;
-import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.service.DishService;
 import com.example.restaurant.service.DishTypeService;
 import com.example.restaurant.service.IngredientService;
@@ -22,6 +21,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Controller
 public class DishController {
@@ -36,7 +38,7 @@ public class DishController {
     public ModelAndView printAll(ModelAndView mav) {
 
         mav.setViewName("/Dishes/dishes");
-        List<DishDetailDto> dishList = DishService.toDetailDto(dishService.findAll());
+        List<DishDetailDto> dishList = dishService.toDetailDto(dishService.findAll());
 
         mav.addObject("dishList", dishList);
 
@@ -47,12 +49,17 @@ public class DishController {
     @RequestMapping(value = "/dish", method = RequestMethod.GET)
     public ModelAndView createForm(ModelAndView mav) {
         List<DishTypeDto> dishTypeList = DishTypeService.toDto(dishTypeService.findAll());
-        List<IngredientDto> ingredientList = IngredientService.toDto(ingredientService.findAll());
+        Map<IngredientDto, Boolean> ingredients = ingredientService.findAll()
+                .stream()
+                .map(IngredientService::toDto)
+                .collect(Collectors.toMap(Function.identity(), v -> Boolean.FALSE));
 
         mav.setViewName("/Dishes/dishForm");
-        mav.addObject("dish", new DishDetailDto());
+        final DishDetailDto dishDetail = new DishDetailDto();
+        dishDetail.setIngredients(ingredients);
+        mav.addObject("dish", dishDetail);
+
         mav.addObject("dishTypeList", dishTypeList);
-        mav.addObject("ingredientList", ingredientList);
         mav.addObject("actionType", "create");
         return mav;
     }
@@ -85,10 +92,8 @@ public class DishController {
 
         mav.setViewName("/Dishes/dishForm");
         List<DishTypeDto> dishTypeList = DishTypeService.toDto(dishTypeService.findAll());
-        List<IngredientDto> ingredientList = IngredientService.toDto(ingredientService.findAll());
         mav.addObject("dishTypeList", dishTypeList);
-        mav.addObject("ingredientList", ingredientList);
-        DishDto dish = DishService.toDto(dishService.findById(id));
+        DishDetailDto dish = dishService.toDetailDto(dishService.findById(id));
         mav.addObject("dish", dish);
 
         return mav;

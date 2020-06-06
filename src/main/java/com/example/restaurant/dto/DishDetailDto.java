@@ -1,6 +1,7 @@
 package com.example.restaurant.dto;
 
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DishDetailDto {
     private Long id;
@@ -10,7 +11,7 @@ public class DishDetailDto {
     private String name;
 
     private int weight;
-    private Set<IngredientDto> ingredient;
+    private Map<IngredientDto, Boolean> ingredients = new HashMap<>();
     private DishTypeDto dishType;
 
 
@@ -46,12 +47,12 @@ public class DishDetailDto {
         this.weight = weight;
     }
 
-    public Set<IngredientDto> getIngredient() {
-        return ingredient;
+    public Map<IngredientDto, Boolean> getIngredients() {
+        return ingredients;
     }
 
-    public void setIngredient(Set<IngredientDto> ingredient) {
-        this.ingredient = ingredient;
+    public void setIngredients(Map<IngredientDto, Boolean> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public DishTypeDto getDishType() {
