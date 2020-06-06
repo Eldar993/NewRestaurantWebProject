@@ -13,14 +13,13 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class UserService {
-   // private final JdbcTemplate jdbcTemplate;
 
     public static final int NAME_LENGTH = 5;
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        //this.jdbcTemplate = jdbcTemplate;
+
     }
 
     public boolean create(User user) {
@@ -37,13 +36,6 @@ public class UserService {
         Optional<User> userInfo = userRepository.findUserById(id);
         return userInfo;
     }
-    /*public boolean isEven(Long id){
-        if(id % 2 == 0){
-            return true;
-        }else{
-            return false;
-        }
-    }*/
 
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -81,7 +73,7 @@ public class UserService {
         result.setId(user.getId());
         result.setName(user.getName());
         result.setPassword(user.getPassword());
-        result.setRole_id(user.getUserRole());
+        result.setUserRole(user.getUserRole());
 
         return result;
     }
@@ -100,8 +92,7 @@ public class UserService {
         result.setId(dto.getId());
         result.setName(dto.getName());
         result.setPassword(dto.getPassword());
-        result.setUserRole(dto.getRole_id());
-
+        result.setUserRole(dto.getUserRole());
         return result;
     }
 

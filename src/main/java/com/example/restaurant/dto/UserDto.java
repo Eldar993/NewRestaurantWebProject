@@ -6,7 +6,7 @@ public class UserDto {
     private Long id;
     private String name;
     private String password;
-    private UserRoles role_id;
+    private UserRoles role;
 
     public Long getId() {
         return id;
@@ -32,11 +32,11 @@ public class UserDto {
         this.password = password;
     }
 
-    public UserRoles getRole_id() {
-        return role_id;
+    public UserRoles getUserRole() {
+        return role;
     }
 
-    public void setRole_id(UserRoles role_id) {
-        this.role_id = role_id;
+    public void setUserRole(UserRoles role) {
+        this.role = role;
     }
 }

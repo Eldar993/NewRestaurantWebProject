@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -47,7 +44,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/sing-up", method = RequestMethod.GET)
-    public ModelAndView loginForm(ModelAndView mav) {
+    public ModelAndView registrationForm(ModelAndView mav) {
 
         mav.setViewName("/signIn");
         mav.addObject("userInfo", new UserDto());
@@ -55,9 +52,15 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "/qwe")
+    @ResponseBody
+    public String test() {
+        return "Hello world)";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(@ModelAttribute("userInfo") @Valid UserDto userDto,
-                              BindingResult result, ModelAndView mav) {
+    public ModelAndView register(@ModelAttribute("userInfo") @Valid UserDto userDto,
+                                 BindingResult result, ModelAndView mav) {
 
 
         if (result.hasErrors()) {

@@ -25,16 +25,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/users")
                 .hasRole(UserRoles.ADMIN.name())
-                .antMatchers("/dishes")
+                .antMatchers("/dishes","/dishTypes")
                 .hasAnyRole(UserRoles.ADMIN.name(),UserRoles.USER.name(),UserRoles.COOK.name())
-                .antMatchers("/dishTypes")
-                .hasAnyRole(UserRoles.ADMIN.name(),UserRoles.USER.name(),UserRoles.COOK.name())
-                .antMatchers("/ingredients")
+                .antMatchers("/orders","/bills","/ingredients")
                 .hasAnyRole(UserRoles.ADMIN.name(),UserRoles.COOK.name())
-                .antMatchers("/orders")
-                .hasAnyRole(UserRoles.ADMIN.name(),UserRoles.COOK.name())
-                .antMatchers("/bills")
-                .hasRole(UserRoles.ADMIN.name())
                 .anyRequest().authenticated()
                 .and();
 
