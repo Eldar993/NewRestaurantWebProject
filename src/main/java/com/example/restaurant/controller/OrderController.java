@@ -6,6 +6,7 @@ import com.example.restaurant.service.DishService;
 import com.example.restaurant.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,9 +39,12 @@ public class OrderController {
 
     @RequestMapping(value = "/order", method = RequestMethod.POST)
     public ModelAndView createOrderOrAddDish(ModelAndView mav,
+                                             Authentication authentication,
                                              @ModelAttribute("dish-id") Long dishId,
                                              @ModelAttribute("count") Long count) {
         //TODO: create new order or add dish to opened order
+        final String username = authentication.getName();
+        orderService.addDish(username, dishId, count);
         return mav;
     }
 

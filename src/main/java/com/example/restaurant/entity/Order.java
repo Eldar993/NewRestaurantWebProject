@@ -2,17 +2,21 @@ package com.example.restaurant.entity;
 
 import com.example.restaurant.enums.OrderStatus;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 @Table(name = "orders")
@@ -28,10 +32,15 @@ public class Order {
     private User user;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
+    @Column(name = "order_status")
+    private OrderStatus status;
 
-    @ManyToMany
-    List<Dish> dishes;
+    @OneToMany(
+            mappedBy = "order",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<OrderDish> dishes = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -57,14 +66,47 @@ public class Order {
         this.user = user;
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setStatus(OrderStatus orderStatus) {
+        this.status = orderStatus;
     }
 
+    public void addDish(Dish dish, Long count) {
+        final Optional<OrderDish> found = dishes.stream()
+                .filter(d -> Objects.equals(dish, d.getDish()))
+                .findFirst();
+
+        final OrderDish orderDish;
+        if (found.isEmpty()) {
+            orderDish = new OrderDish(this, dish);
+            dishes.add(orderDish);
+        } else {
+            orderDish = found.get();
+        }
+
+        orderDish.addCount(count);
+    }
+
+    public void removeDish(Dish dish) {
+        for (Iterator<OrderDish> iterator = dishes.iterator();
+             iterator.hasNext(); ) {
+            OrderDish orderDish = iterator.next();
+
+            if (orderDish.getOrder().equals(this) &&
+                    orderDish.getDish().equals(dish)) {
+                iterator.remove();
+                orderDish.setOrder(null);
+                orderDish.setDish(null);
+            }
+        }
+    }
+
+    public List<OrderDish> getDishes() {
+        return dishes;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -74,12 +116,12 @@ public class Order {
         return id.equals(order.id) &&
                 createdAt.equals(order.createdAt) &&
                 Objects.equals(user, order.user) &&
-                orderStatus == order.orderStatus;
+                status == order.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, createdAt, user, orderStatus);
+        return Objects.hash(id, createdAt, user, status);
     }
 
     @Override
@@ -88,7 +130,7 @@ public class Order {
                 "id=" + id +
                 ", order_time=" + createdAt +
                 ", user=" + user +
-                ", orderStatus=" + orderStatus +
+                ", orderStatus=" + status +
                 '}';
     }
 }

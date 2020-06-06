@@ -93,8 +93,8 @@ public class DishController {
         mav.setViewName("/Dishes/dishForm");
         List<DishTypeDto> dishTypeList = DishTypeService.toDto(dishTypeService.findAll());
         mav.addObject("dishTypeList", dishTypeList);
-        DishDetailDto dish = dishService.toDetailDto(dishService.findById(id));
-        mav.addObject("dish", dish);
+//        DishDetailDto dish = dishService.toDetailDto(dishService.findById(id));
+//        mav.addObject("dish", dish);
 
         return mav;
     }

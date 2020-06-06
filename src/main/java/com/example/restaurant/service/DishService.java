@@ -151,9 +151,8 @@ public class DishService {
         return true;
     }
 
-    public Dish findById(Long id) {
-        Dish dish = dishRepository.findDishById(id);
-        return dish;
+    public Optional<Dish> findById(Long id) {
+        return dishRepository.findById(id);
     }
 
     public void deleteById(Long id) {
@@ -161,7 +160,7 @@ public class DishService {
     }
 
     public Dish update(Dish dish) {
-        Dish updatedDish = dishRepository.findDishById(dish.getId());
+        Dish updatedDish = null;//dishRepository.findDishById(dish.getId());
         if (updatedDish == null) {
             return null;
         }
