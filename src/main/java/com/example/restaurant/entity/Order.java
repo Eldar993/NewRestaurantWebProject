@@ -24,7 +24,6 @@ public class Order {
     @Column
     private LocalDateTime createdAt;
 
-
     @ManyToOne
     private User user;
 
