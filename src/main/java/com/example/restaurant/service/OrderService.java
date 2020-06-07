@@ -142,4 +142,20 @@ public class OrderService {
         order.setStatus(OrderStatus.IN_PROGRESS);
         orderRepository.saveAndFlush(order);
     }
+    public void waitPayment(String username, Long orderId) {
+        final User user = userService.findByName(username)
+                .orElseThrow(() -> new IllegalArgumentException("User with [name='" + username + "'] not found"));
+        final Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("No order"));
+
+        if (!OrderStatus.NEW.equals(order.getStatus())) {
+            throw new IllegalStateException("Wrong status");
+        }
+        if (!user.equals(order.getUser())) {
+            throw new IllegalStateException("Order belong to some one else");
+        }
+
+        order.setStatus(OrderStatus.WAIT_PAYMENT);
+        orderRepository.saveAndFlush(order);
+    }
 }

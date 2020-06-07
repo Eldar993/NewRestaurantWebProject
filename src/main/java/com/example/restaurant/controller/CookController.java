@@ -14,6 +14,7 @@ public class CookController {
     @Secured(value = {"ROLE_COOK"})
     public ModelAndView ordersToPrepare(ModelAndView mav) {
         //TODO: Show orders that should be prepared
+
         return mav;
     }
 
@@ -22,6 +23,7 @@ public class CookController {
     public ModelAndView completeOrder(@PathVariable("id") Long orderId,
                                       ModelAndView mav) {
         //TODO: Change order status to WAIT_PAYMENT
+
         return mav;
     }
 }

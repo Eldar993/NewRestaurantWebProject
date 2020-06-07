@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Dishes</title>
@@ -15,53 +15,25 @@
 <body>
 
 <div th:insert="/header :: header"></div>
-<div id="dishes">
+<div id="dishes" sec:authorize="hasRole('ROLE_USER')">
+   <tr th:each="dish: ${dishList}" th:object="${dish}">
     <div class="card" style="width: 18rem;">
-        <img th:src="@{/images/pizza.jpg}" src="/images/pizza.jpg" class="card-img-top" alt="pizza">
-        <div class="card-body">
-            <h5 class="card-title">Pizza</h5>
-            <p class="card-text">Pizza with cheese and ham.</p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
-        </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Burger</h5>
-            <p class="card-text">Burger with meat and ketchup.</p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
-        </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
         <div class="card-body">
             <form th:action="@{/order}" method="post">
-                <h5 class="card-title">Napoleon</h5>
-                <p class="card-text">Big nice cake.</p>
-                <input type="text" name="count" value="45" />
-                <input class="btn btn-primary" type="text" name="dish-id" hidden="hidden" value="777" />
-                <input class="btn btn-primary" type="submit" value="Add to cart">
+                <h5 class="card-title" th:text="*{name}">Napoleon</h5>
+                <p class="card-text" th:text="*{price + '$'}">Dish price.</p>
+                <input type="text" name="count" value="1" placeholder="Enter dish count" />
+                <input class="btn btn-primary" type="text" name="dish-id" hidden="hidden" th:value="${dish.id}" />
+                <form th:action="@{/order}" th:method="POST">
+                    <button>Add to cart</button>
+                </form>
+                <!--<input class="btn btn-primary" type="submit" value="Add to cart">-->
             </form>
         </div>
     </div>
-    <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Cesar salad</h5>
-            <p class="card-text">Salad with chicken and vegetables.</p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
-        </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">Hot dog</h5>
-            <p class="card-text">Hot dog with sausage and bread.</p>
-            <a href="#" class="btn btn-primary">Add to cart</a>
-        </div>
-    </div>
+   </tr>
 </div>
-<table id="Dishes" class="table">
+<table id="Dishes" class="table" sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" >
 
     <tr>
         <td scope="col">Id</td>
@@ -86,7 +58,7 @@
         </td>
 
 
-        <td>
+        <td sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" >
             <form th:action="@{/dish/{id}(id=*{id})}" th:method="GET">
                 <button value="Update">Update</button>
             </form>
@@ -94,13 +66,14 @@
                 <button value="delete" name="removeRow">Delete</button>
             </form>
         </td>
-        <td>
-            <form th:action="@{/order}" th:method="GET">
+        <td sec:authorize="hasRole('ROLE_USER')">
+            <form th:action="@{/basket}" th:method="GET">
                 <button value="add to cart">Add to cart</button>
             </form>
         </td>
     </tr>
+    <button><a th:href="@{/dish}">Create dish</a></button>
 </table>
-<button><a th:href="@{/dish}">Create dish</a></button>
+
 </body>
 </html>

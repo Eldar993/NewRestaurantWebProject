@@ -48,12 +48,17 @@ public class OrderController {
         final String username = authentication.getName();
         try {
             orderService.addDish(username, dishId, count);
+
+
         } catch (Exception e) {
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl("/error"); //todo: should be redirected to error page
             mav.setView(redirectView);
         }
         //TODO: add redirect to page with all available dishes
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/dishes"); //redirect to dish page
+        mav.setView(redirectView);
         return mav;
     }
 
@@ -64,6 +69,9 @@ public class OrderController {
         // Delete order
         orderService.remove(orderId);
         //TODO: add redirect(?)
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/admin/orders"); //redirect to dish page
+        mav.setView(redirectView);
         return mav;
     }
 
@@ -80,6 +88,8 @@ public class OrderController {
                 .map(OrderService::toDto)
                 .collect(Collectors.toList());
         //TODO: pass orders to view
+        mav.setViewName("/basket");
+        mav.addObject("orders",orders);
         return mav;
     }
 
@@ -100,6 +110,7 @@ public class OrderController {
                                      @ModelAttribute("payment") int payment,
                                      ModelAndView mav) {
         //TODO: proceed payment for order and change status to DONE if payment > total price of order
+
         return mav;
     }
 }

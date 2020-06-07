@@ -18,9 +18,9 @@
         <ul class="nav__links">
             <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/print_all}">Users</a></li>
             <li sec:authorize="isAuthenticated()" ><a th:href="@{/dishes}">Dishes</a></li>
-            <li sec:authorize="isAuthenticated()"><a th:href="@{/dishTypes}">Dish Types</a></li>
+            <li sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')"><a th:href="@{/dishTypes}">Dish Types</a></li>
             <li sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" ><a th:href="@{/ingredients}">Ingredients</a></li>
-            <li sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" ><a th:href="@{/orders}">Orders</a></li>
+            <li sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" ><a th:href="@{/admin/orders}">Orders</a></li>
             <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/bills}">Bills</a></li>
 
         </ul>
