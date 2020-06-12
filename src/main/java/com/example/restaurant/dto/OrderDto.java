@@ -1,16 +1,15 @@
 package com.example.restaurant.dto;
 
-import com.example.restaurant.entity.User;
-import com.example.restaurant.enums.OrderStatus;
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderDto {
     private Long id;
     private LocalDateTime createdAt;
-    private User user;
-    private OrderStatus orderStatus;
-
+    private UserDto user;
+    private List<DishSimpleDto> dishes = new ArrayList<>();
+    private String orderStatus;
 
 
     public Long getId() {
@@ -29,18 +28,27 @@ public class OrderDto {
         this.createdAt = createdAt;
     }
 
-    public User getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
-    public OrderStatus getOrderStatus() {
+
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
+    public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public List<DishSimpleDto> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(List<DishSimpleDto> dishes) {
+        this.dishes = dishes;
     }
 }

@@ -59,7 +59,6 @@ public class DishService {
         return dishRepository.saveAndFlush(dish);
     }
 
-    //TODO: add implementation
     public static DishDto toDto(Dish dish) {
         if (dish == null) {
             return null;

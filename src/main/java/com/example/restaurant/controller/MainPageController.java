@@ -13,12 +13,4 @@ public class MainPageController {
         return mav;
     }
 
-    @RequestMapping(value = "/basket", method = RequestMethod.GET)
-    public ModelAndView basketPage(ModelAndView mav) {
-
-        mav.setViewName("/basket");
-        return mav;
-    }
-
-
 }

@@ -1,8 +1,11 @@
 package com.example.restaurant.service;
 
+import com.example.restaurant.dto.DishSimpleDto;
 import com.example.restaurant.dto.OrderDto;
+import com.example.restaurant.dto.UserDto;
 import com.example.restaurant.entity.Dish;
 import com.example.restaurant.entity.Order;
+import com.example.restaurant.entity.OrderDish;
 import com.example.restaurant.entity.User;
 import com.example.restaurant.enums.OrderStatus;
 import com.example.restaurant.repository.OrderRepository;
@@ -61,8 +64,30 @@ public class OrderService {
         OrderDto result = new OrderDto();
         result.setId(entity.getId());
         result.setCreatedAt(entity.getCreatedAt());
-        result.setUser(entity.getUser());
-        result.setOrderStatus(entity.getStatus());
+        result.setUser(UserService.toDto(entity.getUser()));
+        result.setOrderStatus(entity.getStatus().toString());
+
+        final List<DishSimpleDto> dishes = entity.getDishes()
+                .stream()
+                .map(od -> OrderService.toSimpleDto(od))
+                .collect(Collectors.toList());
+        result.setDishes(dishes);
+
+        return result;
+    }
+
+    public static DishSimpleDto toSimpleDto(OrderDish orderDish) {
+        if (orderDish == null) {
+            return null;
+        }
+
+        final Dish dish = orderDish.getDish();
+        DishSimpleDto result = new DishSimpleDto();
+        result.setId(dish.getId());
+        result.setName(dish.getName());
+        result.setDishType(dish.getDishType().getTitle());
+        result.setPrice(dish.getPrice());
+        result.setCount(orderDish.getCount());
 
         return result;
     }
@@ -74,15 +99,22 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public static Order toEntity(OrderDto dto) {
+    public Order toEntity(OrderDto dto) {
         if (dto == null) {
             return null;
         }
         Order result = new Order();
         result.setId(dto.getId());
         result.setCreatedAt(dto.getCreatedAt());
-        result.setStatus(dto.getOrderStatus());
-        result.setUser(dto.getUser());
+        result.setStatus(OrderStatus.valueOf(dto.getOrderStatus()));
+        final UserDto userDto = dto.getUser();
+        if (userDto == null) {
+            throw new IllegalArgumentException("Unknown user");
+        }
+        final String username = userDto.getName();
+        final User user = userService.findByName(username)
+                .orElseThrow(() -> new IllegalArgumentException("User with name = '" + username + "' not found"));
+        result.setUser(user);
         return result;
     }
 
@@ -97,6 +129,7 @@ public class OrderService {
                 .orElseGet(() -> create(user));
 
         order.addDish(dish, count);
+        orderRepository.saveAndFlush(order);
     }
 
     public Order create(User user) {
@@ -126,36 +159,40 @@ public class OrderService {
         return orders;
     }
 
-    public void confirm(String username, Long orderId) {
+    public Order findByStatus(String username, OrderStatus status) {
         final User user = userService.findByName(username)
                 .orElseThrow(() -> new IllegalArgumentException("User with [name='" + username + "'] not found"));
-        final Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("No order"));
+        final List<Order> orders = orderRepository.findByUserAndStatus(user, status);
 
-        if (!OrderStatus.NEW.equals(order.getStatus())) {
-            throw new IllegalStateException("Wrong status");
-        }
-        if (!user.equals(order.getUser())) {
-            throw new IllegalStateException("Order belong to some one else");
+        if (orders.isEmpty()) {
+            throw new IllegalArgumentException("No order with status=" + status);
+        } else if (orders.size() > 1) {
+            throw new IllegalArgumentException("Too many orders with status=" + status);
         }
 
-        order.setStatus(OrderStatus.IN_PROGRESS);
+        return orders.get(0);
+    }
+
+    public void confirmOrder(String username) {
+        changeOrderStatus(username, OrderStatus.NEW, OrderStatus.IN_PROGRESS);
+    }
+
+    public void cookCompleted(String username) {
+        changeOrderStatus(username, OrderStatus.IN_PROGRESS, OrderStatus.WAIT_PAYMENT);
+    }
+
+    public void complete(String username, Long payment) {
+
+    }
+
+    private void changeOrderStatus(String username, OrderStatus status, OrderStatus nextStatus) {
+        final Order order = findByStatus(username, status);
+        order.setStatus(nextStatus);
+
         orderRepository.saveAndFlush(order);
     }
-    public void waitPayment(String username, Long orderId) {
-        final User user = userService.findByName(username)
-                .orElseThrow(() -> new IllegalArgumentException("User with [name='" + username + "'] not found"));
-        final Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("No order"));
 
-        if (!OrderStatus.NEW.equals(order.getStatus())) {
-            throw new IllegalStateException("Wrong status");
-        }
-        if (!user.equals(order.getUser())) {
-            throw new IllegalStateException("Order belong to some one else");
-        }
-
-        order.setStatus(OrderStatus.WAIT_PAYMENT);
-        orderRepository.saveAndFlush(order);
+    public Long calculateTotalPrice(Order order) {
+        return 123321L;
     }
 }

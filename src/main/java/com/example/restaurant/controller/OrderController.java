@@ -2,8 +2,12 @@ package com.example.restaurant.controller;
 
 import com.example.restaurant.dto.DishDto;
 import com.example.restaurant.dto.OrderDto;
+import com.example.restaurant.entity.Order;
+import com.example.restaurant.enums.OrderStatus;
 import com.example.restaurant.service.DishService;
 import com.example.restaurant.service.OrderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -20,6 +24,7 @@ import java.util.stream.Collectors;
 
 @Controller
 public class OrderController {
+    private static final Logger log = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
     private OrderService orderService;
@@ -46,19 +51,19 @@ public class OrderController {
                                              @ModelAttribute("count") Long count) {
         //create new order or add dish to opened order
         final String username = authentication.getName();
+
         try {
             orderService.addDish(username, dishId, count);
-
-
+            RedirectView redirectView = new RedirectView();
+            redirectView.setUrl("/dishes"); //redirect to dish page
+            mav.setView(redirectView);
         } catch (Exception e) {
+            log.error("Order not created: {}", e.getMessage(), e);
             RedirectView redirectView = new RedirectView();
             redirectView.setUrl("/error"); //todo: should be redirected to error page
             mav.setView(redirectView);
         }
-        //TODO: add redirect to page with all available dishes
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/dishes"); //redirect to dish page
-        mav.setView(redirectView);
+
         return mav;
     }
 
@@ -100,17 +105,37 @@ public class OrderController {
                                       ModelAndView mav) {
         //TODO: Change order status to IN_PROGRESS
         final String username = authentication.getName();
-        orderService.confirm(username, orderId);
+        orderService.confirmOrder(username);
         return mav;
     }
 
     @RequestMapping(value = "/orders/{id}/pay", method = RequestMethod.POST)
     @Secured(value = {"ROLE_USER"})
     public ModelAndView payOrder(@PathVariable("id") Long orderId,
-                                     @ModelAttribute("payment") int payment,
-                                     ModelAndView mav) {
+                                 @ModelAttribute("payment") int payment,
+                                 ModelAndView mav) {
         //TODO: proceed payment for order and change status to DONE if payment > total price of order
 
         return mav;
     }
+
+    @RequestMapping(value = "/basket", method = RequestMethod.GET)
+    public ModelAndView basketPage(Authentication authentication,
+                                   ModelAndView mav) {
+        final String username = authentication.getName();
+        OrderDto orderDto;
+        Long totalPrice = 0L;
+        try {
+            Order order = orderService.findByStatus(username, OrderStatus.NEW);
+            totalPrice = orderService.calculateTotalPrice(order);
+            orderDto = OrderService.toDto(order);
+        } catch (Exception e) {
+            orderDto = new OrderDto();
+        }
+        mav.setViewName("/basket");
+        mav.addObject("order", orderDto);
+        mav.addObject("totalPrice", totalPrice);
+        return mav;
+    }
+
 }

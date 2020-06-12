@@ -22,7 +22,7 @@ public class OrderDish {
     @MapsId("id")
     private Order order;
 
-    private Long count;
+    private Long count = 0L;
 
     public OrderDish() {
 
