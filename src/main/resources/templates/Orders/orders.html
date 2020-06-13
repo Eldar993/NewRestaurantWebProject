@@ -25,12 +25,12 @@
     <tr th:each="order: ${orderList}" th:object="${order}">
         <td th:text="*{id}">Id</td>
         <td th:text="*{createdAt}">created at</td>
-        <td th:text="*{user}">user</td>
+        <td th:text="*{user.name}">user</td>
         <td th:text="*{orderStatus}">order status</td>
 
         <td>
-            <span th:each="dish : *{dishList}">
-                <span th:text="${dish.name}"></span><span> </span>
+            <span th:each="dish: ${order.dishes}" th:object="${dish}">
+                <span th:text="*{name}"></span><span> </span>
             </span>
         </td>
 
