@@ -70,7 +70,7 @@ public class OrderController {
     @RequestMapping(value = "/admin/orders/{id}", method = RequestMethod.DELETE)
     @Secured(value = {"ROLE_ADMIN"})
     public ModelAndView delete(ModelAndView mav,
-                                             @PathVariable("id") Long orderId) {
+                               @PathVariable("id") Long orderId) {
         // Delete order
         orderService.remove(orderId);
         //TODO: add redirect(?)
@@ -84,7 +84,7 @@ public class OrderController {
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     @Secured(value = {"ROLE_USER"})
     public ModelAndView userOrdersHistory(Authentication authentication,
-                               ModelAndView mav) {
+                                          ModelAndView mav) {
         //Show order statistics for current user
         //      orders history
         final String username = authentication.getName();
@@ -94,7 +94,7 @@ public class OrderController {
                 .collect(Collectors.toList());
         //TODO: pass orders to view
         mav.setViewName("/basket");
-        mav.addObject("orders",orders);
+        mav.addObject("orders", orders);
         return mav;
     }
 
@@ -102,7 +102,7 @@ public class OrderController {
     @Secured(value = {"ROLE_USER"})
     public ModelAndView confirmOrder(@PathVariable("id") Long orderId,
                                      Authentication authentication,
-                                      ModelAndView mav) {
+                                     ModelAndView mav) {
         //TODO: Change order status to IN_PROGRESS
         final String username = authentication.getName();
         orderService.confirmOrder(username);
@@ -118,6 +118,12 @@ public class OrderController {
 
         return mav;
     }
+  /*  @RequestMapping(value = "/basket", method = RequestMethod.GET)
+    public ModelAndView delete(Authentication authentication,
+                               ModelAndView mav){
+        orderService.remove(order);
+    }*/
+
 
     @RequestMapping(value = "/basket", method = RequestMethod.GET)
     public ModelAndView basketPage(Authentication authentication,

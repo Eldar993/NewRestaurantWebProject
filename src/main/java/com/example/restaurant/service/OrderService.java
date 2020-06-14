@@ -193,6 +193,11 @@ public class OrderService {
     }
 
     public Long calculateTotalPrice(Order order) {
-        return 123321L;
+        Long sum = 0L;
+//        for (dish : order.getDishes()) {
+//
+//
+//        }
+        return sum;
     }
 }

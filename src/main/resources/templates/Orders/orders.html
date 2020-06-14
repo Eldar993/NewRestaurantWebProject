@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Orders</title>
@@ -20,13 +20,20 @@
         <td scope="col">Created At</td>
         <td scope="col">User</td>
         <td scope="col">Order Status</td>
+        <td sec:authorize="hasRole('ROLE_COOK')" scope="col">Change Status</td>
         <td scope="col">Dishes</td>
 
     <tr th:each="order: ${orderList}" th:object="${order}">
         <td th:text="*{id}">Id</td>
-        <td th:text="*{createdAt}">created at</td>
+        <td th:text="${#temporals.format(order.createdAt, 'dd-MM-yyyy HH:mm')}">created at</td>
         <td th:text="*{user.name}">user</td>
         <td th:text="*{orderStatus}">order status</td>
+        <td sec:authorize="hasRole('ROLE_COOK')">
+            <form th:action="@{/cook/orders/status}" th:method="PUT">
+                <button value="change">Change status</button>
+            </form>
+        </td>
+
 
         <td>
             <span th:each="dish: ${order.dishes}" th:object="${dish}">
