@@ -173,6 +173,10 @@ public class OrderService {
         return orders.get(0);
     }
 
+    public List<Order> findByStatus(OrderStatus status) {
+        return orderRepository.findByStatus(status);
+    }
+
     public void confirmOrder(String username) {
         changeOrderStatus(username, OrderStatus.NEW, OrderStatus.IN_PROGRESS);
     }
