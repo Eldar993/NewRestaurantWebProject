@@ -81,8 +81,7 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value = "/orders", method = RequestMethod.GET)
-    @Secured(value = {"ROLE_USER"})
+    @RequestMapping(value = "/user/orders", method = RequestMethod.GET)
     public ModelAndView userOrdersHistory(Authentication authentication,
                                           ModelAndView mav) {
         //Show order statistics for current user
@@ -93,12 +92,12 @@ public class OrderController {
                 .map(OrderService::toDto)
                 .collect(Collectors.toList());
         //TODO: pass orders to view
-        mav.setViewName("/basket");
-        mav.addObject("orders", orders);
+        mav.setViewName("/Orders/orders");
+        mav.addObject("orderList", orders);
         return mav;
     }
 
-    @RequestMapping(value = "/orders/checkout", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/orders/checkout", method = RequestMethod.POST)
     @Secured(value = {"ROLE_USER"})
     public ModelAndView confirmOrder(Authentication authentication,
                                      ModelAndView mav) {
@@ -108,7 +107,7 @@ public class OrderController {
         return mav;
     }
 
-    @RequestMapping(value = "/orders/pay", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/orders/pay", method = RequestMethod.POST)
     @Secured(value = {"ROLE_USER"})
     public ModelAndView payOrder(Authentication authentication,
                                  @ModelAttribute("payment") long payment,

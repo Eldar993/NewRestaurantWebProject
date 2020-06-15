@@ -29,7 +29,7 @@
         <td th:text="*{user.name}">user</td>
         <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="*{orderStatus}">order status</td>
         <td sec:authorize="hasRole('ROLE_COOK')">
-            <form th:action="@{/cook/orders/status}" th:method="PUT">
+            <form th:action="@{/cook/orders/{username}(username=*{user.name})}" th:method="PUT">
                 <button value="change">Finish cook</button>
             </form>
         </td>

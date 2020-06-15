@@ -186,6 +186,11 @@ public class OrderService {
     }
 
     public void complete(String username, long payment) {
+        //TODO:
+        //      1) order = find order in WAIT_PAYMENT status for USER with name 'username' (use findByStatus(String, OrderStatus) method)
+        //      2) validate payment (should be greater than total price for WAIT_PAYMENT order)
+//              3) if 2) was success: change status to DONE and saveAndFlush
+
         throw new UnsupportedOperationException("Not implemented");
     }
 

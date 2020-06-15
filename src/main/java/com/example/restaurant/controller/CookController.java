@@ -36,11 +36,12 @@ public class CookController {
     }
 
 
-    @RequestMapping(value = "/cook/orders/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/cook/orders/{username}", method = RequestMethod.PUT)
     @Secured(value = {"ROLE_COOK"})
-    public ModelAndView completeOrder(@PathVariable("id") Long orderId,
+    public ModelAndView completeOrder(@PathVariable("username") String username,
                                       ModelAndView mav) {
         //TODO: Change order status to WAIT_PAYMENT
+        orderService.cookCompleted(username);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/cook/orders");
         mav.setView(redirectView);

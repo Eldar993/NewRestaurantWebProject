@@ -24,11 +24,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/webjars/**", "/css/**", "/pic/**",
                         "/static/favicon.ico")
                 .permitAll()
+                .antMatchers("/user/**")
+                .hasRole(UserRoles.USER.name())
                 .antMatchers("/users", "/admin/**")
                 .hasRole(UserRoles.ADMIN.name())
-                .antMatchers("/users", "/cook/**")
+                .antMatchers("/cook/**")
                 .hasRole(UserRoles.COOK.name())
-                .antMatchers("/orders", "/bills", "/ingredients")
+                .antMatchers("/bills", "/ingredients")
                 .hasAnyRole(UserRoles.ADMIN.name(), UserRoles.COOK.name())
                 .anyRequest().authenticated()
                 .and();
