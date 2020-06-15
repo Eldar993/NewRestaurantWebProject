@@ -34,8 +34,8 @@
         <span class="login text-light" sec:authentication="name" id="login">SomeLogin</span>
     </h4>
 
-    <a class="cta" sec:authorize="isAnonymous()" th:href="@{/signIn}">Sign In</a>
-    <a class="cta" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+    <a class="btn btn-primary" sec:authorize="isAnonymous()" th:href="@{/signIn}">Sign In</a>
+    <a class="btn btn-warning" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
 
 
     <form th:action="@{/basket}" th:method="GET">
