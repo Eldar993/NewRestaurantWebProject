@@ -194,10 +194,10 @@ public class OrderService {
 
     public Long calculateTotalPrice(Order order) {
         Long sum = 0L;
-//        for (dish : order.getDishes()) {
-//
-//
-//        }
+        for (OrderDish orderDish : order.getDishes()) {
+            sum += orderDish.getDish().getPrice() * orderDish.getCount();
+
+        }
         return sum;
     }
 }
