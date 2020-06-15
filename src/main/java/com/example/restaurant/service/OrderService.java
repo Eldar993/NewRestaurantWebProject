@@ -181,8 +181,8 @@ public class OrderService {
         changeOrderStatus(username, OrderStatus.IN_PROGRESS, OrderStatus.WAIT_PAYMENT);
     }
 
-    public void complete(String username, Long payment) {
-
+    public void complete(String username, long payment) {
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     private void changeOrderStatus(String username, OrderStatus status, OrderStatus nextStatus) {

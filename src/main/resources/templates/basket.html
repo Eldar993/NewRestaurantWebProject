@@ -61,7 +61,10 @@
         </div>
         <div class="card-footer">
             <div class="pull-right">
-                <a href="" class="btn btn-success pull-right">Checkout</a>
+                <form th:action="@{/orders/checkout}" th:method="POST">
+                    <input type="submit" value="Checkout" class="btn btn-success pull-right" />
+                </form>
+
                 <div class="pull-right">
                     Total price: <b th:text="${totalPrice}">50.00€</b>
                 </div>

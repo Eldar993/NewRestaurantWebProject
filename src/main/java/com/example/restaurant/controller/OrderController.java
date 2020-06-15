@@ -98,24 +98,24 @@ public class OrderController {
         return mav;
     }
 
-    @RequestMapping(value = "/orders/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/orders/checkout", method = RequestMethod.POST)
     @Secured(value = {"ROLE_USER"})
-    public ModelAndView confirmOrder(@PathVariable("id") Long orderId,
-                                     Authentication authentication,
+    public ModelAndView confirmOrder(Authentication authentication,
                                      ModelAndView mav) {
-        //TODO: Change order status to IN_PROGRESS
         final String username = authentication.getName();
         orderService.confirmOrder(username);
+        //TODO: add redirect ot page "Thank you! Order was created"
         return mav;
     }
 
-    @RequestMapping(value = "/orders/{id}/pay", method = RequestMethod.POST)
+    @RequestMapping(value = "/orders/pay", method = RequestMethod.POST)
     @Secured(value = {"ROLE_USER"})
-    public ModelAndView payOrder(@PathVariable("id") Long orderId,
-                                 @ModelAttribute("payment") int payment,
+    public ModelAndView payOrder(Authentication authentication,
+                                 @ModelAttribute("payment") long payment,
                                  ModelAndView mav) {
         //TODO: proceed payment for order and change status to DONE if payment > total price of order
-
+        final String username = authentication.getName();
+        orderService.complete(username, payment);
         return mav;
     }
   /*  @RequestMapping(value = "/basket", method = RequestMethod.GET)
