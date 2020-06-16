@@ -34,7 +34,13 @@
         </td>
     </tr>
 </table>
-<button><a th:href="@{/dishType}">Create dish type</a></button>
+<form th:action="@{/dishType}" th:method="GET">
+    <button class="btn btn-outline-primary">Create dish type</button>
+</form>
+
+
+
+
 
 </body>
 </html>

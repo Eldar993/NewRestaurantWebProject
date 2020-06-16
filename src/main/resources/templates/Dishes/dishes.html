@@ -39,16 +39,16 @@
     <th scope="col">Name</th>
     <th scope="col">Weight</th>
     <th scope="col">Ingredients</th>
+    <th scope="col"></th>
 </tr>
 </thead>
-
+<tbody>
     <tr th:each="dish: ${dishList}" th:object="${dish}">
         <td th:text="*{id}">Id</td>
         <td th:text="*{dishType.title}">Dish Type</td>
         <td th:text="*{price}">Price</td>
         <td th:text="*{name}">Name</td>
         <td th:text="*{weight}">Weight</td>
-
 
         <td>
             <span th:each="entry : *{ingredients}">
@@ -71,7 +71,11 @@
             </form>
         </td>
     </tr>
-    <button  class="btn btn-outline-warning"><a th:href="@{/dish}">Create dish</a></button>
+</tbody>
+    <form th:action="@{/dish}" th:method="GET">
+        <button class="btn btn-outline-primary">Create dish</button>
+    </form>
+
 </table>
 
 </body>

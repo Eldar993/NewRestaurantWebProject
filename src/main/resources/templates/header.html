@@ -15,7 +15,10 @@
 </head>
 <body>
 <header>
-    <a class="cta" th:href="@{/main}">Main Page</a>
+    <form th:action="@{/main}" method="GET">
+        <button type="submit" class="cta">Main Page</button>
+    </form>
+    <!--<a  th:href=""></a>-->
     <nav>
         <ul class="nav__links">
             <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/print_all}">Users</a></li>
