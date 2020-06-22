@@ -109,11 +109,13 @@ public class OrderController {
 
     @RequestMapping(value = "/user/orders/pay", method = RequestMethod.GET)
     @Secured(value = {"ROLE_USER"})
-    public ModelAndView payOrderPage(ModelAndView mav) {
-
+    public ModelAndView payOrderPage(Authentication authentication,ModelAndView mav) {
+        final String username = authentication.getName();
+        Long totalPrice = 0L;
+        Order order = orderService.findByStatus(username, OrderStatus.WAIT_PAYMENT);
+        totalPrice = orderService.calculateTotalPrice(order);
         mav.setViewName("/Orders/payment");
-
-
+        mav.addObject("totalPrice", totalPrice);
         return mav;
     }
 
