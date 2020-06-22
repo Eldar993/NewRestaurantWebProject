@@ -11,12 +11,7 @@ import com.example.restaurant.repository.DishTypeRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.AbstractMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -159,7 +154,11 @@ public class DishService {
     }
 
     public Dish update(Dish dish) {
-        Dish updatedDish = null;//dishRepository.findDishById(dish.getId());
+        if (dish == null) {
+            return null;
+        }
+        Dish updatedDish = dishRepository.findById(dish.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Unknown dish id"));
         if (updatedDish == null) {
             return null;
         }

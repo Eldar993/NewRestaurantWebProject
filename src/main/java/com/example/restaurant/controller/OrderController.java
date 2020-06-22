@@ -107,12 +107,23 @@ public class OrderController {
         return mav;
     }
 
+    @RequestMapping(value = "/user/orders/pay", method = RequestMethod.GET)
+    @Secured(value = {"ROLE_USER"})
+    public ModelAndView payOrderPage(ModelAndView mav) {
+
+        mav.setViewName("/Orders/payment");
+
+
+        return mav;
+    }
+
     @RequestMapping(value = "/user/orders/pay", method = RequestMethod.POST)
     @Secured(value = {"ROLE_USER"})
     public ModelAndView payOrder(Authentication authentication,
                                  @ModelAttribute("payment") long payment,
                                  ModelAndView mav) {
         //TODO: proceed payment for order and change status to DONE if payment > total price of order
+        mav.setViewName("/Orders/payment");
         final String username = authentication.getName();
         orderService.complete(username, payment);
         return mav;

@@ -21,31 +21,31 @@
             <legend th:text="${actionType == 'create'} ? 'Create new dish' : 'Update dish'"></legend>
 
             <p th:if="${actionType != 'create'}">Id: [[*{id}]]</p>
-            <div>
+            <div class="form-group col-xs-2">
                 <label for="dishTypes">DishType:</label>
-                <select id="dishTypes" name="dishTypeId">
+                <select id="dishTypes" name="dishTypeId" class="form-control">
                     <option th:each="dishType: ${dishTypeList}" th:value="${dishType.id}"
                             th:text="${dishType.title}"></option>
                 </select>
             </div>
 
-            <div>
+            <div class="form-group  col-xs-2">
                 <label for="name">Name</label>
-                <input type="text" id="name" size="15" required th:field="*{name}">
+                <input type="text" id="name" size="15" required th:field="*{name}" class="form-control">
             </div>
-            <div>
+            <div class="form-group col-xs-2">
                 <label for="price">Price</label>
-                <input type="text" id="price" size="15" required th:field="*{price}">
+                <input type="text" id="price" size="15" required th:field="*{price}" class="form-control">
             </div>
-            <div>
+            <div class="form-group col-xs-2">
                 <label for="weight">Weight</label>
-                <input type="text" id="weight" size="15" required th:field="*{weight}">
+                <input type="text" id="weight" size="15" required th:field="*{weight}" class="form-control">
             </div>
-            <div>
+            <div class="form-group col-xs-3">
                 <label for="Ingredients">Ingredients:</label>
                 <th:block th:each="entry : *{ingredients}">
                     <input id="Ingredients" type="checkbox" name="ingredientIds" th:value="${entry.key.id}"
-                           th:checked="${entry.value}"/>
+                           th:checked="${entry.value}" class="form-control"/>
                     <label th:text="${entry.key.title}"></label>
                 </th:block>
             </div>

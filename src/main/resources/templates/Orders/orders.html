@@ -22,8 +22,8 @@
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">User</th>
+                    <th sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" scope="col">Created At</th>
+                    <th sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" scope="col">User</th>
                     <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">Order Status</th>
                     <th sec:authorize="hasRole('ROLE_COOK')" scope="col">Change Status</th>
                     <th scope="col-3">Dishes</th>
@@ -32,20 +32,27 @@
                 <tbody>
                 <tr th:each="order: ${orderList}" th:object="${order}">
                     <td th:text="*{id}">Id</td>
-                    <td th:text="${#temporals.format(order.createdAt, 'dd-MM-yyyy HH:mm')}">created at</td>
-                    <td th:text="*{user.name}">user</td>
+                    <td sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" th:text="${#temporals.format(order.createdAt, 'dd-MM-yyyy HH:mm')}">created at</td>
+                    <td sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" th:text="*{user.name}">user</td>
                     <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="*{orderStatus}">order status</td>
                     <td sec:authorize="hasRole('ROLE_COOK')">
                         <form th:action="@{/cook/orders/{username}(username=*{user.name})}" th:method="PUT">
                             <button value="change">Finish cook</button>
                         </form>
+
                     </td>
+
 
 
                     <td>
             <span th:each="dish: ${order.dishes}" th:object="${dish}">
                 <span th:text="*{name}"></span><span> </span>
             </span>
+                    </td>
+                    <td sec:authorize="hasRole('ROLE_USER')">
+                        <form th:action="@{/user/orders/pay}" th:method="GET">
+                            <button value="pay" class="btn btn-primary">Pay</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>
