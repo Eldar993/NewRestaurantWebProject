@@ -46,7 +46,7 @@
 
                     <td>
             <span th:each="dish: ${order.dishes}" th:object="${dish}">
-                <span th:text="*{name}"></span><span> </span>
+                <div th:text="*{name} + ' ' + ${dish.count}"></div><span> </span>
             </span>
                     </td>
                     <td sec:authorize="hasRole('ROLE_USER')">
