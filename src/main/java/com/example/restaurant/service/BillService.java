@@ -19,6 +19,7 @@ public class BillService {
     public BillService(BillRepository billRepository) {
         this.billRepository = billRepository;
     }
+
     public boolean create(Bill bill) {
         if (bill.getId() != null) {
             return false;
@@ -26,16 +27,20 @@ public class BillService {
         billRepository.saveAndFlush(bill);
         return true;
     }
+
     public List<Bill> findAll() {
         return billRepository.findAll();
     }
+
     public Bill findById(Long id) {
         Bill bill = billRepository.findBillById(id);
         return bill;
     }
+
     public void deleteById(Long id) {
         billRepository.deleteById(id);
     }
+
     public Bill update(Bill bill) {
         Optional<Bill> updatedBill = billRepository.findById(bill.getId());
         if (updatedBill == null) {
@@ -49,6 +54,7 @@ public class BillService {
         final Bill result = billRepository.saveAndFlush(updatedBill.get());
         return result;
     }
+
     public static BillDto toDto(Bill entity) {
         if (entity == null) {
             return null;
