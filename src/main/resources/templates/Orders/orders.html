@@ -24,35 +24,35 @@
                     <th scope="col">Id</th>
                     <th sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" scope="col">Created At</th>
                     <th sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" scope="col">User</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">Order Status</th>
-                    <th sec:authorize="hasRole('ROLE_COOK')" scope="col">Change Status</th>
+                    <th sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" scope="col">Order Status</th>
                     <th scope="col-3">Dishes</th>
+                    <th sec:authorize="hasAnyRole('ROLE_COOK','ROLE_USER')" scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="order: ${orderList}" th:object="${order}">
                     <td th:text="*{id}">Id</td>
-                    <td sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" th:text="${#temporals.format(order.createdAt, 'dd-MM-yyyy HH:mm')}">created at</td>
+                    <td sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')"
+                        th:text="${#temporals.format(order.createdAt, 'dd-MM-yyyy HH:mm')}">created at
+                    </td>
                     <td sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" th:text="*{user.name}">user</td>
-                    <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="*{orderStatus}">order status</td>
-                    <td sec:authorize="hasRole('ROLE_COOK')">
-                        <form th:action="@{/cook/orders/{username}(username=*{user.name})}" th:method="PUT">
-                            <button value="change">Finish cook</button>
-                        </form>
-
-                    </td>
-
-
-
+                    <td sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" th:text="*{orderStatus}">order status</td>
                     <td>
-            <span th:each="dish: ${order.dishes}" th:object="${dish}">
-                <div th:text="*{name} + ' ' + ${dish.count}"></div><span> </span>
-            </span>
+                        <div th:each="dish: ${order.dishes}" th:object="${dish}">
+                            <div th:text="*{name} + ' ' + ${dish.count}"></div>
+                        </div>
                     </td>
-                    <td sec:authorize="hasRole('ROLE_USER')">
-                        <form th:action="@{/user/orders/pay}" th:method="GET">
-                            <button value="pay" class="btn btn-primary">Pay</button>
-                        </form>
+                    <td>
+                        <div sec:authorize="hasRole('ROLE_COOK')">
+                            <form th:action="@{/cook/orders/{username}(username=*{user.name})}" th:method="PUT">
+                                <button type="submit" class="btn btn-success">Finish cook</button>
+                            </form>
+
+                        </div>
+                        <div sec:authorize="hasRole('ROLE_USER')">
+                            <a class="btn btn-primary" th:href="@{/user/orders/pay}"
+                               th:if="${order.needPayment}">Pay</a>
+                        </div>
                     </td>
                 </tr>
                 </tbody>

@@ -10,6 +10,7 @@ public class OrderDto {
     private UserDto user;
     private List<DishSimpleDto> dishes = new ArrayList<>();
     private String orderStatus;
+    private boolean needPayment = false;
 
 
     public Long getId() {
@@ -50,5 +51,13 @@ public class OrderDto {
 
     public void setDishes(List<DishSimpleDto> dishes) {
         this.dishes = dishes;
+    }
+
+    public boolean isNeedPayment() {
+        return needPayment;
+    }
+
+    public void setNeedPayment(boolean needPayment) {
+        this.needPayment = needPayment;
     }
 }

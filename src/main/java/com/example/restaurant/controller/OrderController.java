@@ -103,7 +103,10 @@ public class OrderController {
                                      ModelAndView mav) {
         final String username = authentication.getName();
         orderService.confirmOrder(username);
-        //TODO: add redirect ot page "Thank you! Order was created"
+
+        mav.setViewName("/message");
+        mav.addObject("title", "Checkout");
+        mav.addObject("message", "Checkout success");
         return mav;
     }
 
@@ -111,11 +114,8 @@ public class OrderController {
     @Secured(value = {"ROLE_USER"})
     public ModelAndView payOrderPage(Authentication authentication, ModelAndView mav) {
         final String username = authentication.getName();
-        Long totalPrice = 0L;
-        Order order = orderService.findByStatus(username, OrderStatus.WAIT_PAYMENT);
-        totalPrice = orderService.calculateTotalPrice(order);
+        providePaymentDetails(mav, username);
         mav.setViewName("/Orders/payment");
-        mav.addObject("totalPrice", totalPrice);
         return mav;
     }
 
@@ -124,18 +124,24 @@ public class OrderController {
     public ModelAndView payOrder(Authentication authentication,
                                  @ModelAttribute("payment") long payment,
                                  ModelAndView mav) {
-        //TODO: proceed payment for order and change status to DONE if payment > total price of order
-        mav.setViewName("/Orders/paymentDone");
         final String username = authentication.getName();
-        orderService.complete(username, payment);
+        orderService
+                .complete(username, payment)
+                .ifPresentOrElse(
+                        e -> {
+                            providePaymentDetails(mav, username);
+                            mav.addObject("errorMsg", e);
+                            mav.setViewName("/Orders/payment");
+                        },
+                        () -> {
+                            mav.setViewName("/message");
+                            mav.addObject("title", "Payment");
+                            mav.addObject("message", "Payment done. Thank You!");
+                        }
+                );
+
         return mav;
     }
-  /*  @RequestMapping(value = "/basket", method = RequestMethod.GET)
-    public ModelAndView delete(Authentication authentication,
-                               ModelAndView mav){
-        orderService.remove(order);
-    }*/
-
 
     @RequestMapping(value = "/basket", method = RequestMethod.GET)
     public ModelAndView basketPage(Authentication authentication,
@@ -156,4 +162,13 @@ public class OrderController {
         return mav;
     }
 
+    private void providePaymentDetails(ModelAndView mav, String username) {
+        final Order unpaidOrder = orderService.findUnpaid(username);
+        if (unpaidOrder == null) {
+            mav.addObject("errorMsg", "You don't have an unpaid order");
+        } else {
+            long totalPrice = orderService.calculateTotalPrice(unpaidOrder);
+            mav.addObject("totalPrice", totalPrice);
+        }
+    }
 }
