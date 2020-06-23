@@ -32,7 +32,9 @@
                 <tbody>
                 <tr th:each="order: ${orderList}" th:object="${order}">
                     <td th:text="*{id}">Id</td>
-                    <td sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" th:text="${#temporals.format(order.createdAt, 'dd-MM-yyyy HH:mm')}">created at</td>
+                    <td sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')"
+                        th:text="${#temporals.format(order.createdAt, 'dd-MM-yyyy HH:mm')}">created at
+                    </td>
                     <td sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" th:text="*{user.name}">user</td>
                     <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="*{orderStatus}">order status</td>
                     <td sec:authorize="hasRole('ROLE_COOK')">
@@ -41,7 +43,6 @@
                         </form>
 
                     </td>
-
 
 
                     <td>

@@ -96,6 +96,7 @@ header {
 .overlay a:focus {
     color: #0088a9;
 }
+
 .overlay .close {
     position: absolute;
     top: 20px;
@@ -108,6 +109,7 @@ header {
     .overlay a {
         font-size: 20px;
     }
+
     .overlay .close {
         font-size: 40px;
         top: 15px;
@@ -120,29 +122,34 @@ header {
     .cta {
         display: none;
     }
+
     .menu {
         display: initial;
     }
 }
-table{
+
+table {
     border: 2px solid black;
     border-collapse: collapse;
 }
-td{
+
+td {
     border: 2px solid black;
 }
-a{
+
+a {
     text-decoration: none;
 }
-.card{
+
+.card {
     display: inline-block;
     margin-left: 20px;
     margin-top: 10px;
 }
-#dishes{
+
+#dishes {
     text-align: center;
 }
-
 
 
 .quantity {
@@ -207,6 +214,7 @@ a{
 .quantity .minus {
     bottom: 0
 }
+
 .shopping-cart {
     margin-top: 20px;
 }

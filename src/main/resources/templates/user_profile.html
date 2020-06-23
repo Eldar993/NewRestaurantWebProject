@@ -13,7 +13,7 @@
 <body>
 <div th:insert="/header :: header"></div>
 
-<div th:object="${userInfo}"  th:if="${userInfo}">
+<div th:object="${userInfo}" th:if="${userInfo}">
     <h1 class="title" th:classAppend="${id % 2 == 0} ? 'even'">
         Id: <span th:text="*{id}"> Some id</span> Name: [[*{name}]] Password: [[*{password}]] User Role:
     </h1>
@@ -22,7 +22,8 @@
 <div th:unless="${userInfo}">
     <h1>Unknown user</h1>
 </div>
-<form th:object="${userInfo}" th:action="@{/users/{id}(id = *{id})}" method="POST" class="form-group" modelAtribute="update">
+<form th:object="${userInfo}" th:action="@{/users/{id}(id = *{id})}" method="POST" class="form-group"
+      modelAtribute="update">
     <p class="registration">Name<br>
 
         <input th:field="*{name}" class="InputRegistration" type="text" name="name" size="15" maxlength="20" required>
@@ -35,15 +36,15 @@
     <p class="registration">User Role<br>
         <!--<input th:field="*{role}" class="InputRegistration" type="text" name="userRole" size="15"
                required="required"></p>-->
-<!--    <div class="form-group col-xs-3">
-        <label for="Ingredients">User role:</label>
-        <th:block th:each="role : *{UserRoles}">
-            <input id="Ingredients" type="radio" th:value="${role}" class="form-control"/>
-        </th:block>
-    </div>-->
-    <br>
+        <!--    <div class="form-group col-xs-3">
+                <label for="Ingredients">User role:</label>
+                <th:block th:each="role : *{UserRoles}">
+                    <input id="Ingredients" type="radio" th:value="${role}" class="form-control"/>
+                </th:block>
+            </div>-->
+        <br>
 
-    <input class="btn btn-info" type="submit" value="Update">
+        <input class="btn btn-info" type="submit" value="Update">
 </form>
 </body>
 </html>

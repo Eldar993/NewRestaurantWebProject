@@ -192,8 +192,8 @@ public class OrderService {
 //              3) if 2) was success: change status to DONE and saveAndFlush
 
         //throw new UnsupportedOperationException("Not implemented");
-        Order order = findByStatus(username,OrderStatus.WAIT_PAYMENT);
-        if(payment > calculateTotalPrice(order)){
+        Order order = findByStatus(username, OrderStatus.WAIT_PAYMENT);
+        if (payment > calculateTotalPrice(order)) {
             order.setStatus(OrderStatus.DONE);
             orderRepository.saveAndFlush(order);
         }
