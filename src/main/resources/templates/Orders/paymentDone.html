@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Payment</title>
+    <title>Payment done</title>
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -10,15 +10,7 @@
 </head>
 <body>
 <div th:insert="/header :: header"></div>
-<form th:action="@{/user/orders/pay}" th:method="POST">
-    <div class="form-group col-2">
-        <label for="payment">Payment amount</label>
-        <input type="text" id="payment" size="15" name="payment" required class="form-control" placeholder="Enter an amount to pay">
-    </div>
-    <span>You need to pay: </span><span th:text="${totalPrice} + '$' "></span>
-<br>
-    <button type="submit" class="btn btn-primary">Pay</button>
-</form>
+<h1>Thank you!</h1>
 
 </body>
 </html>

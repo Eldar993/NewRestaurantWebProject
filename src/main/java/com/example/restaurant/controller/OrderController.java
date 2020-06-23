@@ -125,7 +125,7 @@ public class OrderController {
                                  @ModelAttribute("payment") long payment,
                                  ModelAndView mav) {
         //TODO: proceed payment for order and change status to DONE if payment > total price of order
-        mav.setViewName("/Orders/payment");
+        mav.setViewName("/Orders/paymentDone");
         final String username = authentication.getName();
         orderService.complete(username, payment);
         return mav;
