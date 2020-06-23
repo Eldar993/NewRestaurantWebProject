@@ -1,14 +1,17 @@
 package com.example.restaurant.entity;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
 @Table(name = "ingredients")
 public class Ingredient {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -49,14 +52,13 @@ public class Ingredient {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ingredient that = (Ingredient) o;
-        return id == that.id &&
-                calories == that.calories &&
+        return calories == that.calories &&
                 title.equals(that.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, calories);
+        return Objects.hash(title, calories);
     }
 
     @Override

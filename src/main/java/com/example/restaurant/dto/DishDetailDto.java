@@ -5,11 +5,8 @@ import java.util.Map;
 
 public class DishDetailDto {
     private Long id;
-
     private int price;
-
     private String name;
-
     private int weight;
     private Map<IngredientDto, Boolean> ingredients = new HashMap<>();
     private DishTypeDto dishType;

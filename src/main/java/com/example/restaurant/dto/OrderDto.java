@@ -10,8 +10,7 @@ public class OrderDto {
     private UserDto user;
     private List<DishSimpleDto> dishes = new ArrayList<>();
     private String orderStatus;
-//user
-    //NEW, IN_PROGRESS, WAIT_PAYMENT
+
 
     public Long getId() {
         return id;

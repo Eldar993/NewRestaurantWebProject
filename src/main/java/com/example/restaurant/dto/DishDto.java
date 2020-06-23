@@ -1,20 +1,13 @@
 package com.example.restaurant.dto;
 
-import com.example.restaurant.entity.DishType;
-
 import java.util.Set;
 
 public class DishDto {
     private Long id;
-
     private Long dishTypeId;
-
     private int price;
-
     private String name;
-
     private int weight;
-
     private Set<Long> ingredientIds;
 
     public Long getId() {

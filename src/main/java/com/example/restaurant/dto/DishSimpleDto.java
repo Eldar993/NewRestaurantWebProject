@@ -2,13 +2,9 @@ package com.example.restaurant.dto;
 
 public class DishSimpleDto {
     private Long id;
-
     private String dishType;
-
     private int price;
-
     private String name;
-
     private Long count;
 
     public Long getId() {

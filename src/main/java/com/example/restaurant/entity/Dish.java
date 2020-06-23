@@ -18,7 +18,6 @@ import java.util.Set;
 @Entity
 @Table(name = "dishes")
 public class Dish {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -92,6 +91,10 @@ public class Dish {
         ingredients.add(ingredient);
     }
 
+    public boolean removeIngredient(Ingredient ingredient) {
+        return ingredients.remove(ingredient);
+    }
+
     public Set<Ingredient> getIngredients() {
         return ingredients;
     }
@@ -103,14 +106,13 @@ public class Dish {
         Dish dish = (Dish) o;
         return price == dish.price &&
                 weight == dish.weight &&
-                Objects.equals(id, dish.id) &&
                 Objects.equals(dishType, dish.dishType) &&
                 Objects.equals(name, dish.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dishType, price, name, weight);
+        return Objects.hash(dishType, price, name, weight);
     }
 
     @Override
@@ -122,9 +124,5 @@ public class Dish {
                 ", dish='" + name + '\'' +
                 ", weight=" + weight +
                 '}';
-    }
-
-    public boolean removeIngredient(Ingredient ingredient) {
-        return ingredients.remove(ingredient);
     }
 }

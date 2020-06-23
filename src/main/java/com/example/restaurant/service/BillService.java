@@ -57,7 +57,7 @@ public class BillService {
         result.setId(entity.getId());
         result.setOrder(entity.getOrder());
         result.setCompletedAt(entity.getCompletedAt());
-        result.setPaid_sum(entity.getPaidSum());
+        result.setPaidSum(entity.getPaidSum());
 
         return result;
     }
@@ -77,7 +77,7 @@ public class BillService {
         result.setId(dto.getId());
         result.setOrder(dto.getOrder());
         result.setCompletedAt(dto.getCompletedAt());
-        result.setPaidSum(dto.getPaid_sum());
+        result.setPaidSum(dto.getPaidSum());
         return result;
     }
 

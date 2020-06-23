@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class BillDto {
     private Long id;
     private Order order;
-    private Float paid_sum;
+    private Float paidSum;
     private LocalDateTime completedAt;
 
     public Long getId() {
@@ -26,12 +26,12 @@ public class BillDto {
         this.order = order;
     }
 
-    public Float getPaid_sum() {
-        return paid_sum;
+    public Float getPaidSum() {
+        return paidSum;
     }
 
-    public void setPaid_sum(Float paid_sum) {
-        this.paid_sum = paid_sum;
+    public void setPaidSum(Float paidSum) {
+        this.paidSum = paidSum;
     }
 
     public LocalDateTime getCompletedAt() {
