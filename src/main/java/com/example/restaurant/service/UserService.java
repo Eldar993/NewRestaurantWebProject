@@ -32,7 +32,7 @@ public class UserService {
         return true;
     }
 
-    public Optional<User> findUser(Long id){
+    public Optional<User> findUser(Long id) {
         Optional<User> userInfo = userRepository.findUserById(id);
         return userInfo;
     }
@@ -63,9 +63,11 @@ public class UserService {
         userRepository.deleteAll();
     }
 
-    public void  delete(Long id){ userRepository.deleteById(id); }
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
 
-    public static UserDto toDto(User user){
+    public static UserDto toDto(User user) {
         if (user == null) {
             return null;
         }
@@ -77,13 +79,15 @@ public class UserService {
 
         return result;
     }
+
     public static List<UserDto> toDto(List<User> users) {
         return users
                 .stream()
                 .map(UserService::toDto)
                 .collect(Collectors.toList());
     }
-    public static User toEntity(UserDto dto){
+
+    public static User toEntity(UserDto dto) {
         if (dto == null) {
             return null;
         }

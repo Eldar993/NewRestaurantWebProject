@@ -1,6 +1,5 @@
 package com.example.restaurant.service;
 
-import com.example.restaurant.dto.DishDto;
 import com.example.restaurant.dto.DishTypeDto;
 import com.example.restaurant.entity.DishType;
 import com.example.restaurant.repository.DishTypeRepository;

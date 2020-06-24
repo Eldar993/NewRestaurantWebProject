@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+<head th:replace="/commonElements :: my-head('Payment')">
     <meta charset="UTF-8">
     <title>Payment</title>
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}"
@@ -15,6 +15,10 @@
         <label for="payment">Payment amount</label>
         <input type="text" id="payment" size="15" name="payment" required class="form-control"
                placeholder="Enter an amount to pay">
+    </div>
+    <div th:if="${errorMsg}" th:text="${errorMsg}"
+         class="text-error">
+        Some error
     </div>
     <span>You need to pay: </span><span th:text="${totalPrice} + '$' "></span>
     <br>

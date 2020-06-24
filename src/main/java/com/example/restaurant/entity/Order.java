@@ -2,14 +2,27 @@ package com.example.restaurant.entity;
 
 import com.example.restaurant.enums.OrderStatus;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 @Table(name = "orders")
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -106,15 +119,14 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id.equals(order.id) &&
-                createdAt.equals(order.createdAt) &&
+        return createdAt.equals(order.createdAt) &&
                 Objects.equals(user, order.user) &&
                 status == order.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, createdAt, user, status);
+        return Objects.hash(createdAt, user, status);
     }
 
     @Override

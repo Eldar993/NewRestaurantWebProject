@@ -10,8 +10,8 @@ public class OrderDto {
     private UserDto user;
     private List<DishSimpleDto> dishes = new ArrayList<>();
     private String orderStatus;
-//user
-    //NEW, IN_PROGRESS, WAIT_PAYMENT
+    private boolean needPayment = false;
+
 
     public Long getId() {
         return id;
@@ -51,5 +51,13 @@ public class OrderDto {
 
     public void setDishes(List<DishSimpleDto> dishes) {
         this.dishes = dishes;
+    }
+
+    public boolean isNeedPayment() {
+        return needPayment;
+    }
+
+    public void setNeedPayment(boolean needPayment) {
+        this.needPayment = needPayment;
     }
 }

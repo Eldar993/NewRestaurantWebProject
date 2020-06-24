@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "order_dish")
@@ -71,5 +72,21 @@ public class OrderDish {
         if (count < 0) {
             throw new IllegalArgumentException("Wrong count");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderDish orderDish = (OrderDish) o;
+        return Objects.equals(id, orderDish.id) &&
+                Objects.equals(dish, orderDish.dish) &&
+                Objects.equals(order, orderDish.order) &&
+                Objects.equals(count, orderDish.count);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dish, order, count);
     }
 }

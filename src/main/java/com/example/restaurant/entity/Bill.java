@@ -1,7 +1,14 @@
 package com.example.restaurant.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "bills")
@@ -26,7 +33,6 @@ public class Bill {
         this.id = id;
     }
 
-
     public Order getOrder() {
         return order;
     }
@@ -49,5 +55,20 @@ public class Bill {
 
     public void setCompletedAt(LocalDateTime complete_time) {
         this.completedAt = complete_time;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bill bill = (Bill) o;
+        return Objects.equals(order, bill.order) &&
+                Objects.equals(paidSum, bill.paidSum) &&
+                Objects.equals(completedAt, bill.completedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(order, paidSum, completedAt);
     }
 }

@@ -15,7 +15,7 @@ public class DishType {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String title;
 
     public Long getId() {
@@ -39,13 +39,12 @@ public class DishType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DishType dishType = (DishType) o;
-        return id.equals(dishType.id) &&
-                title.equals(dishType.title);
+        return title.equals(dishType.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title);
+        return Objects.hash(title);
     }
 
     @Override
