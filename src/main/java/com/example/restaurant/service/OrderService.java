@@ -191,10 +191,10 @@ public class OrderService {
     }
 
     public Optional<String> complete(String username, long payment) {
-        //TODO:
+        //    TODO:
         //      1) order = find order in WAIT_PAYMENT status for USER with name 'username' (use findByStatus(String, OrderStatus) method)
         //      2) validate payment (should be greater than total price for WAIT_PAYMENT order)
-//              3) if 2) was success: change status to DONE and saveAndFlush
+        //      3) if 2) was success: change status to DONE and saveAndFlush
 
         Order order = findByStatus(username, OrderStatus.WAIT_PAYMENT);
         if (payment < calculateTotalPrice(order)) {

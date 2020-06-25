@@ -2,16 +2,13 @@ package com.example.restaurant.controller;
 
 import com.example.restaurant.dto.UserDto;
 import com.example.restaurant.entity.User;
+import com.example.restaurant.enums.UserRoles;
 import com.example.restaurant.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -92,8 +89,10 @@ public class UserController {
         Optional<User> user = userService.findUser(id);
 
         mav.setViewName("/user_profile");
+        UserRoles roles[] = UserRoles.values();
         //Optional<AnyType>: "Optional[" + anyType.toString() + "]"
         mav.addObject("userInfo", user.orElse(null));
+        mav.addObject("roles",roles);
         //mav.addObject("isEven",userService.isEven(id));
 
 
@@ -103,6 +102,8 @@ public class UserController {
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
     public ModelAndView change(@PathVariable("id") Long id, @ModelAttribute("user") UserDto userDto, ModelAndView mav) {
         User entity = UserService.toEntity(userDto);
+        UserRoles roles[] = UserRoles.values();
+        mav.addObject("roles",roles);
         if (id.equals(userDto.getId())) {
             userService.findUser(id);
             userService.update(entity);

@@ -24,9 +24,15 @@
                     <th scope="col">Id</th>
                     <th sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" scope="col">Created At</th>
                     <th sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" scope="col">User</th>
-                    <th sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" scope="col">Order Status</th>
+                    <th sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')" scope="col">Order Status</th>
                     <th scope="col-3">Dishes</th>
+<!--
+                    <th sec:authorize="hasRole('ROLE_COOK')" scope="col">Change Status</th>
+-->
+
+
                     <th sec:authorize="hasAnyRole('ROLE_COOK','ROLE_USER')" scope="col">Actions</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">Price</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,7 +48,7 @@
                             <div th:text="*{name} + ' ' + ${dish.count}"></div>
                         </div>
                     </td>
-                    <td>
+                    <td sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_USER')">
                         <div sec:authorize="hasRole('ROLE_COOK')">
                             <form th:action="@{/cook/orders/{username}(username=*{user.name})}" th:method="PUT">
                                 <button type="submit" class="btn btn-success">Finish cook</button>
@@ -53,6 +59,9 @@
                             <a class="btn btn-primary" th:href="@{/user/orders/pay}"
                                th:if="${order.needPayment}">Pay</a>
                         </div>
+                    </td>
+                    <td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')" th:text="">
+
                     </td>
                 </tr>
                 </tbody>

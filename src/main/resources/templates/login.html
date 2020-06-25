@@ -34,12 +34,12 @@
                 <div class="card-body bg-dark">
                     <form th:action="@{/j_spring_security_check}" method="POST">
                         <!--/*@thymesVar id="securityLastExceptionMessage" type="java.lang.String"*/-->
-                        <div class="form-group mb-0" th:if="${securityLastExceptionMessage}">
+                        <div class="form-group mb-0 text-white" th:if="${securityLastExceptionMessage}">
                             <div th:text="${securityLastExceptionMessage}"></div>
                         </div>
 
                         <div class="form-group">
-                            <label for="j_login" class="control-label">
+                            <label for="j_login" class="control-label text-white">
                                 Login
                             </label>
                             <input class="form-control bg-light" type="text"
@@ -47,7 +47,7 @@
                                    id="j_login" name="j_login">
                         </div>
                         <div class="form-group">
-                            <label for="j_password" class="control-label">
+                            <label for="j_password" class="control-label text-white">
                                 Password
                             </label>
                             <input class="form-control bg-light" type="Password"
@@ -64,7 +64,7 @@
                     <div class="form-group row justify-content-center">
                         <div class="col-6 border-top border-primary"></div>
                     </div>
-                    <div class="form-group text-center">
+                    <div class="form-group text-center text-white">
                         <span>Don’t have an account?</span>
                         <a class="text-info"
                            th:href="@{/sing-up}">
