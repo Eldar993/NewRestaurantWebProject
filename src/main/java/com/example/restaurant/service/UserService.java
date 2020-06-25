@@ -2,6 +2,7 @@ package com.example.restaurant.service;
 
 import com.example.restaurant.dto.UserDto;
 import com.example.restaurant.entity.User;
+import com.example.restaurant.enums.UserRoles;
 import com.example.restaurant.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ public class UserService {
         if (oldUser.isPresent()) {
             return false;
         }
+        user.setUserRole(UserRoles.USER);
         userRepository.saveAndFlush(user);
         return true;
     }

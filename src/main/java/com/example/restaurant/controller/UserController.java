@@ -7,8 +7,11 @@ import com.example.restaurant.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -44,10 +47,10 @@ public class UserController {
         return mav;
     }
 
-    @RequestMapping(value = "/sing-up", method = RequestMethod.GET)
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView registrationForm(ModelAndView mav) {
 
-        mav.setViewName("/signIn");
+        mav.setViewName("registration");
         mav.addObject("userInfo", new UserDto());
         return mav;
 
@@ -59,24 +62,28 @@ public class UserController {
         return "Hello world)";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView register(@ModelAttribute("userInfo") @Valid UserDto userDto,
-                                 BindingResult result, ModelAndView mav) {
+                                 BindingResult bindingResult, ModelAndView mav) {
 
 
-        if (result.hasErrors()) {
-            mav.setViewName("/signIn");
-            for (FieldError fieldError : result.getFieldErrors()) {
-                mav.addObject(fieldError.getField() + "_hasError", true);
-            }
+        if (bindingResult.hasErrors()) {
+            mav.setViewName("/registration");
+//            for (FieldError fieldError : bindingResult.getFieldErrors()) {
+//                mav.addObject(fieldError.getField() + "_hasError", true);
+//            }
             mav.addObject("userInfo", userDto);
         } else {
             User entity = UserService.toEntity(userDto);
-            userService.create(entity);
-
-            RedirectView redirectView = new RedirectView();
-            redirectView.setUrl("/main");
-            mav.setView(redirectView);
+            final boolean result = userService.create(entity);
+            if (result) {
+                RedirectView redirectView = new RedirectView("/");
+                mav.setView(redirectView);
+            } else {
+                mav.setViewName("/registration");
+                mav.addObject("userInfo", userDto);
+                mav.addObject("generalError", "Something way wrong:(");
+            }
         }
 
 

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="/commonElements :: my-head('Registration')">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sign In</title>
 
-    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
 </head>
@@ -17,24 +17,25 @@
         <hr>
         <div class="row">
             <div class="col-md-5">
-                <!--TODO: send request to another url-->
-                <form role="form" method="post" action="/login" th:object="${userInfo}">
+                <form role="form" method="post" action="/registration" th:object="${userInfo}">
                     <fieldset>
-                        <p class="text-uppercase pull-center"> Registeration.</p>
-                        <div class="form-group ">
+                        <h2 class="text-uppercase pull-center">Registration</h2>
+                        <small th:if="${generalError}" th:text="${generalError}"
+                               class="text-danger">
+                            General error
+                        </small>
+                        <div class="form-group mt-3">
+                            <label for="username" class="h4">Username:</label>
                             <input type="text" name="name" id="username" class="form-control input-lg"
                                    placeholder="Username" th:field="*{name}">
-
                             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</span>
 
 
                         </div>
                         <div class="form-group">
+                            <label for="password" class="h4">Password:</label>
                             <input type="password" name="password" id="password" class="form-control input-lg"
                                    placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="userRole"  class="form-control input-lg" placeholder="Role type">
                         </div>
                         <div>
                             <input type="submit" class="btn btn-lg btn-primary" value="Register">
