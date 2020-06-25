@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
@@ -21,11 +23,13 @@ public class User {
     private Long id;
 
     @Column(unique = true)
+    @NotEmpty(message = "User name is null or empty")
     @Pattern(regexp = "^[A-Za-z]+$", message = "User name can't contain numbers")
     private String name;
 
     private String password;
 
+    @NotNull(message = "User role is null")
     @Enumerated(EnumType.STRING)
     @Column(name = "UserRole")
     private UserRoles userRole;

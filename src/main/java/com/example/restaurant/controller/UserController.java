@@ -7,6 +7,7 @@ import com.example.restaurant.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,26 +63,30 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView register(@ModelAttribute("userInfo") @Valid UserDto userDto,
+    public ModelAndView register(@Validated @ModelAttribute("userInfo") UserDto userDto,
                                  BindingResult bindingResult, ModelAndView mav) {
 
 
         if (bindingResult.hasErrors()) {
             mav.setViewName("/registration");
-//            for (FieldError fieldError : bindingResult.getFieldErrors()) {
-//                mav.addObject(fieldError.getField() + "_hasError", true);
-//            }
             mav.addObject("userInfo", userDto);
         } else {
-            User entity = UserService.toEntity(userDto);
-            final boolean result = userService.create(entity);
-            if (result) {
-                RedirectView redirectView = new RedirectView("/");
-                mav.setView(redirectView);
-            } else {
+            try {
+                User entity = UserService.toEntity(userDto);
+                final boolean result = userService.create(entity);
+                if (result) {
+                    RedirectView redirectView = new RedirectView("/");
+                    mav.setView(redirectView);
+                } else {
+                    mav.setViewName("/registration");
+                    mav.addObject("userInfo", userDto);
+                    mav.addObject("generalError", "Something way wrong:(");
+                }
+            } catch (Exception e) {
                 mav.setViewName("/registration");
                 mav.addObject("userInfo", userDto);
-                mav.addObject("generalError", "Something way wrong:(");
+                System.out.println(e.getMessage());
+                mav.addObject("generalError", "User constraint violation");
             }
         }
 

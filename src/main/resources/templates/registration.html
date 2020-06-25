@@ -28,7 +28,9 @@
                             <label for="username" class="h4">Username:</label>
                             <input type="text" name="name" id="username" class="form-control input-lg"
                                    placeholder="Username" th:field="*{name}">
-                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</span>
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">
+                                Name error
+                            </span>
 
 
                         </div>
@@ -36,6 +38,9 @@
                             <label for="password" class="h4">Password:</label>
                             <input type="password" name="password" id="password" class="form-control input-lg"
                                    placeholder="Password">
+                            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">
+                                Password error
+                            </span>
                         </div>
                         <div>
                             <input type="submit" class="btn btn-lg btn-primary" value="Register">
