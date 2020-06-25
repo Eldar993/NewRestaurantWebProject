@@ -33,17 +33,21 @@
         <input th:field="*{password}" class="form-control" type="password" name="password" size="15"
                required="required"></p>
 
-    <div class="form-check">
-        <p class="registration">User Role<br>
-        <li th:each="userRole : ${roles}">
-            <input class="form-check-input" type="radio" th:value="${userRole}" th:text="${userRole}" />
+    <!--    <div class="form-check">-->
+    <!--        <p class="registration">User Role<br>-->
+    <!--        <li th:each="userRole : ${roles}">-->
+    <!--            <input class="form-check-input" type="radio" th:value="${userRole}" th:text="${userRole}" />-->
 
-        </li>
-    </div>
+    <!--        </li>-->
+    <!--    </div>-->
 
-        <br>
+    <label for="userRole">User role</label>
+    <select id="userRole" name="userRole" class="form-control form-control-sm">
+        <option th:each="role : ${roles}" th:text="${role}" th:selected="${role == userInfo.userRole}">Option</option>
+    </select>
+    <br>
 
-        <input class="btn btn-info" type="submit" value="Update">
+    <input class="btn btn-info" type="submit" value="Update">
 </form>
 </body>
 </html>
