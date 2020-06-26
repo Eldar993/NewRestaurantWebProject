@@ -17,7 +17,7 @@
 <body>
 <header>
 
-    <img th:src="@{/images/logo.jpg}" src="../static/images/logo.jpg" alt="logo">
+    <img th:src="@{/images/logo.jpg}" src="../static/images/logo.jpg" alt="logo" width="100px" height="100px" class="ml-1">
 
     <form th:action="@{/main}" method="GET">
         <button type="submit" class="cta">Main Page</button>
@@ -32,7 +32,9 @@
             <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/orders}">Orders</a></li>
             <li sec:authorize="hasRole('ROLE_COOK')"><a th:href="@{/cook/orders}">Orders</a></li>
             <li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/user/orders}">Orders</a></li>
+<!--
             <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/bills}">Bills</a></li>
+-->
 
         </ul>
     </nav>

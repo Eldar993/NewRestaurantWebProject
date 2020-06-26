@@ -37,9 +37,10 @@ public class OrderController {
         mav.setViewName("/Orders/orders");
         List<DishDto> dishList = DishService.toDto(dishService.findAll());
         List<OrderDto> orderList = OrderService.toDto(orderService.findAll());
-
         mav.addObject("orderList", orderList);
         mav.addObject("dishList", dishList);
+
+
 
         return mav;
     }

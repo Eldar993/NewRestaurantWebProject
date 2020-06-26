@@ -218,3 +218,7 @@ a {
 .shopping-cart {
     margin-top: 20px;
 }
+[alt="logo"]{
+    position: absolute;
+    left:3px;
+}

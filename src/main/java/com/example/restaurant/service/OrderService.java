@@ -67,6 +67,7 @@ public class OrderService {
         result.setUser(UserService.toDto(entity.getUser()));
         result.setOrderStatus(entity.getStatus().toString());
         result.setNeedPayment(OrderStatus.WAIT_PAYMENT == entity.getStatus());
+        result.setTotalPrice(calculateTotalPrice(entity));
 
         final List<DishSimpleDto> dishes = entity.getDishes()
                 .stream()
@@ -89,6 +90,7 @@ public class OrderService {
         result.setDishType(dish.getDishType().getTitle());
         result.setPrice(dish.getPrice());
         result.setCount(orderDish.getCount());
+
 
         return result;
     }
@@ -142,6 +144,7 @@ public class OrderService {
         order.setUser(user);
         order.setCreatedAt(LocalDateTime.now());
         order.setStatus(OrderStatus.NEW);
+
 
         return orderRepository.saveAndFlush(order);
     }
@@ -213,7 +216,7 @@ public class OrderService {
         orderRepository.saveAndFlush(order);
     }
 
-    public long calculateTotalPrice(Order order) {
+    public static long calculateTotalPrice(Order order) {
         long sum = 0L;
         for (OrderDish orderDish : order.getDishes()) {
             sum += orderDish.getDish().getPrice() * orderDish.getCount();

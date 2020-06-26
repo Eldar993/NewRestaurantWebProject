@@ -10,6 +10,16 @@ public class OrderDto {
     private UserDto user;
     private List<DishSimpleDto> dishes = new ArrayList<>();
     private String orderStatus;
+    private long totalPrice;
+
+    public long getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(long totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     private boolean needPayment = false;
 
 
