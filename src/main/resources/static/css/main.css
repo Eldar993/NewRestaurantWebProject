@@ -222,3 +222,39 @@ a {
     position: absolute;
     left:3px;
 }
+
+.forms{
+    text-align: center;
+    margin: 30px auto;
+    width: 600px;
+    height: 300px;
+    border: 3px black solid;
+    border-radius: 5px;
+}
+.dt-form{
+margin: 10px auto;
+}
+
+.i-form{
+    text-align: center;
+    margin: 30px auto;
+    width: 600px;
+    height: 300px;
+    border: 3px black solid;
+    border-radius: 5px;
+}
+#i-form{
+    margin: 10px auto;
+}
+
+.u-form{
+    text-align: center;
+    margin: 30px auto;
+    width: 600px;
+    height: 310px;
+    border: 3px black solid;
+    border-radius: 5px;
+}
+#u-form{
+    margin: 10px auto;
+}

@@ -32,7 +32,7 @@
 
 
                     <th sec:authorize="hasAnyRole('ROLE_COOK','ROLE_USER')" scope="col">Actions</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">Price</th>
+                    <th sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')" scope="col">Price</th>
                 </tr>
                 </thead>
                 <tbody>

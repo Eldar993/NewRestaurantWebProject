@@ -71,12 +71,13 @@
             </form>
         </td>
     </tr>
+
 </tbody>
-    <form th:action="@{/dish}" th:method="GET">
-        <button class="btn btn-outline-primary">Create dish</button>
-    </form>
+
 
 </table>
-
+<form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/dish}" th:method="GET" class="text-center">
+    <button class="btn btn-outline-primary btn-lg">Create dish</button>
+</form>
 </body>
 </html>

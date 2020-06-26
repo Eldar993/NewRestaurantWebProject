@@ -17,7 +17,7 @@ public class UserDto {
     @Size(min = 3, max = 25)
     @NotEmpty(message = "Password is null or empty")
     //TODO: change "^[A-Za-z]+$" in pattern or remove it
-    @Pattern(regexp = "^[A-Za-z]+$", message = "Password must contain numbers and letters")
+    //@Pattern(regexp = "^[A-Za-z]+$", message = "Password must contain numbers and letters")
     private String password;
 
     private UserRoles role;
