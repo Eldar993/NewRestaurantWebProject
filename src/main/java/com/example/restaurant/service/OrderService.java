@@ -224,6 +224,10 @@ public class OrderService {
         orderRepository.saveAndFlush(order);
     }
 
+    public static long calculateDishPrice(OrderDish dish){
+        return dish.getCount() * dish.getDish().getPrice();
+    }
+
     public static long calculateTotalPrice(Order order) {
         long sum = 0L;
         for (OrderDish orderDish : order.getDishes()) {

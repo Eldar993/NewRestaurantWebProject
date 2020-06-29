@@ -167,6 +167,7 @@ public class OrderController {
         } catch (Exception e) {
             orderDto = new OrderDto();
         }
+
         mav.setViewName("/basket");
         mav.addObject("order", orderDto);
         mav.addObject("totalPrice", totalPrice);
