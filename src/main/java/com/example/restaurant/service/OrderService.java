@@ -155,6 +155,14 @@ public class OrderService {
                 .orElseThrow(() -> new IllegalArgumentException("Dish not found"));
     }
 
+    public void removeDish(Long orderId,Long dishId){
+        Order order = orderRepository.findOrderById(orderId);
+        Dish dish = dishService.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Dish with [id='" + dishId + "'] not found"));;
+        order.removeDish(dish);
+        orderRepository.saveAndFlush(order);
+    }
+
     public List<Order> findAllByUser(String username) {
         final User user = userService.findByName(username)
                 .orElseThrow(() -> new IllegalArgumentException("User with [name='" + username + "'] not found"));

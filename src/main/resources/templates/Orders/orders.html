@@ -60,7 +60,7 @@
                                th:if="${order.needPayment}">Pay</a>
                         </div>
                     </td>
-                    <td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')" th:text="*{totalPrice}">
+                    <td sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')" th:text="*{totalPrice} + '$'">
 
                     </td>
                 </tr>

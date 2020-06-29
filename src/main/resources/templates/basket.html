@@ -39,10 +39,8 @@
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 text-right">
 
-                            <form th:action="@{/{id}(id=*{id})}" th:method="DELETE">
-                                <button type="button" class="btn btn-outline-danger btn-xs">
-                                    <i class="fa fa-trash" aria-hidden="true">Delete</i>
-                                </button>
+                            <form th:action="@{/user/orders/removeDish/{orderId}/{dishId}(orderId=${order.id},dishId=*{id})}" th:method="DELETE">
+                                <input type="submit" value="Delete" class="btn btn-danger mt-3">
                             </form>
                         </div>
                     </div>

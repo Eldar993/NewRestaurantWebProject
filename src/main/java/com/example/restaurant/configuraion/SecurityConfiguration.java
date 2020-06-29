@@ -22,7 +22,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/registration", "/login", "/sing-up",
                         "/error",
                         "/webjars/**", "/css/**", "/pic/**",
-                        "/static/favicon.ico")
+                        "/static/images/logo.jpg")
                 .permitAll()
                 .antMatchers("/user/**")
                 .hasRole(UserRoles.USER.name())

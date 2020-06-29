@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -14,9 +14,9 @@
 <div th:insert="/header :: header"></div>
 
 <div th:object="${userInfo}" th:if="${userInfo}">
-   <!-- <h1 class="title" th:classAppend="${id % 2 == 0} ? 'even'">
+    <h1 class="title" th:classAppend="${id % 2 == 0} ? 'even'">
         Id: <span th:text="*{id}"> Some id</span> Name: [[*{name}]] Password: [[*{password}]] User Role: [[*{userRole}]]
-    </h1>-->
+    </h1>
 </div>
 
 <div th:unless="${userInfo}">
@@ -30,7 +30,7 @@
             <input th:field="*{name}" class="form-control" type="text" name="name" size="15" maxlength="20" required>
         </p>
 
-        <p class="registration">Password<br>
+        <p class="registration" sec:authorize="hasRole('ROLE_USER')">Password<br>
             <input th:field="*{password}" class="form-control" type="password" name="password" size="15"
                    required="required"></p>
 
@@ -42,7 +42,7 @@
         <!--        </li>-->
         <!--    </div>-->
 
-        <label for="userRole">User role</label>
+        <label for="userRole" sec:authorize="hasRole('ROLE_ADMIN')">User role</label>
         <select id="userRole" name="userRole" class="form-control form-control-sm">
             <option th:each="role : ${roles}" th:text="${role}" th:selected="${role == userInfo.userRole}">Option</option>
         </select>

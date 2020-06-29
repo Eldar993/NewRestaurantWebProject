@@ -81,6 +81,16 @@ public class OrderController {
         return mav;
     }
 
+    @RequestMapping(value = "/user/orders/removeDish/{orderId}/{dishId}", method = RequestMethod.DELETE)
+    @Secured(value = {"ROLE_USER"})
+    public ModelAndView removeDish(ModelAndView mav, @ModelAttribute("order") OrderDto orderDto,
+                                   @PathVariable("dishId") Long dishId, @PathVariable("orderId") Long orderId){
+        orderService.removeDish(orderId,dishId);
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/basket");
+        mav.setView(redirectView);
+        return mav;
+    }
 
     @RequestMapping(value = "/user/orders", method = RequestMethod.GET)
     public ModelAndView userOrdersHistory(Authentication authentication,
