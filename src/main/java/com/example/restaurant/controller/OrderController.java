@@ -80,7 +80,7 @@ public class OrderController {
         return mav;
     }
 
-    @RequestMapping(value = "/user/orders/{order-id}/{dish-id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user/orders/{order-id}/dish/{dish-id}", method = RequestMethod.DELETE)
     @Secured(value = {"ROLE_USER"})
     public ModelAndView removeDish(ModelAndView mav,
                                    @PathVariable("dish-id") Long dishId,
@@ -162,7 +162,6 @@ public class OrderController {
         Long totalPrice = 0L;
         try {
             Order order = orderService.findByStatus(username, OrderStatus.NEW);
-            totalPrice = OrderService.calculateTotalPrice(order);
             orderDto = OrderService.toDto(order);
         } catch (Exception e) {
             orderDto = new OrderDto();
@@ -170,7 +169,6 @@ public class OrderController {
 
         mav.setViewName("/basket");
         mav.addObject("order", orderDto);
-        mav.addObject("totalPrice", totalPrice);
         return mav;
     }
 

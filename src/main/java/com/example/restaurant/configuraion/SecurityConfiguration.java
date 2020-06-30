@@ -21,12 +21,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/main", "/index",
                         "/registration", "/login", "/sing-up",
                         "/error",
-                        "/webjars/**", "/css/**", "/pic/**",
+                        "/css/**",
                         "/images/**")
                 .permitAll()
                 .antMatchers("/user/**")
                 .hasRole(UserRoles.USER.name())
-                .antMatchers("/users", "/admin/**")
+                .antMatchers("/users/**", "/admin/**")
                 .hasRole(UserRoles.ADMIN.name())
                 .antMatchers("/cook/**")
                 .hasRole(UserRoles.COOK.name())
