@@ -76,8 +76,8 @@
 
 
 </table>
-<form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/dish}" th:method="GET" class="text-center">
-    <button class="btn btn-outline-primary btn-lg">Create dish</button>
-</form>
+<div class="text-center">
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_COOK')" th:href="@{/dish}" class="btn btn-outline-primary btn-lg">Create dish</a>
+</div>
 </body>
 </html>

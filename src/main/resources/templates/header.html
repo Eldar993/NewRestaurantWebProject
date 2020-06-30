@@ -41,14 +41,16 @@
         <span class="text-info">Signed in as</span>
         <span class="login text-light" sec:authentication="name" id="login">SomeLogin</span>
     </h4>
-    <a class="btn btn-success" sec:authorize="hasRole('ROLE_USER')" <!--th:href="@{/users/{id}(id = user.id)}"-->>Manage account</a>
+<!--
+    <a class="btn btn-success" sec:authorize="hasRole('ROLE_USER')" &lt;!&ndash;th:href="@{/users/{id}(id = user.id)}"&ndash;&gt;>Manage account</a>
+-->
     <a class="btn btn-primary" sec:authorize="isAnonymous()" th:href="@{/signIn}">Sign In</a>
     <a class="btn btn-warning" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
 
 
     <form th:action="@{/basket}" th:method="GET">
         <button type="submit" class="btn btn-light btn-lg" value="Basket" sec:authorize="hasRole('ROLE_USER')">
-            <span class="glyphicon glyphicon-shopping-cart"></span><span>Basket</span>
+            <span class="glyphicon glyphicon-shopping-cart"></span>Basket</span>
         </button>
     </form>
     <p class="menu cta">Menu</p>

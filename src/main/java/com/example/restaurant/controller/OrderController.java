@@ -81,10 +81,11 @@ public class OrderController {
         return mav;
     }
 
-    @RequestMapping(value = "/user/orders/removeDish/{orderId}/{dishId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user/orders/{order-id}/{dish-id}", method = RequestMethod.DELETE)
     @Secured(value = {"ROLE_USER"})
-    public ModelAndView removeDish(ModelAndView mav, @ModelAttribute("order") OrderDto orderDto,
-                                   @PathVariable("dishId") Long dishId, @PathVariable("orderId") Long orderId){
+    public ModelAndView removeDish(ModelAndView mav,
+                                   @PathVariable("dish-id") Long dishId,
+                                   @PathVariable("order-id") Long orderId){
         orderService.removeDish(orderId,dishId);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/basket");
@@ -162,7 +163,7 @@ public class OrderController {
         Long totalPrice = 0L;
         try {
             Order order = orderService.findByStatus(username, OrderStatus.NEW);
-            totalPrice = orderService.calculateTotalPrice(order);
+            totalPrice = OrderService.calculateTotalPrice(order);
             orderDto = OrderService.toDto(order);
         } catch (Exception e) {
             orderDto = new OrderDto();
@@ -179,7 +180,7 @@ public class OrderController {
         if (unpaidOrder == null) {
             mav.addObject("errorMsg", "You don't have an unpaid order");
         } else {
-            long totalPrice = orderService.calculateTotalPrice(unpaidOrder);
+            long totalPrice = OrderService.calculateTotalPrice(unpaidOrder);
             mav.addObject("totalPrice", totalPrice);
         }
     }

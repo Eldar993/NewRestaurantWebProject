@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-2 col-sm-2 col-md-2 text-right">
 
-                            <form th:action="@{/user/orders/removeDish/{orderId}/{dishId}(orderId=${order.id},dishId=*{id})}" th:method="DELETE">
+                            <form th:action="@{/user/orders/{order-id}/{dish-id}(order-id=${order.id},dish-id=*{id})}" th:method="DELETE">
                                 <input type="submit" value="Delete" class="btn btn-danger mb-3" style="position: relative;
                                 bottom: 30px;">
                             </form>
