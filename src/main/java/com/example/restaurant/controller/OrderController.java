@@ -41,7 +41,6 @@ public class OrderController {
         mav.addObject("dishList", dishList);
 
 
-
         return mav;
     }
 
@@ -85,8 +84,8 @@ public class OrderController {
     @Secured(value = {"ROLE_USER"})
     public ModelAndView removeDish(ModelAndView mav,
                                    @PathVariable("dish-id") Long dishId,
-                                   @PathVariable("order-id") Long orderId){
-        orderService.removeDish(orderId,dishId);
+                                   @PathVariable("order-id") Long orderId) {
+        orderService.removeDish(orderId, dishId);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/basket");
         mav.setView(redirectView);

@@ -1,48 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/commonElements :: my-head(${'Dishes'})">
     <meta charset="UTF-8">
     <title>Dishes</title>
-    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
 
 </head>
 <body>
 
 <div th:insert="/header :: header"></div>
 <div id="dishes" sec:authorize="hasRole('ROLE_USER')">
-   <tr th:each="dish: ${dishList}" th:object="${dish}">
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <form th:action="@{/order}" method="post">
-                <h5 class="card-title" th:text="*{name}">Napoleon</h5>
-                <p class="card-text" th:text="*{price + '$'}">Dish price.</p>
-                <input type="text" name="count" value="1" placeholder="Enter dish count" />
-                <input class="btn btn-primary" type="text" name="dish-id" hidden="hidden" th:value="${dish.id}" />
-                <form th:action="@{/order}"  th:method="POST">
-                    <button class="btn btn-primary mt-3">Add to cart</button>
+    <tr th:each="dish: ${dishList}" th:object="${dish}">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <form th:action="@{/order}" method="post">
+                    <h5 class="card-title" th:text="*{name}">Napoleon</h5>
+                    <p class="card-text" th:text="*{price + '$'}">Dish price.</p>
+                    <input type="text" name="count" value="1" placeholder="Enter dish count"/>
+                    <input class="btn btn-primary" type="text" name="dish-id" hidden="hidden" th:value="${dish.id}"/>
+                    <form th:action="@{/order}" th:method="POST">
+                        <button class="btn btn-primary mt-3">Add to cart</button>
+                    </form>
+                    <!--<input class="btn btn-primary" type="submit" value="Add to cart">-->
                 </form>
-                <!--<input class="btn btn-primary" type="submit" value="Add to cart">-->
-            </form>
+            </div>
         </div>
-    </div>
-   </tr>
+    </tr>
 </div>
-<table id="Dishes" class="table mx-auto" style="width: 1300px;" sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" >
-<thead class="thead-dark">
-<tr>
-    <th scope="col">Id</th>
-    <th scope="col">Dish Type</th>
-    <th scope="col">Price</th>
-    <th scope="col">Name</th>
-    <th scope="col">Weight</th>
-    <th scope="col">Ingredients</th>
-    <th scope="col">Actions</th>
-</tr>
-</thead>
-<tbody>
+<table id="Dishes" class="table mx-auto" style="width: 1300px;" sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Dish Type</th>
+        <th scope="col">Price</th>
+        <th scope="col">Name</th>
+        <th scope="col">Weight</th>
+        <th scope="col">Ingredients</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr th:each="dish: ${dishList}" th:object="${dish}">
         <td th:text="*{id}">Id</td>
         <td th:text="*{dishType.title}">Dish Type</td>
@@ -57,7 +53,7 @@
         </td>
 
 
-        <td sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')" >
+        <td sec:authorize="hasAnyRole('ROLE_COOK', 'ROLE_ADMIN')">
             <form th:action="@{/dish/{id}(id=*{id})}" th:method="GET">
                 <button value="Update" class="btn btn-info">Update</button>
             </form>
@@ -72,12 +68,13 @@
         </td>
     </tr>
 
-</tbody>
+    </tbody>
 
 
 </table>
 <div class="text-center">
-    <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_COOK')" th:href="@{/dish}" class="btn btn-outline-primary btn-lg">Create dish</a>
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_COOK')" th:href="@{/dish}" class="btn btn-outline-primary btn-lg">Create
+        dish</a>
 </div>
 </body>
 </html>

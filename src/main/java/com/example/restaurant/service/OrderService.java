@@ -155,10 +155,11 @@ public class OrderService {
                 .orElseThrow(() -> new IllegalArgumentException("Dish not found"));
     }
 
-    public void removeDish(Long orderId,Long dishId){
+    public void removeDish(Long orderId, Long dishId) {
         Order order = orderRepository.findOrderById(orderId);
         Dish dish = dishService.findById(dishId)
-                .orElseThrow(() -> new IllegalArgumentException("Dish with [id='" + dishId + "'] not found"));;
+                .orElseThrow(() -> new IllegalArgumentException("Dish with [id='" + dishId + "'] not found"));
+        ;
         order.removeDish(dish);
         orderRepository.saveAndFlush(order);
     }
@@ -224,7 +225,7 @@ public class OrderService {
         orderRepository.saveAndFlush(order);
     }
 
-    public static long calculateDishPrice(OrderDish dish){
+    public static long calculateDishPrice(OrderDish dish) {
         return dish.getCount() * dish.getDish().getPrice();
     }
 

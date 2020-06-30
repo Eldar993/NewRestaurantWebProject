@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head>
+<head th:replace="/commonElements :: my-head(${title})">
     <meta charset="UTF-8">
     <title>Title</title>
-    <!--<link href="/css/user_profile.css" th:href="@{/css/user_profile.css}" rel="stylesheet" type="text/css"/>-->
-    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
 
 </head>
 <body>
