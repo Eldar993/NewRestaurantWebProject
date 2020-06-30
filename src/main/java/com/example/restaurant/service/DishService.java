@@ -11,7 +11,12 @@ import com.example.restaurant.repository.DishTypeRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -173,4 +178,7 @@ public class DishService {
     }
 
 
+    public List<Dish> findAllByDishType(DishType dishType) {
+        return dishRepository.findAllByDishType(dishType);
+    }
 }

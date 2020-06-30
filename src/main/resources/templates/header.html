@@ -49,7 +49,7 @@
 
     <form th:action="@{/basket}" th:method="GET">
         <button type="submit" class="btn btn-light btn-lg" value="Basket" sec:authorize="hasRole('ROLE_USER')">
-            <span class="glyphicon glyphicon-shopping-cart"></span>Basket</span>
+            <i class="fas fa-shopping-basket mr-2"></i>Basket</span>
         </button>
     </form>
     <p class="menu cta">Menu</p>

@@ -2,6 +2,7 @@ package com.example.restaurant.controller;
 
 import com.example.restaurant.dto.DishTypeDto;
 import com.example.restaurant.entity.DishType;
+import com.example.restaurant.service.DeleteService;
 import com.example.restaurant.service.DishTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ import java.util.List;
 public class DishTypeController {
     @Autowired
     private DishTypeService dishTypeService;
+
+    @Autowired
+    private DeleteService deleteService;
 
     @RequestMapping(value = "/dishTypes", method = RequestMethod.GET)
     public ModelAndView printAll(ModelAndView mav) {
@@ -97,7 +101,7 @@ public class DishTypeController {
 
     @RequestMapping(value = "/dishType/{id}", method = RequestMethod.DELETE)
     public RedirectView delete(@PathVariable("id") Long id) {
-        dishTypeService.deleteById(id);
+        deleteService.deleteDishTypeById(id);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/dishTypes");
         return redirectView;

@@ -8,6 +8,7 @@ import com.example.restaurant.entity.Order;
 import com.example.restaurant.entity.OrderDish;
 import com.example.restaurant.entity.User;
 import com.example.restaurant.enums.OrderStatus;
+import com.example.restaurant.repository.OrderDishRepository;
 import com.example.restaurant.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,26 +22,22 @@ import java.util.stream.Collectors;
 @Transactional
 public class OrderService {
     private final OrderRepository orderRepository;
+    protected final OrderDishRepository orderDishRepository;
     private final DishService dishService;
     private final UserService userService;
 
-    public OrderService(OrderRepository orderRepository, DishService dishService, UserService userService) {
+    public OrderService(OrderRepository orderRepository,
+                        OrderDishRepository orderDishRepository,
+                        DishService dishService,
+                        UserService userService) {
         this.orderRepository = orderRepository;
+        this.orderDishRepository = orderDishRepository;
         this.dishService = dishService;
         this.userService = userService;
     }
 
     public List<Order> findAll() {
         return orderRepository.findAll();
-    }
-
-    public Order findById(Long id) {
-        Order order = orderRepository.findOrderById(id);
-        return order;
-    }
-
-    public void deleteById(Long id) {
-        orderRepository.deleteById(id);
     }
 
     public Order update(Order order) {
@@ -239,5 +236,9 @@ public class OrderService {
 
     public void deleteByUser(User user) {
         orderRepository.deleteByUser(user);
+    }
+
+    public void deleteDishFromOrder(Dish dish) {
+        orderDishRepository.deleteAllByDish(dish);
     }
 }
