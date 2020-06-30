@@ -3,12 +3,16 @@ package com.example.restaurant.controller;
 import com.example.restaurant.dto.UserDto;
 import com.example.restaurant.entity.User;
 import com.example.restaurant.enums.UserRoles;
+import com.example.restaurant.service.DeleteService;
 import com.example.restaurant.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -18,8 +22,13 @@ import java.util.Optional;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final DeleteService deleteService;
+
+    public UserController(UserService userService, DeleteService deleteService) {
+        this.userService = userService;
+        this.deleteService = deleteService;
+    }
 
 
     @RequestMapping(value = "/print_all", method = RequestMethod.GET)
@@ -33,23 +42,13 @@ public class UserController {
         return mav;
     }
 
-    @RequestMapping(value = "/delete_all", method = RequestMethod.GET)
-    public ModelAndView deleteAll(ModelAndView mav) {
-        userService.deleteUsers();
-        String msg = "Successfully deleted all users";
-        mav.setViewName("delete_all");
-        mav.addObject("deleted", msg);
-
-        return mav;
-    }
-
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView registrationForm(ModelAndView mav) {
 
         mav.setViewName("registration");
         mav.addObject("userInfo", new UserDto());
-        return mav;
 
+        return mav;
     }
 
     @RequestMapping(value = "/qwe")
@@ -123,7 +122,7 @@ public class UserController {
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public RedirectView delete(@PathVariable("id") Long id) {
-        userService.delete(id);
+        deleteService.deleteUserById(id);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/print_all");
         return redirectView;

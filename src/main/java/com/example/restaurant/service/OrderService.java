@@ -236,4 +236,8 @@ public class OrderService {
         }
         return sum;
     }
+
+    public void deleteByUser(User user) {
+        orderRepository.deleteByUser(user);
+    }
 }

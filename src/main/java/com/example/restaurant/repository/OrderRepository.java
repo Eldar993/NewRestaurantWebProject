@@ -20,4 +20,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByUserAndStatus(User user, OrderStatus status);
 
     List<Order> findByStatus(OrderStatus status);
+
+    void deleteByUser(User user);
 }

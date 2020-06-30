@@ -102,15 +102,4 @@ public class DishTypeController {
         redirectView.setUrl("/dishTypes");
         return redirectView;
     }
-   /* @RequestMapping(value = "/delete_all_dishTypes", method = RequestMethod.DELETE)
-    @ResponseBody
-    public ModelAndView deleteAll(ModelAndView mav) {
-        dishTypeService.deleteAll();
-        String msg = "Successfully deleted all dish types";
-        mav.setViewName("delete_all");
-        mav.addObject("deleted", msg);
-
-        return mav;
-    }*/
-
 }
