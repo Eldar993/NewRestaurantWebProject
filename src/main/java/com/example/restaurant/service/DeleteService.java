@@ -49,7 +49,8 @@ public class DeleteService {
         final Ingredient ingredient = ingredientService.findById(ingredientId);
         dishService.findAllByIngredient(ingredient)
                 .forEach(d -> {
-                    dishService.deleteById(d.getId());
+                    d.getIngredients().remove(ingredient);
+                    dishService.save(d);
                });
         ingredientService.deleteById(ingredientId);
     }

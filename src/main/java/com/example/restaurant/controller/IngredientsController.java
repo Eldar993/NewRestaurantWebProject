@@ -2,6 +2,7 @@ package com.example.restaurant.controller;
 
 import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.Ingredient;
+import com.example.restaurant.service.DeleteService;
 import com.example.restaurant.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ import java.util.List;
 public class IngredientsController {
     @Autowired
     private IngredientService ingredientService;
+
+    @Autowired
+    private DeleteService deleteService;
 
     @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
     public ModelAndView printAll(ModelAndView mav) {
@@ -96,7 +100,7 @@ public class IngredientsController {
 
     @RequestMapping(value = "/ingredient/{id}", method = RequestMethod.DELETE)
     public RedirectView delete(@PathVariable("id") Long id) {
-        ingredientService.deleteById(id);
+        deleteService.deleteIngredientById(id);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/ingredients");
         return redirectView;

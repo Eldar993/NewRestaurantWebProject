@@ -11,6 +11,6 @@ public interface DishRepository extends JpaRepository<Dish, Long> {
 
     List<Dish> findAllByDishType(DishType dishType);
 
+    List<Dish> findAllByIngredientsContains(Ingredient ingredient);
 
-    List<Dish> findAllByIngredient(Ingredient ingredient);
 }

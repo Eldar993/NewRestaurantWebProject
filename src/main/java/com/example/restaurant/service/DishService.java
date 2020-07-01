@@ -153,6 +153,10 @@ public class DishService {
         dishRepository.deleteById(id);
     }
 
+    public void save(Dish dish) {
+        dishRepository.saveAndFlush(dish);
+    }
+
     public Dish update(Dish dish) {
         if (dish == null) {
             return null;
@@ -178,6 +182,6 @@ public class DishService {
     }
 
     public List<Dish> findAllByIngredient(Ingredient ingredient) {
-        return dishRepository.findAllByIngredient(ingredient);
+        return dishRepository.findAllByIngredientsContains(ingredient);
     }
 }
