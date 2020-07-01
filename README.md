@@ -1,8 +1,6 @@
 # Restaurant online ordering system
 
 
-Describe steps to run an application.
-
 ## Description
 The online ordering system simplifies the ordering process for both the customer and
 the restaurant. The system presents an interactive menu with all available options in an easy to use
