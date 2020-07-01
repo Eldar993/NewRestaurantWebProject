@@ -8,6 +8,9 @@ manner. Customer can choose one or more dishes to place an order which will land
 order details in the cart before checking out. In the end, the customer gets order confirmation. Once the order is
 placed it is entered in the database and retrieved in pretty much real-time.
 # Installation
+For correct usage of application you need to create a pgAdmin database and install maven on your PC.\
+For building and running please enter following comand in terminal \:
+In my case: java -jar -DDATABASE_PASSWORD=123 -DDATABASE_USER=postgres D:\java\myProject\target\demo-0.0.1-SNAPSHOT.jar
 
 
 ## Using an application
