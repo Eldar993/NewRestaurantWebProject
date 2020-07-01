@@ -5,6 +5,7 @@ import com.example.restaurant.dto.DishDto;
 import com.example.restaurant.dto.DishTypeDto;
 import com.example.restaurant.dto.IngredientDto;
 import com.example.restaurant.entity.Dish;
+import com.example.restaurant.service.DeleteService;
 import com.example.restaurant.service.DishService;
 import com.example.restaurant.service.DishTypeService;
 import com.example.restaurant.service.IngredientService;
@@ -33,6 +34,8 @@ public class DishController {
     private DishTypeService dishTypeService;
     @Autowired
     private IngredientService ingredientService;
+    @Autowired
+    private DeleteService deleteService;
 
     @RequestMapping(value = "/dishes", method = RequestMethod.GET)
     public ModelAndView printAll(ModelAndView mav) {
@@ -93,7 +96,7 @@ public class DishController {
         mav.setViewName("/Dishes/dishForm");
         List<DishTypeDto> dishTypeList = DishTypeService.toDto(dishTypeService.findAll());
         mav.addObject("dishTypeList", dishTypeList);
-        DishDetailDto dish = dishService.toDetailDto(dishService.findById(id).orElse(null));
+        DishDetailDto dish = dishService.toDetailDto(dishService.findById(id));
         mav.addObject("dish", dish);
 
         return mav;
@@ -122,7 +125,7 @@ public class DishController {
 
     @RequestMapping(value = "/dish/{id}", method = RequestMethod.DELETE)
     public RedirectView delete(@PathVariable("id") Long id) {
-        dishService.deleteById(id);
+        deleteService.deleteDishById(id);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/dishes");
         return redirectView;

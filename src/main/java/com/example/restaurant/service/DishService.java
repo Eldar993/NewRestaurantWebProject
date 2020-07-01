@@ -145,8 +145,8 @@ public class DishService {
         return true;
     }
 
-    public Optional<Dish> findById(Long id) {
-        return dishRepository.findById(id);
+    public Dish findById(Long id) {
+        return dishRepository.findDishById(id);
     }
 
     public void deleteById(Long id) {

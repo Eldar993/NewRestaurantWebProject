@@ -16,12 +16,14 @@
 <body>
 <header>
 
-    <img th:src="@{/images/logo.jpg}" src="../static/images/logo.jpg" alt="logo" width="100px" height="100px"
-         class="ml-1">
 
-    <form th:action="@{/main}" method="GET">
-        <button type="submit" class="cta">Main Page</button>
-    </form>
+
+
+       <a th:href="@{/main}">
+           <img th:src="@{/images/logo.jpg}" src="../static/images/logo.jpg" alt="logo" width="100px" height="100px"
+                class="ml-1">
+
+       </a>
     <nav>
         <ul class="nav__links">
             <li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/print_all}">Users</a></li>
@@ -48,11 +50,10 @@
 
 
     <form th:action="@{/basket}" th:method="GET">
-        <button type="submit" class="btn btn-light btn-lg" value="Basket" sec:authorize="hasRole('ROLE_USER')">
+        <button type="submit" class="btn btn-light " value="Basket" sec:authorize="hasRole('ROLE_USER')">
             <i class="fas fa-shopping-basket mr-2"></i>Basket</span>
         </button>
     </form>
-    <p class="menu cta">Menu</p>
 </header>
 
 </body>

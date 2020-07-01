@@ -122,8 +122,10 @@ public class OrderService {
     public void addDish(String username, Long dishId, Long count) {
         final User user = userService.findByName(username)
                 .orElseThrow(() -> new IllegalArgumentException("User with [name='" + username + "'] not found"));
-        final Dish dish = dishService.findById(dishId)
+        final Dish dish = dishService.findById(dishId);
+/*
                 .orElseThrow(() -> new IllegalArgumentException("Dish with [id='" + dishId + "'] not found"));
+*/
 
         final Order order = orderRepository.findFirstByUserAndStatus(user, OrderStatus.NEW)
                 .orElseGet(() -> create(user));
@@ -155,7 +157,9 @@ public class OrderService {
     public void removeDish(Long orderId, Long dishId) {
         Order order = orderRepository.findOrderById(orderId);
         Dish dish = dishService.findById(dishId)
+/*
                 .orElseThrow(() -> new IllegalArgumentException("Dish with [id='" + dishId + "'] not found"));
+*/
         ;
         order.removeDish(dish);
         orderRepository.saveAndFlush(order);
@@ -240,5 +244,13 @@ public class OrderService {
 
     public void deleteDishFromOrder(Dish dish) {
         orderDishRepository.deleteAllByDish(dish);
+    }
+
+    public List<Order> findAllByDish(Dish dish) {
+        return orderRepository.findAllByDishContains(dish);
+    }
+
+    public void save(Order d) {
+        orderRepository.saveAndFlush(d);
     }
 }

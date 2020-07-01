@@ -1,5 +1,6 @@
 package com.example.restaurant.service;
 
+import com.example.restaurant.entity.Dish;
 import com.example.restaurant.entity.DishType;
 import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.entity.User;
@@ -53,6 +54,16 @@ public class DeleteService {
                     dishService.save(d);
                });
         ingredientService.deleteById(ingredientId);
+    }
+
+    public void deleteDishById(Long dishId){
+        final Dish dish = dishService.findById(dishId);
+        orderService.findAllByDish(dish)
+                .forEach(d -> {
+                    d.getDishes().remove(dish);
+                    orderService.save(d);
+                });
+        dishService.deleteById(dishId);
     }
 
 }

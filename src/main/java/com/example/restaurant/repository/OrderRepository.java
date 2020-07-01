@@ -1,5 +1,6 @@
 package com.example.restaurant.repository;
 
+import com.example.restaurant.entity.Dish;
 import com.example.restaurant.entity.Order;
 import com.example.restaurant.entity.User;
 import com.example.restaurant.enums.OrderStatus;
@@ -22,4 +23,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByStatus(OrderStatus status);
 
     void deleteByUser(User user);
+
+    List<Order> findAllByDishContains(Dish dish);
 }

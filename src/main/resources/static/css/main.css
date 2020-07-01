@@ -218,10 +218,7 @@ a {
 .shopping-cart {
     margin-top: 20px;
 }
-[alt="logo"]{
-    position: absolute;
-    left:3px;
-}
+
 
 .forms{
     text-align: center;
@@ -257,4 +254,12 @@ margin: 10px auto;
 }
 #u-form{
     margin: 10px auto;
+}
+[alt="logo"] {
+    position: absolute;
+    left: 3px;
+    position: absolute;
+    top: 1px;
+    left: 35px;
+    border-radius: 50%;
 }
