@@ -29,7 +29,7 @@ public class IngredientsController {
     @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
     public ModelAndView printAll(ModelAndView mav) {
         List<IngredientDto> ingredient = IngredientService.toDto(ingredientService.findAll());
-        mav.setViewName("/ingredients/ingredients");
+        mav.setViewName("ingredients/ingredients");
         mav.addObject("allIngredients", ingredient);
 
         return mav;

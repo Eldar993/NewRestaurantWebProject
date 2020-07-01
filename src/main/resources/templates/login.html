@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       lang="en">
 
-<head>
+<head th:replace="commonElements :: my-head(${'Login'})">
 
     <title>Login</title>
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@
 </head>
 
 <body>
-<div th:insert="/header :: header"></div>
+<div th:insert="header :: header"></div>
 
 <div class="container-fluid">
     <div class="row">
