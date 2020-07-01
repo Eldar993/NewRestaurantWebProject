@@ -1,10 +1,10 @@
-Add ReadMe.
+#Restaurant online ordering system
 
 [See markdown syntax...](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)
 
 Describe steps to run an application.
 
-#Description
+##Description
 The online ordering system simplifies the ordering process for both the customer and
 the restaurant. The system presents an interactive menu with all available options in an easy to use
 manner. Customer can choose one or more dishes to place an order which will land in the basket. Customers can view all the
@@ -13,11 +13,11 @@ placed it is entered in the database and retrieved in pretty much real-time.
 #Installation
 
 
-#Using an application
-For the first time it is required to create an admin user in your pgAdmin database.
-Firstly, all new users have to register and after that sign in their accounts.\
+##Using an application
+For the first time it is required to create an admin in your pgAdmin database.
+All new users have to register and after that sign in their accounts\.
 
-The system provides three type of user roles.\
+The system provides three types of user roles.\
 For ADMIN role:\
 After starting an application admin is able to check and manage all the users,dishes,dish types,ingredients and orders in system.\
 All table's data is displayed under corresponding pages which you can get via the buttons on the navigation bar. \
