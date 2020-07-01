@@ -1,6 +1,7 @@
 package com.example.restaurant.service;
 
 import com.example.restaurant.entity.DishType;
+import com.example.restaurant.entity.Ingredient;
 import com.example.restaurant.entity.User;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +14,17 @@ public class DeleteService {
     private final OrderService orderService;
     private final DishTypeService dishTypeService;
     private final DishService dishService;
+    private final IngredientService ingredientService;
 
     public DeleteService(UserService userService,
                          OrderService orderService,
                          DishTypeService dishTypeService,
-                         DishService dishService) {
+                         DishService dishService, IngredientService ingredientService) {
         this.userService = userService;
         this.orderService = orderService;
         this.dishTypeService = dishTypeService;
         this.dishService = dishService;
+        this.ingredientService = ingredientService;
     }
 
     public void deleteUserById(Long userId) {
@@ -40,6 +43,15 @@ public class DeleteService {
                 });
 
         dishTypeService.deleteById(dishTypeId);
+    }
+
+    public void deleteIngredientById(Long ingredientId) {
+        final Ingredient ingredient = ingredientService.findById(ingredientId);
+        dishService.findAllByIngredient(ingredient)
+                .forEach(d -> {
+                    dishService.deleteById(d.getId());
+               });
+        ingredientService.deleteById(ingredientId);
     }
 
 }
