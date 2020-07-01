@@ -1,6 +1,5 @@
 # Restaurant online ordering system
 
-[See markdown syntax...](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)
 
 Describe steps to run an application.
 
@@ -51,4 +50,3 @@ After finishing of the application all users must to Log out from their accounts
 ## Developer
 Eldar Guliyev
 
-[For example](https://github.com/jieiiia/photopond)
