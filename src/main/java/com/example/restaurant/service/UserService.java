@@ -50,11 +50,24 @@ public class UserService {
         return builder.toString();
     }
 
-    public boolean update(User user) {
+    public boolean update(User user, boolean shouldUpdatePassword) {
         Optional<User> oldInfo = userRepository.findById(user.getId());
-        userRepository.saveAndFlush(user);
+
+        if (oldInfo.isEmpty()) {
+            return false;
+        }
+
+        User updatedUser = oldInfo.get();
+        updatedUser.setName(user.getName());
+        if (shouldUpdatePassword) {
+            updatedUser.setPassword(user.getPassword());
+        }
+        updatedUser.setUserRole(user.getUserRole());
+
+        userRepository.saveAndFlush(updatedUser);
         return true;
     }
+
 
     public List<User> printUsers() {
         List<User> users = userRepository.findAll();

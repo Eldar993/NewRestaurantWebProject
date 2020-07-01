@@ -8,11 +8,7 @@ import com.example.restaurant.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -108,14 +104,14 @@ public class UserController {
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
     public ModelAndView change(@PathVariable("id") Long id, @ModelAttribute("user") UserDto userDto, ModelAndView mav) {
         User entity = UserService.toEntity(userDto);
-        UserRoles roles[] = UserRoles.values();
-        mav.addObject("roles", roles);
+
         if (id.equals(userDto.getId())) {
-            userService.findUser(id);
-            userService.update(entity);
+            userService.update(entity, false);
         }
         mav.setViewName("/user_profile");
 
+        UserRoles[] roles = UserRoles.values();
+        mav.addObject("roles", roles);
         mav.addObject("userInfo", userDto);
         return mav;
     }
