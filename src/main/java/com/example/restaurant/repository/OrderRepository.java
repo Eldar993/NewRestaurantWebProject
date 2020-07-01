@@ -5,9 +5,11 @@ import com.example.restaurant.entity.Order;
 import com.example.restaurant.entity.User;
 import com.example.restaurant.enums.OrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
     Order findOrderById(Long id);
@@ -24,5 +26,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     void deleteByUser(User user);
 
-    List<Order> findAllByDishContains(Dish dish);
+    @Query("select od.order from OrderDish od " +
+            "where od.dish = ?1")
+    Set<Order> findAllByDish(Dish dish);
 }

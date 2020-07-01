@@ -16,6 +16,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -246,8 +247,8 @@ public class OrderService {
         orderDishRepository.deleteAllByDish(dish);
     }
 
-    public List<Order> findAllByDish(Dish dish) {
-        return orderRepository.findAllByDishContains(dish);
+    public Set<Order> findAllByDish(Dish dish) {
+        return orderRepository.findAllByDish(dish);
     }
 
     public void save(Order d) {

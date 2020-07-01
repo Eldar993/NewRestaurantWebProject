@@ -1,12 +1,10 @@
 package com.example.restaurant.service;
 
-import com.example.restaurant.entity.Dish;
-import com.example.restaurant.entity.DishType;
-import com.example.restaurant.entity.Ingredient;
-import com.example.restaurant.entity.User;
+import com.example.restaurant.entity.*;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -58,10 +56,11 @@ public class DeleteService {
 
     public void deleteDishById(Long dishId){
         final Dish dish = dishService.findById(dishId);
-        orderService.findAllByDish(dish)
-                .forEach(d -> {
-                    d.getDishes().remove(dish);
-                    orderService.save(d);
+        Set<Order> orders = orderService.findAllByDish(dish);
+        orders
+                .forEach(o -> {
+                    o.removeDish(dish);
+                    orderService.save(o);
                 });
         dishService.deleteById(dishId);
     }
