@@ -115,7 +115,7 @@ public class OrderController {
         final String username = authentication.getName();
         orderService.confirmOrder(username);
 
-        mav.setViewName("/message");
+        mav.setViewName("message");
         mav.addObject("title", "Checkout");
         mav.addObject("message", "Checkout success");
         return mav;
@@ -142,10 +142,10 @@ public class OrderController {
                         e -> {
                             providePaymentDetails(mav, username);
                             mav.addObject("errorMsg", e);
-                            mav.setViewName("/Orders/payment");
+                            mav.setViewName("Orders/payment");
                         },
                         () -> {
-                            mav.setViewName("/message");
+                            mav.setViewName("message");
                             mav.addObject("title", "Payment");
                             mav.addObject("message", "Payment done. Thank You!");
                         }
@@ -167,7 +167,7 @@ public class OrderController {
             orderDto = new OrderDto();
         }
 
-        mav.setViewName("/basket");
+        mav.setViewName("basket");
         mav.addObject("order", orderDto);
         return mav;
     }

@@ -59,7 +59,7 @@ public class UserController {
 
 
         if (bindingResult.hasErrors()) {
-            mav.setViewName("/registration");
+            mav.setViewName("registration");
             mav.addObject("userInfo", userDto);
         } else {
             try {
@@ -69,12 +69,12 @@ public class UserController {
                     RedirectView redirectView = new RedirectView("/");
                     mav.setView(redirectView);
                 } else {
-                    mav.setViewName("/registration");
+                    mav.setViewName("registration");
                     mav.addObject("userInfo", userDto);
                     mav.addObject("generalError", "Something way wrong:(");
                 }
             } catch (Exception e) {
-                mav.setViewName("/registration");
+                mav.setViewName("registration");
                 mav.addObject("userInfo", userDto);
                 System.out.println(e.getMessage());
                 mav.addObject("generalError", "User constraint violation");
@@ -90,7 +90,7 @@ public class UserController {
         ///// find user by id and return user's data
         Optional<User> user = userService.findUser(id);
 
-        mav.setViewName("/user_profile");
+        mav.setViewName("user_profile");
         UserRoles roles[] = UserRoles.values();
         //Optional<AnyType>: "Optional[" + anyType.toString() + "]"
         mav.addObject("userInfo", user.orElse(null));
@@ -108,7 +108,7 @@ public class UserController {
         if (id.equals(userDto.getId())) {
             userService.update(entity, false);
         }
-        mav.setViewName("/user_profile");
+        mav.setViewName("user_profile");
 
         UserRoles[] roles = UserRoles.values();
         mav.addObject("roles", roles);
