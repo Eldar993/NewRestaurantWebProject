@@ -9,11 +9,11 @@
 <body>
 <div th:insert="/header :: header"></div>
 
-<div th:object="${userInfo}" th:if="${userInfo}">
+<!--<div th:object="${userInfo}" th:if="${userInfo}">
     <h1 class="title" th:classAppend="${id % 2 == 0} ? 'even'">
         Id: <span th:text="*{id}"> Some id</span> Name: [[*{name}]] Password: [[*{password}]] User Role: [[*{userRole}]]
     </h1>
-</div>
+</div>-->
 
 <div th:unless="${userInfo}">
     <h1>Unknown user</h1>
