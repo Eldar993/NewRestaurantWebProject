@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}">
 </head>
 <body>
-<div th:insert="/header :: header"></div>
+<div th:insert="header :: header"></div>
 <div th:if="${dish == null}">UNKNOWN ID IN PATH</div>
 <div th:if="${dish != null}">
     <form action="/dishes"

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="/commonElements :: my-head('Basket')">
+<head th:replace="commonElements :: my-head('Basket')">
     <meta charset="UTF-8">
     <title>Basket</title>
 
@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<div th:insert="/header :: header"></div>
+<div th:insert="header :: header"></div>
 
 <div class="container">
     <div class="card shopping-cart" style="width: 1000px;">

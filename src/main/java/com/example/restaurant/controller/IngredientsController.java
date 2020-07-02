@@ -29,7 +29,7 @@ public class IngredientsController {
     @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
     public ModelAndView printAll(ModelAndView mav) {
         List<IngredientDto> ingredient = IngredientService.toDto(ingredientService.findAll());
-        mav.setViewName("ingredients/ingredients");
+        mav.setViewName("Ingredients/ingredients");
         mav.addObject("allIngredients", ingredient);
 
         return mav;
@@ -38,7 +38,7 @@ public class IngredientsController {
     @RequestMapping(value = "/ingredient", method = RequestMethod.GET)
     public ModelAndView createForm(@ModelAttribute ModelAndView mav) {
 
-        mav.setViewName("/ingredients/ingredientForm");
+        mav.setViewName("Ingredients/ingredientForm");
         mav.addObject("ingredient", new Ingredient());
         mav.addObject("actionType", "create");
         return mav;
@@ -47,7 +47,7 @@ public class IngredientsController {
     @RequestMapping(value = "/ingredient", method = RequestMethod.POST)
     public ModelAndView create(@ModelAttribute("ingredient") @Valid IngredientDto ingredientDto, BindingResult result, ModelAndView mav) {
         if (result.hasErrors()) {
-            mav.setViewName("/ingredients/ingredientForm");
+            mav.setViewName("Ingredients/ingredientForm");
             for (FieldError fieldError : result.getFieldErrors()) {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }
@@ -70,7 +70,7 @@ public class IngredientsController {
     @RequestMapping(value = "/ingredient/{id}", method = RequestMethod.GET)
     public ModelAndView updateForm(@PathVariable("id") Long id, ModelAndView mav) {
 
-        mav.setViewName("/ingredients/ingredientForm");
+        mav.setViewName("Ingredients/ingredientForm");
         Ingredient ingredient = ingredientService.findById(id);
         IngredientService.toDto(ingredient);
         mav.addObject("ingredient", ingredient);
@@ -82,7 +82,7 @@ public class IngredientsController {
     public ModelAndView update(@PathVariable("id") Long id, @ModelAttribute("ingredient") @Valid IngredientDto ingredientDto, BindingResult result, ModelAndView mav) {
 
         if (result.hasErrors()) {
-            mav.setViewName("/ingredients/ingredientForm");
+            mav.setViewName("Ingredients/ingredientForm");
             for (FieldError fieldError : result.getFieldErrors()) {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }

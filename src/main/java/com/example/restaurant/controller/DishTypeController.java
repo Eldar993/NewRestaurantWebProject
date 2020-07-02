@@ -30,7 +30,7 @@ public class DishTypeController {
     @RequestMapping(value = "/dishTypes", method = RequestMethod.GET)
     public ModelAndView printAll(ModelAndView mav) {
         List<DishTypeDto> dishTypeList = DishTypeService.toDto(dishTypeService.findAll());
-        mav.setViewName("/DishTypes/dishTypes");
+        mav.setViewName("DishTypes/dishTypes");
         mav.addObject("dishTypeList", dishTypeList);
 
         return mav;
@@ -40,7 +40,7 @@ public class DishTypeController {
     @RequestMapping(value = "/dishType", method = RequestMethod.GET)
     public ModelAndView createForm(@ModelAttribute ModelAndView mav) {
 
-        mav.setViewName("/DishTypes/dishTypeForm");
+        mav.setViewName("DishTypes/dishTypeForm");
         mav.addObject("dishType", new DishType());
         mav.addObject("actionType", "create");
         return mav;
@@ -50,7 +50,7 @@ public class DishTypeController {
     public ModelAndView create(@ModelAttribute("dishType") @Valid DishTypeDto dishTypeDto, BindingResult result, ModelAndView mav) {
 
         if (result.hasErrors()) {
-            mav.setViewName("/DishTypes/dishTypeForm");
+            mav.setViewName("DishTypes/dishTypeForm");
             for (FieldError fieldError : result.getFieldErrors()) {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }
@@ -72,7 +72,7 @@ public class DishTypeController {
     @RequestMapping(value = "/dishType/{id}", method = RequestMethod.GET)
     public ModelAndView updateForm(@PathVariable("id") Long id, ModelAndView mav) {
 
-        mav.setViewName("/DishTypes/dishTypeForm");
+        mav.setViewName("DishTypes/dishTypeForm");
         DishTypeDto dishType = DishTypeService.toDto(dishTypeService.findById(id));
         mav.addObject("dishType", dishType);
 
@@ -83,7 +83,7 @@ public class DishTypeController {
     public ModelAndView update(@PathVariable("id") Long id, @ModelAttribute("dishType") @Valid DishTypeDto dishTypeDto, BindingResult result, ModelAndView mav) {
 
         if (result.hasErrors()) {
-            mav.setViewName("/DishTypes/dishTypeForm");
+            mav.setViewName("DishTypes/dishTypeForm");
             for (FieldError fieldError : result.getFieldErrors()) {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }

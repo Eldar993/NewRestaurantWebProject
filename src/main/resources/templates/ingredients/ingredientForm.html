@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/commonElements :: my-head(${'Ingredient form'})">
+<head th:replace="commonElements :: my-head(${'Ingredient form'})">
     <meta charset="UTF-8">
     <title th:text="${actionType} == 'create' ? 'Create Ingredient' : 'Update Ingredient'">Create Ingredient</title>
 
 </head>
 <body>
-<div th:insert="/header :: header"></div>
+<div th:insert="header :: header"></div>
 <div th:if="${ingredient == null}">UNKNOWN ID IN PATH</div>
 <div th:if="${ingredient != null}">
     <form action="/ingredients"

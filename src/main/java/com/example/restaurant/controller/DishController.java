@@ -40,7 +40,7 @@ public class DishController {
     @RequestMapping(value = "/dishes", method = RequestMethod.GET)
     public ModelAndView printAll(ModelAndView mav) {
 
-        mav.setViewName("/Dishes/dishes");
+        mav.setViewName("Dishes/dishes");
         List<DishDetailDto> dishList = dishService.toDetailDto(dishService.findAll());
 
         mav.addObject("dishList", dishList);
@@ -57,7 +57,7 @@ public class DishController {
                 .map(IngredientService::toDto)
                 .collect(Collectors.toMap(Function.identity(), v -> Boolean.FALSE));
 
-        mav.setViewName("/Dishes/dishForm");
+        mav.setViewName("Dishes/dishForm");
         final DishDetailDto dishDetail = new DishDetailDto();
         dishDetail.setIngredients(ingredients);
         mav.addObject("dish", dishDetail);
@@ -93,7 +93,7 @@ public class DishController {
     @RequestMapping(value = "/dish/{id}", method = RequestMethod.GET)
     public ModelAndView updateForm(@PathVariable("id") Long id, ModelAndView mav) {
 
-        mav.setViewName("/Dishes/dishForm");
+        mav.setViewName("Dishes/dishForm");
         List<DishTypeDto> dishTypeList = DishTypeService.toDto(dishTypeService.findAll());
         mav.addObject("dishTypeList", dishTypeList);
         DishDetailDto dish = dishService.toDetailDto(dishService.findById(id));
@@ -106,7 +106,7 @@ public class DishController {
     public ModelAndView update(@PathVariable("id") Long id, @ModelAttribute("dish") @Valid DishDto dishDto, BindingResult result, ModelAndView mav) {
 
         if (result.hasErrors()) {
-            mav.setViewName("/Dishes/dishForm");
+            mav.setViewName("Dishes/dishForm");
             for (FieldError fieldError : result.getFieldErrors()) {
                 mav.addObject(fieldError.getField() + "_hasError", true);
             }

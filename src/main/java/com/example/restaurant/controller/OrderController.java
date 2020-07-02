@@ -34,7 +34,7 @@ public class OrderController {
 
     @RequestMapping(value = "/admin/orders", method = RequestMethod.GET)
     public ModelAndView printAll(ModelAndView mav) {
-        mav.setViewName("/Orders/orders");
+        mav.setViewName("Orders/orders");
         List<DishDto> dishList = DishService.toDto(dishService.findAll());
         List<OrderDto> orderList = OrderService.toDto(orderService.findAll());
         mav.addObject("orderList", orderList);
@@ -103,7 +103,7 @@ public class OrderController {
                 .map(OrderService::toDto)
                 .collect(Collectors.toList());
         //TODO: pass orders to view
-        mav.setViewName("/Orders/orders");
+        mav.setViewName("Orders/orders");
         mav.addObject("orderList", orders);
         return mav;
     }
@@ -126,7 +126,7 @@ public class OrderController {
     public ModelAndView payOrderPage(Authentication authentication, ModelAndView mav) {
         final String username = authentication.getName();
         providePaymentDetails(mav, username);
-        mav.setViewName("/Orders/payment");
+        mav.setViewName("Orders/payment");
         return mav;
     }
 
